@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Python Cheat Sheet — QuickRef Style</title>
+
+  <!-- Prism.js for syntax highlighting -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f8f9fa;
+      color: #333;
+      padding: 2rem;
+      line-height: 1.5;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-weight: 700;
+      color: #2c3e50;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+      overflow: hidden;
+      transition: transform 0.2s ease;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    }
+    .card-header {
+      background: #4CAF50;
+      color: white;
+      padding: 0.85rem 1.1rem;
+      font-weight: 600;
+      font-size: 1.15rem;
+    }
+    .card-body {
+      padding: 1.1rem;
+      background: #fafafa;
+    }
+    .card-body pre {
+      margin: 0;
+      font-size: 0.92rem;
+      overflow-x: auto;
+    }
+    .card-footer {
+      padding: 0.6rem 1.1rem;
+      background: #f1f3f5;
+      font-size: 0.85rem;
+      color: #555;
+      border-top: 1px solid #eee;
+    }
+    code[class*="language-"] {
+      font-size: 0.92rem !important;
+    }
+    @media (max-width: 650px) {
+      .cards {
+        grid-template-columns: 1fr;
+      }
+      body {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Python 3 Cheat Sheet — QuickRef Style</h1>
+  <div class="cards" id="cardsContainer"></div>
+
+  <!-- Prism.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+
+  <script>
+    // All cards data from the provided knowledge base
+    const cardsData = [
+      { title: "Hello World", code: '>>> print("Hello, World!")\nHello, World!', desc: 'The famous "Hello World" program in Python' },
+      { title: "Variables & Types", code: 'age = 18      # age is of type int\nname = "John" # name is now of type str\nprint(name)', desc: "Python can't declare a variable without assignment." },
+      { title: "Data Types", code: '| `str` | Text |\n| `int`,`float`,`complex` | Numeric |\n| `list`,`tuple`,`range` | Sequence |\n| `dict` | Mapping |\n| `set`,`frozenset` | Set |\n| `bool` | Boolean |\n| `bytes`,`bytearray`,`memoryview` | Binary |', desc: "See: Data Types" },
+      { title: "Lists", code: 'mylist = []\nmylist.append(1)\nmylist.append(2)\nfor item in mylist:\n    print(item) # prints out 1,2', desc: "See: Lists" },
+      { title: "Flow Control", code: 'num = 200\nif num > 0:\n    print("num is greater than 0")\nelse:\n    print("num is not greater than 0")', desc: "See: Flow control" },
+      { title: "Loops", code: 'for item in range(6):\n    if item == 3: break\n    print(item)\nelse:\n    print("Finally finished!")', desc: "See: Loops" },
+      { title: "Functions", code: '>>> def my_function():\n...     print("Hello from a function")\n...\n>>> my_function()\nHello from a function', desc: "See: Functions" },
+      { title: "File Handling", code: 'with open("myfile.txt", "r", encoding=\'utf8\') as file:\n    for line in file:\n        print(line)', desc: "See: File Handling" },
+      { title: "Arithmetic", code: 'result = 10 + 30 # => 40\nresult = 40 - 10 # => 30\nresult = 50 * 5  # => 250\nresult = 16 / 4  # => 4.0 (Float Division)\nresult = 16 // 4 # => 4 (Integer Division)\nresult = 25 % 2  # => 1\nresult = 5 ** 3  # => 125', desc: 'The `/` means quotient, `//` means floored quotient. See StackOverflow' },
+      { title: "Assignment Ops", code: 'counter = 0\ncounter += 10           # => 10\ncounter = 0\ncounter = counter + 10  # => 10\nmessage = "Part 1."\nmessage += "Part 2."   # => Part 1.Part 2.', desc: '' },
+      { title: "F-Strings", code: '>>> website = \'Quickref.ME\'\n>>> f"Hello, {website}"\n"Hello, Quickref.ME"\n>>> num = 10\n>>> f\'{num} + 10 = {num + 10}\'\n\'10 + 10 = 20\'', desc: "See: Python F-Strings" },
+      { title: "Strings", code: 'hello = "Hello World"\nhello = \'Hello World\'\nmulti_string = """Multiline Strings\nLorem ipsum dolor sit amet,\nconsectetur adipiscing elit """', desc: "See: Strings" },
+      { title: "Type", code: 'x = 1    # int\ny = 2.8  # float\nz = 1j   # complex\n>>> print(type(x))\n<class \'int\'>', desc: "" },
+      { title: "Booleans", code: 'my_bool = True \nmy_bool = False\nbool(0)     # => False\nbool(1)     # => True', desc: "" },
+      { title: "Lists (More)", code: 'list1 = ["apple", "banana", "cherry"]\nlist2 = [True, False, False]\nlist3 = [1, 5, 7, 9, 3]\nlist4 = list((1, 5, 7, 9, 3))', desc: "See: Lists" },
+      { title: "Tuples", code: 'my_tuple = (1, 2, 3)\nmy_tuple = tuple((1, 2, 3))', desc: "Similar to List but immutable" },
+      { title: "Sets", code: 'set1 = {"a", "b", "c"}   \nset2 = set(("a", "b", "c"))', desc: "Set of unique items/objects" },
+      { title: "Dictionaries", code: '>>> empty_dict = {}\n>>> a = {"one": 1, "two": 2, "three": 3}\n>>> a["one"]\n1\n>>> a.keys()\ndict_keys([\'one\', \'two\', \'three\'])\n>>> a.values()\ndict_values([1, 2, 3])\n>>> a.update({"four": 4})\n>>> a[\'four\']\n4', desc: "Key: Value pair, JSON like object" },
+      { title: "Type Conversion (int)", code: 'x = int(1)   # x will be 1\ny = int(2.8) # y will be 2\nz = int("3") # z will be 3', desc: "" },
+      { title: "Type Conversion (float)", code: 'x = float(1)     # x will be 1.0\ny = float(2.8)   # y will be 2.8\nz = float("3")   # z will be 3.0\nw = float("4.2") # w will be 4.2', desc: "" },
+      { title: "Type Conversion (str)", code: 'x = str("s1") # x will be \'s1\'\ny = str(2)    # y will be \'2\'\nz = str(3.0)  # z will be \'3.0\'', desc: "" },
+      { title: "Heaps", code: 'import heapq\nmyList = [9, 5, 4, 1, 3, 2]\nheapq.heapify(myList) # turn myList into a Min Heap\nprint(myList)    # => [1, 3, 2, 5, 9, 4]\nprint(myList[0]) # first value is always the smallest\nheapq.heappush(myList, 10) # insert 10\nx = heapq.heappop(myList)  # pop and return smallest\nprint(x)                   # => 1', desc: "Heaps: binary trees, O(log n) push/pop. See: Heapq" },
+      { title: "Max Heap (Workaround)", code: 'myList = [9, 5, 4, 1, 3, 2]\nmyList = [-val for val in myList]\nheapq.heapify(myList)\nx = heapq.heappop(myList)\nprint(-x) # => 9', desc: "Negate values for max-heap behavior" },
+      { title: "Deques", code: 'from collections import deque\nq = deque([1, 2, 3])\nq.append(4)     # right\nq.appendleft(0) # left\nx = q.pop()      # right\ny = q.popleft()  # left\nq.rotate(1)      # rotate right', desc: "O(1) append/pop both ends. See: Deque" },
+      { title: "String Indexing", code: '>>> hello = "Hello, World"\n>>> hello[1]\ne\n>>> hello[-1]\nd', desc: "Get char at position (0-based or negative)" },
+      { title: "String Loop", code: '>>> for char in "foo":\n...     print(char)\nf\no\no', desc: 'Loop through characters' },
+      { title: "String Slicing Basics", code: ">>> s = 'mybacon'\n>>> s[2:5]\n'bac'\n>>> s[0:2]\n'my'", desc: "" },
+      { title: "Slicing Defaults", code: ">>> s = 'mybacon'\n>>> s[:2]\n'my'\n>>> s[2:]\n'bacon'\n>>> s[:]\n'mybacon'", desc: "" },
+      { title: "Negative Slicing", code: ">>> s = 'mybacon'\n>>> s[-5:-1]\n'baco'\n>>> s[2:6]\n'baco'", desc: "" },
+      { title: "Step Slicing", code: ">>> s = '12345' * 5\n>>> s[::5]\n'11111'\n>>> s[::-1]\n'5432154321...'", desc: "Reverse or skip with step" },
+      { title: "String Length", code: '>>> hello = "Hello, World!"\n>>> len(hello)\n13', desc: "The len() function returns string length" },
+      { title: "String Repetition", code: '>>> s = \'===+\'\n>>> n = 8\n>>> s * n\n\'===+===+...===+\'', desc: "" },
+      { title: "Membership", code: '>>> "spam" in "I saw spamalot!"\nTrue\n>>> "spam" not in "I saw The Holy Grail!"\nTrue', desc: "" },
+      { title: "Concatenation", code: '>>> "spam" + "egg"\n"spamegg"\n>>> "spam" "egg"\n"spamegg"', desc: "" },
+      { title: "% Formatting", code: 'name = "John"\nprint("Hello, %s!" % name)\n\nname = "John"\nage = 23\nprint("%s is %d years old." % (name, age))', desc: "Old-style string formatting" },
+      { title: ".format()", code: 'txt1 = "My name is {fname}, I\'m {age}".format(fname="John", age=36)\ntxt2 = "My name is {0}, I\'m {1}".format("John", 36)\ntxt3 = "My name is {}, I\'m {}".format("John", 36)', desc: "str.format() syntax" },
+      { title: "Input", code: '>>> name = input("Enter your name: ")\nEnter your name: Tom\n>>> name\n\'Tom\'', desc: "Get input from console" },
+      { title: "Join", code: '>>> "#".join(["John", "Peter", "Vicky"])\n\'John#Peter#Vicky\'', desc: "" },
+      { title: "Ends With", code: '>>> "Hello, world!".endswith("!")\nTrue', desc: "" },
+      { title: "Advanced F-Strings", code: '>>> f\'{"text":10}\'\n\'text      \'\n>>> f\'{10:b}\'\n\'1010\'\n>>> f\'{math.pi:.2f}\'\n\'3.14\'\n>>> f\'{1000000:,.2f}\'\n\'1,000,000.00\'\n>>> f\'{0.25:.0%}\'\n\'25%\'', desc: "Formatting, binary, %, precision, grouping" },
+      { title: "List Creation", code: 'li1 = []\nli2 = [4, 5, 6]\nli3 = list((1, 2, 3))\nli4 = list(range(1, 11))', desc: "" },
+      { title: "List Comprehensions", code: '[x ** 2 for x in range(1, 11) if x % 2 == 1]\n# => [1, 9, 25, 49, 81]\n\nlist(filter(lambda x: x > 5, [3, 4, 5, 6, 7]))\n# => [6, 7]', desc: "" },
+      { title: "List Append", code: 'li = []\nli.append(1)\nli.append(2)', desc: "" },
+      { title: "List Slicing Syntax", code: 'a_list[start:end]\na_list[start:end:step]', desc: "Python slicing fundamentals" },
+      { title: "List Slicing Examples", code: "a = ['spam', 'egg', 'bacon', 'tomato', 'ham', 'lobster']\na[2:5]  # => ['bacon', 'tomato', 'ham']\na[-5:-2] # => ['egg', 'bacon', 'tomato']", desc: "" },
+      { title: "Full Slicing", code: "a[:4]   # from start\na[2:]   # to end\na[:]    # copy", desc: "" },
+      { title: "Step Slicing Lists", code: "a[::2]    # every 2nd\na[::-1]   # reverse", desc: "" },
+      { title: "List Pop & Del", code: "li = ['bread', 'butter', 'milk']\nli.pop()      # => 'milk'\ndel li[0]", desc: "" },
+      { title: "List Indexing", code: "li = ['a', 'b', 'c']\nli[0]  # 'a'\nli[-1] # 'c'", desc: "IndexError if out of range" },
+      { title: "List Extend", code: "odd = [1, 3, 5]\nodd.extend([9, 11])\n# or: odd + [9, 11]", desc: "" },
+      { title: "List Sort & Reverse", code: "li = [3, 1, 2]\nli.sort()      # [1,2,3]\nli.reverse()   # [3,2,1]", desc: "" },
+      { title: "List Count", code: "li = [3, 1, 3, 2]\nli.count(3)  # => 2", desc: "" },
+      { title: "List Repetition", code: "['re'] * 3  # => ['re','re','re']", desc: "" },
+      { title: "Conditionals", code: 'num = 5\nif num > 10:\n    print("bigger")\nelif num < 10:\n    print("smaller")\nelse:\n    print("10")', desc: "" },
+      { title: "Ternary", code: 'a, b = 330, 200\nr = "a" if a > b else "b"', desc: "" },
+      { title: "For Loop (List)", code: 'primes = [2, 3, 5, 7]\nfor p in primes: print(p)', desc: "Prints: 2 3 5 7" },
+      { title: "Enumerate", code: 'animals = ["dog", "cat"]\nfor i, v in enumerate(animals):\n    print(i, v)', desc: "0 dog, 1 cat..." },
+      { title: "While Loop", code: 'x = 0\nwhile x < 4:\n    print(x)\n    x += 1', desc: "Prints: 0 1 2 3" },
+      { title: "Break", code: 'for i in range(10):\n    if i == 5: break\n    print(i * 10)', desc: "Stops at 40" },
+      { title: "Continue", code: 'for i in range(3, 8):\n    if i == 5: continue\n    print(i * 10)', desc: "Skips 50 → 30 40 60 70" },
+      { title: "Range", code: 'range(4)      # 0,1,2,3\nrange(4,8)    # 4,5,6,7\nrange(4,10,2) # 4,6,8', desc: "" },
+      { title: "Zip", code: 'words = ["Mon","Tue"]\nnums = [1,2]\nfor w,n in zip(words,nums):\n    print(f"{n}:{w}")', desc: "1:Mon, 2:Tue" },
+      { title: "For-Else", code: 'nums = [60, 70, 30]\nfor n in nums:\n    if n > 100:\n        print("big")\n        break\nelse:\n    print("Not found!")', desc: "Else runs if no break" },
+      { title: "Function Basics", code: 'def hello():\n    print("Hello!")\n\ndef add(x, y):\n    return x + y', desc: "" },
+      { title: "*args", code: 'def varargs(*args):\n    return args\n# varargs(1,2) → (1,2)', desc: "Variable positional args" },
+      { title: "**kwargs", code: 'def keyword_args(**kwargs):\n    return kwargs\n# keyword_args(a=1) → {"a":1}', desc: "Variable keyword args" },
+      { title: "Return Multiple", code: 'def swap(x, y): return y, x\nx, y = swap(1, 2)  # x=2, y=1', desc: "Tuple unpacking" },
+      { title: "Default Args", code: 'def add(x, y=10): return x + y\nadd(5)   # 15\nadd(5,2) # 7', desc: "" },
+      { title: "Lambda", code: '(lambda x: x > 2)(3)  # True\n(lambda x,y: x**2 + y)(2,1) # 5', desc: "Anonymous functions" },
+      { title: "Import", code: 'import math\nfrom math import ceil\nimport math as m', desc: "Different import styles" },
+      { title: "Dir", code: 'import math\ndir(math)  # list all attributes', desc: "" },
+      { title: "Classes (Basic)", code: 'class Animal:\n    def __init__(self, voice):\n        self.voice = voice\ncat = Animal("Meow")', desc: "" },
+      { title: "Methods", code: 'class Dog:\n    def bark(self):\n        print("Ham-Ham")\ncharlie = Dog()\ncharlie.bark()', desc: "" },
+      { title: "Class Variables", code: 'class MyClass:\n    cv = "A class variable!"\nprint(MyClass.cv)', desc: "" },
+      { title: "Inheritance", code: 'class Parent:\n    def print_test(self): print("Parent")\nclass Child(Parent):\n    def print_test(self):\n        print("Child")\n        super().print_test()', desc: "Child → Parent" },
+      { title: "__repr__", code: 'class Employee:\n    def __init__(self, name): self.name = name\n    def __repr__(self): return self.name\njohn = Employee("John")\nprint(john)  # John', desc: "String representation" },
+      { title: "Custom Exception", code: 'class CustomError(Exception):\n    pass', desc: "" },
+      { title: "Polymorphism", code: 'class A:\n    def print_self(self): print("A")\nclass B(A):\n    def print_self(self): print("B")\nB().print_self()  # B', desc: "Method override" },
+      { title: "Multi-level Inheritance", code: 'class Animal:\n    def __init__(self, name, legs):\n        self.name = name; self.legs = legs\nclass Dog(Animal):\n    def sound(self): print("Woof!")\nYoki = Dog("Yoki", 4)', desc: "" },
+      { title: "Comments", code: '# Single line\n\n"""\nMultiline docstring\nas comment\n"""', desc: "Use triple quotes for block comments" },
+      { title: "Generators", code: 'def double_numbers(it):\n    for i in it: yield i + i\n\nvalues = (-x for x in [1,2,3])\nlist(values)  # [-1,-2,-3]', desc: "Lazy evaluation with yield" },
+      { title: "Exceptions", code: 'try:\n    raise IndexError("error")\nexcept IndexError as e:\n    pass\nexcept (TypeError, NameError):\n    pass\nelse:\n    print("All good!")\nfinally:\n    print("Clean up")', desc: "Full try/except/else/finally" }
+    ];
+
+    const container = document.getElementById('cardsContainer');
+
+    cardsData.forEach(card => {
+      const cardEl = document.createElement('div');
+      cardEl.className = 'card';
+      cardEl.innerHTML = `
+        <div class="card-header">${card.title}</div>
+        <div class="card-body">
+          <pre><code class="language-python">${card.code}</code></pre>
+        </div>
+        ${card.desc ? `<div class="card-footer">${card.desc}</div>` : ''}
+      `;
+      container.appendChild(cardEl);
+    });
+
+    // Highlight all code blocks
+    Prism.highlightAll();
+  </script>
+</body>
+</html>
