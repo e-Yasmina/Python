@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Python Cheat Sheet — QuickRef Style</title>
+  <title>Python Cheat Sheet</title>
 
   <!-- Prism.js for syntax highlighting -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
@@ -62,6 +62,7 @@
     }
     .card-footer {
       padding: 0.6rem 1.1rem;
+      marginTop: auto;
       background: #f1f3f5;
       font-size: 0.85rem;
       color: #555;
@@ -81,7 +82,7 @@
   </style>
 </head>
 <body>
-  <h1>Python 3 Cheat Sheet — QuickRef Style</h1>
+  <h1>Python 3 Cheat Sheet</h1>
 
   <div class="nav" style="text-align: center; margin-bottom: 2rem;">
     <a href="py.html" style="color: #4CAF50; text-decoration: none; font-weight: bold; margin: 0 15px; padding: 8px 16px; border: 2px solid #4CAF50; border-radius: 4px;">Python Basics</a>
@@ -105,9 +106,9 @@
       { title: "Loops", code: 'for item in range(6):\n    if item == 3: break\n    print(item)\nelse:\n    print("Finally finished!")', desc: "See: Loops" },
       { title: "Functions", code: '>>> def my_function():\n...     print("Hello from a function")\n...\n>>> my_function()\nHello from a function', desc: "See: Functions" },
       { title: "File Handling", code: 'with open("myfile.txt", "r", encoding=\'utf8\') as file:\n    for line in file:\n        print(line)', desc: "See: File Handling" },
-      { title: "Arithmetic", code: 'result = 10 + 30 # => 40\nresult = 40 - 10 # => 30\nresult = 50 * 5  # => 250\nresult = 16 / 4  # => 4.0 (Float Division)\nresult = 16 // 4 # => 4 (Integer Division)\nresult = 25 % 2  # => 1\nresult = 5 ** 3  # => 125', desc: 'The `/` means quotient, `//` means floored quotient. See StackOverflow' },
+      { title: "Arithmetic", code: 'result = 10 + 30 # => 40\nresult = 40 - 10 # => 30\nresult = 50 * 5  # => 250\nresult = 16 / 4  # => 4.0 (Float Division)\nresult = 16 // 4 # => 4 (Integer Division)\nresult = 25 % 2  # => 1\nresult = 5 ** 3  # => 125', desc: 'The `/` means quotient, `//` means floored quotient' },
       { title: "Assignment Ops", code: 'counter = 0\ncounter += 10           # => 10\ncounter = 0\ncounter = counter + 10  # => 10\nmessage = "Part 1."\nmessage += "Part 2."   # => Part 1.Part 2.', desc: '' },
-      { title: "F-Strings", code: '>>> website = \'Quickref.ME\'\n>>> f"Hello, {website}"\n"Hello, Quickref.ME"\n>>> num = 10\n>>> f\'{num} + 10 = {num + 10}\'\n\'10 + 10 = 20\'', desc: "See: Python F-Strings" },
+      { title: "F-Strings", code: '>>> website = \'github.com\'\n>>> f"Hello, {website}"\n"Hello, github.com"\n>>> num = 10\n>>> f\'{num} + 10 = {num + 10}\'\n\'10 + 10 = 20\'', desc: "See: Python F-Strings" },
       { title: "Strings", code: 'hello = "Hello World"\nhello = \'Hello World\'\nmulti_string = """Multiline Strings\nLorem ipsum dolor sit amet,\nconsectetur adipiscing elit """', desc: "See: Strings" },
       { title: "Type", code: 'x = 1    # int\ny = 2.8  # float\nz = 1j   # complex\n>>> print(type(x))\n<class \'int\'>', desc: "" },
       { title: "Booleans", code: 'my_bool = True \nmy_bool = False\nbool(0)     # => False\nbool(1)     # => True', desc: "" },
