@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Python Problem Solving — Practice Problems</title>
+
+  <!-- Prism.js for syntax highlighting -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f8f9fa;
+      color: #333;
+      padding: 2rem;
+      line-height: 1.5;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-weight: 700;
+      color: #2c3e50;
+    }
+    .subtitle {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #666;
+      font-size: 1.1rem;
+    }
+    .nav {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .nav a {
+      color: #4CAF50;
+      text-decoration: none;
+      font-weight: bold;
+      margin: 0 15px;
+      padding: 8px 16px;
+      border: 2px solid #4CAF50;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+    .nav a:hover {
+      background-color: #4CAF50;
+      color: white;
+    }
+    .problem-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .problem-card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+      overflow: hidden;
+      transition: transform 0.2s ease;
+    }
+    .problem-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    }
+    .problem-header {
+      background: #2196F3;
+      color: white;
+      padding: 0.85rem 1.1rem;
+      font-weight: 600;
+      font-size: 1.15rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .problem-difficulty {
+      background: #FFC107;
+      color: #333;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+    .problem-body {
+      padding: 1.1rem;
+      background: #fafafa;
+    }
+    .problem-description {
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+    .problem-code {
+      margin-top: 1rem;
+    }
+    .problem-code pre {
+      margin: 0;
+      font-size: 0.92rem;
+      overflow-x: auto;
+      background: #2d2d2d !important;
+      padding: 1rem;
+      border-radius: 4px;
+    }
+    .solution-section {
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px dashed #ccc;
+    }
+    .solution-toggle {
+      background: #f1f3f5;
+      border: none;
+      padding: 0.5rem;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      font-weight: bold;
+      color: #2196F3;
+    }
+    .solution-content {
+      display: none;
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #e8f4ff;
+      border-radius: 4px;
+    }
+    .solution-content.shown {
+      display: block;
+    }
+    code[class*="language-"] {
+      font-size: 0.92rem !important;
+    }
+    @media (max-width: 650px) {
+      body {
+        padding: 1rem;
+      }
+      .problem-container {
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Python Problem Solving — Practice Problems</h1>
+  <p class="subtitle">Easy problems for Python practice</p>
+  
+  <div class="nav">
+    <a href="py.html">Python Basics</a>
+    <a href="problems.html">Problem Solving</a>
+  </div>
+
+  <div class="problem-container" id="problemsContainer"></div>
+
+  <!-- Prism.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+
+  <script>
+    // Problem-solving exercises data
+    const problemsData = [
+      {
+        title: "Grading Students",
+        difficulty: "Easy",
+        description: "HackerLand University has the following grading policy: Every student receives a grade in the inclusive range from 0 to 100. Any grade less than 40 is a failing grade. Sam is a professor at the university and likes to round each student's grade according to these rules: If the difference between the grade and the next multiple of 5 is less than 3, round grade up to the next multiple of 5. If the value of grade is less than 38, no rounding occurs as the result will still be a failing grade.",
+        starterCode: `def gradingStudents(grades):
+    # Write your code here
+    pass`,
+        solution: `def gradingStudents(grades):
+    rounded_grades = []
+    for grade in grades:
+        if grade < 38:
+            rounded_grades.append(grade)
+        else:
+            # Find next multiple of 5
+            next_multiple = ((grade // 5) + 1) * 5
+            if next_multiple - grade < 3:
+                rounded_grades.append(next_multiple)
+            else:
+                rounded_grades.append(grade)
+    return rounded_grades
+
+# Example usage:
+# grades = [73, 67, 38, 33]
+# result = gradingStudents(grades)
+# print(result)  # [75, 67, 40, 33]`
+      },
+      {
+        title: "Apple and Orange",
+        difficulty: "Easy",
+        description: "Sam's house has an apple tree and an orange tree that yield an abundance of fruit. Using the information given below, determine the number of apples and oranges that land on Sam's house. The red region denotes the house, where s is the start point, and t is the endpoint. The apple tree is to the left of the house, and the orange tree is to the right of the house. You are given the positions of the trees and the distances fruits fell from them.",
+        starterCode: `def countApplesAndOranges(s, t, a, b, apples, oranges):
+    # Write your code here
+    pass`,
+        solution: `def countApplesAndOranges(s, t, a, b, apples, oranges):
+    apple_count = 0
+    orange_count = 0
+    
+    # Count apples that fall on the house
+    for apple in apples:
+        landing_pos = a + apple
+        if s <= landing_pos <= t:
+            apple_count += 1
+    
+    # Count oranges that fall on the house
+    for orange in oranges:
+        landing_pos = b + orange
+        if s <= landing_pos <= t:
+            orange_count += 1
+    
+    print(apple_count)
+    print(orange_count)`
+      },
+      {
+        title: "Number Line Jumps",
+        difficulty: "Easy",
+        description: "You are choreographing a circus show with various animals. For one act, you are given two kangaroos on a number line ready to jump in the positive direction (i.e, toward positive infinity). The first kangaroo starts at location x1 and moves at a rate of v1 meters per jump. The second kangaroo starts at location x2 and moves at a rate of v2 meters per jump. You have to figure out a way to get both kangaroos at the same location at the same time as part of the show. If it is possible, return YES, otherwise return NO.",
+        starterCode: `def kangaroo(x1, v1, x2, v2):
+    # Write your code here
+    pass`,
+        solution: `def kangaroo(x1, v1, x2, v2):
+    # If speeds are equal, they'll only meet if they start at the same position
+    if v1 == v2:
+        return "YES" if x1 == x2 else "NO"
+    
+    # Calculate number of jumps for them to meet
+    # x1 + n*v1 = x2 + n*v2
+    # n*v1 - n*v2 = x2 - x1
+    # n*(v1-v2) = x2-x1
+    # n = (x2-x1)/(v1-v2)
+    
+    if v1 > v2:
+        # Check if the number of jumps is a non-negative integer
+        n = (x2 - x1) / (v1 - v2)
+        if n >= 0 and n.is_integer():
+            return "YES"
+        else:
+            return "NO"
+    else:
+        # Since v1 <= v2, and x1 < x2 initially, first kangaroo can't catch up
+        return "NO"`
+      },
+      {
+        title: "Breaking the Records",
+        difficulty: "Easy",
+        description: "Maria plays college basketball and wants to go pro. Each season she maintains a record of her play. She tabulates the number of times she breaks her season record for most and least points scored during a season. Given the scores for a season, determine the number of times Maria breaks her records for most and least points scored during the season.",
+        starterCode: `def breakingRecords(scores):
+    # Write your code here
+    pass`,
+        solution: `def breakingRecords(scores):
+    # Initialize with the first score
+    highest_score = scores[0]
+    lowest_score = scores[0]
+    
+    highest_breaks = 0
+    lowest_breaks = 0
+    
+    for score in scores[1:]:
+        if score > highest_score:
+            highest_score = score
+            highest_breaks += 1
+        elif score < lowest_score:
+            lowest_score = score
+            lowest_breaks += 1
+    
+    return [highest_breaks, lowest_breaks]`
+      },
+      {
+        title: "Birthday Chocolate",
+        difficulty: "Easy",
+        description: "Lily has a chocolate bar that she wants to share with Ron for his birthday. Each of the squares has an integer on it. She decides to share a contiguous segment of the bar selected such that the length of the segment matches Ron's birth day and the sum of the integers on the squares is equal to his birth month. Given a sequence of integers representing the numbers on the chocolate squares, and two integers representing Ron's birth day and month, determine how many ways she can divide the chocolate.",
+        starterCode: `def birthday(s, d, m):
+    # Write your code here
+    pass`,
+        solution: `def birthday(s, d, m):
+    count = 0
+    n = len(s)
+    
+    # Iterate through the array to find valid segments
+    for i in range(n - m + 1):
+        segment_sum = sum(s[i:i+m])
+        if segment_sum == d:
+            count += 1
+            
+    return count`
+      },
+      {
+        title: "Divisible Sum Pairs",
+        difficulty: "Easy",
+        description: "Given an array of integers and a positive integer k, determine the number of (i,j) pairs where i < j and ar[i] + ar[j] is divisible by k.",
+        starterCode: `def divisibleSumPairs(n, k, ar):
+    # Write your code here
+    pass`,
+        solution: `def divisibleSumPairs(n, k, ar):
+    count = 0
+    for i in range(n):
+        for j in range(i+1, n):
+            if (ar[i] + ar[j]) % k == 0:
+                count += 1
+    return count`
+      },
+      {
+        title: "Migratory Birds",
+        difficulty: "Easy",
+        description: "Given an array of bird sightings where every element represents a bird type id, determine the id of the most frequently sighted type. If more than 1 type has been spotted that maximum amount, return the smallest of their ids.",
+        starterCode: `def migratoryBirds(arr):
+    # Write your code here
+    pass`,
+        solution: `def migratoryBirds(arr):
+    count = {}
+    for bird in arr:
+        count[bird] = count.get(bird, 0) + 1
+    
+    max_count = max(count.values())
+    # Find the smallest id among the birds with max count
+    return min(bird_id for bird_id, freq in count.items() if freq == max_count)`
+      },
+      {
+        title: "Day of the Programmer",
+        difficulty: "Easy",
+        description: "Marie invented a Time Machine and wants to test it by time-traveling to visit Russia on the Day of the Programmer (the 256th day of the year) during a year in the inclusive range from 1700 to 2700. From 1700 to 1917, Russia's official calendar was the Julian calendar; since 1919 they used the Gregorian calendar system. The transition from the Julian to Gregorian calendar system occurred in 1918, when the next day after January 31 was February 14. This means that in 1918, February 14 was the 32nd day of the year in Russia. In both calendar systems, February is the only month with a variable amount of days; it has 29 days during a leap year, and 28 days during a non-leap year. In the Julian calendar, leap years are divisible by 4; in the Gregorian calendar, leap years are either of the following: Divisible by 400, or divisible by 4 and not divisible by 100. Given a year, y, find the date of the 256th day of that year according to the official Russian calendar during that year. Then print it in the format dd.mm.yyyy.",
+        starterCode: `def dayOfProgrammer(year):
+    # Write your code here
+    pass`,
+        solution: `def dayOfProgrammer(year):
+    if year == 1918:
+        # Special case for 1918 due to calendar change
+        return "26.09.1918"
+    elif year < 1918:
+        # Julian calendar: leap year if divisible by 4
+        is_leap = (year % 4 == 0)
+    else:
+        # Gregorian calendar
+        is_leap = (year % 400 == 0) or (year % 4 == 0 and year % 100 != 0)
+    
+    if is_leap:
+        return f"12.09.{year}"
+    else:
+        return f"13.09.{year}`
+      },
+      {
+        title: "Bon Appétit",
+        difficulty: "Easy",
+        description: "Anna and Brian are sharing a meal at a restaurant and they agree to split the bill equally. Brian wants to order something that Anna is allergic to though, and they agree that Anna won't pay for that item. Brian gets the check and calculates Anna's portion. You must determine if his calculation is correct.",
+        starterCode: `def bonAppetit(bill, k, b):
+    # Write your code here
+    pass`,
+        solution: `def bonAppetit(bill, k, b):
+    anna_share = (sum(bill) - bill[k]) // 2
+    if anna_share == b:
+        print("Bon Appetit")
+    else:
+        print(b - anna_share)`
+      },
+      {
+        title: "Sock Merchant",
+        difficulty: "Easy",
+        description: "There is a large pile of socks that must be paired by color. Given an array of integers representing the color of each sock, determine how many pairs of socks with matching colors there are.",
+        starterCode: `def sockMerchant(n, ar):
+    # Write your code here
+    pass`,
+        solution: `def sockMerchant(n, ar):
+    color_counts = {}
+    for color in ar:
+        color_counts[color] = color_counts.get(color, 0) + 1
+    
+    pairs = 0
+    for count in color_counts.values():
+        pairs += count // 2
+    
+    return pairs`
+      }
+    ];
+
+    const container = document.getElementById('problemsContainer');
+
+    problemsData.forEach(problem => {
+      const problemEl = document.createElement('div');
+      problemEl.className = 'problem-card';
+      problemEl.innerHTML = `
+        <div class="problem-header">
+          <span>${problem.title}</span>
+          <span class="problem-difficulty">${problem.difficulty}</span>
+        </div>
+        <div class="problem-body">
+          <div class="problem-description">
+            <p>${problem.description}</p>
+          </div>
+          <div class="problem-code">
+            <pre><code class="language-python">${problem.starterCode}</code></pre>
+          </div>
+          <div class="solution-section">
+            <button class="solution-toggle">Show Solution</button>
+            <div class="solution-content">
+              <pre><code class="language-python">${problem.solution}</code></pre>
+            </div>
+          </div>
+        </div>
+      `;
+      container.appendChild(problemEl);
+    });
+
+    // Add event listeners to toggle solutions
+    document.querySelectorAll('.solution-toggle').forEach(button => {
+      button.addEventListener('click', function() {
+        const solutionContent = this.nextElementSibling;
+        solutionContent.classList.toggle('shown');
+        this.textContent = solutionContent.classList.contains('shown') ? 'Hide Solution' : 'Show Solution';
+      });
+    });
+
+    // Highlight all code blocks
+    Prism.highlightAll();
+  </script>
+</body>
+</html>
