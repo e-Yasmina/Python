@@ -369,8 +369,123 @@
     pairs = 0
     for count in color_counts.values():
         pairs += count // 2
-    
+
     return pairs`
+      },
+      {
+        title: "Two Sum",
+        difficulty: "Medium",
+        description: "Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target. You may assume that each input would have exactly one solution, and you may not use the same element twice. You can return the answer in any order.",
+        starterCode: `def twoSum(nums, target):
+    # Write your code here
+    pass`,
+        solution: `def twoSum(nums, target):
+    num_map = {}
+    for i, num in enumerate(nums):
+        complement = target - num
+        if complement in num_map:
+            return [num_map[complement], i]
+        num_map[num] = i
+    return []`
+      },
+      {
+        title: "Valid Parentheses",
+        difficulty: "Medium",
+        description: "Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid. An input string is valid if: Open brackets must be closed by the same type of brackets. Open brackets must be closed in the correct order. Every close bracket has a corresponding open bracket of the same type.",
+        starterCode: `def isValid(s):
+    # Write your code here
+    pass`,
+        solution: `def isValid(s):
+    stack = []
+    mapping = {')': '(', '}': '{', ']': '['}
+
+    for char in s:
+        if char in mapping:
+            top_element = stack.pop() if stack else '#'
+            if mapping[char] != top_element:
+                return False
+        else:
+            stack.append(char)
+
+    return not stack`
+      },
+      {
+        title: "Merge Two Sorted Lists",
+        difficulty: "Medium",
+        description: "You are given the heads of two sorted linked lists list1 and list2. Merge the two lists in a one sorted list. The list should be made by splicing together the nodes of the first two lists. Return the head of the merged linked list.",
+        starterCode: `class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def mergeTwoLists(list1, list2):
+    # Write your code here
+    pass`,
+        solution: `class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def mergeTwoLists(list1, list2):
+    dummy = ListNode()
+    current = dummy
+
+    while list1 and list2:
+        if list1.val <= list2.val:
+            current.next = list1
+            list1 = list1.next
+        else:
+            current.next = list2
+            list2 = list2.next
+        current = current.next
+
+    # Attach remaining nodes
+    current.next = list1 or list2
+
+    return dummy.next`
+      },
+      {
+        title: "Remove Duplicates from Sorted Array",
+        difficulty: "Medium",
+        description: "Given an integer array nums sorted in non-decreasing order, remove the duplicates in-place such that each unique element appears only once. The relative order of the elements should be kept the same. Then return the number of unique elements in nums.",
+        starterCode: `def removeDuplicates(nums):
+    # Write your code here
+    # Modify the array in-place and return the number of unique elements
+    pass`,
+        solution: `def removeDuplicates(nums):
+    if not nums:
+        return 0
+
+    # Pointer for the position of the next unique element
+    i = 0
+
+    for j in range(1, len(nums)):
+        if nums[j] != nums[i]:
+            i += 1
+            nums[i] = nums[j]
+
+    return i + 1`
+      },
+      {
+        title: "Rotate Array",
+        difficulty: "Medium",
+        description: "Given an integer array nums, rotate the array to the right by k steps, where k is non-negative.",
+        starterCode: `def rotate(nums, k):
+    # Write your code here
+    # Modify the array in-place
+    pass`,
+        solution: `def rotate(nums, k):
+    n = len(nums)
+    k = k % n  # Handle cases where k > n
+
+    # Reverse the entire array
+    nums.reverse()
+
+    # Reverse the first k elements
+    nums[:k] = reversed(nums[:k])
+
+    # Reverse the remaining elements
+    nums[k:] = reversed(nums[k:])`
       }
     ];
 
