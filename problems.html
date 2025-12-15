@@ -146,10 +146,11 @@
 <body>
   <h1>Python Problem Solving — Practice Problems</h1>
   <p class="subtitle">Easy problems for Python practice</p>
-  
+
   <div class="nav">
     <a href="py.html">Python Basics</a>
     <a href="problems.html">Problem Solving</a>
+    <a href="game-based.html">Game Learning</a>
   </div>
 
   <div class="problem-container" id="problemsContainer"></div>
@@ -197,19 +198,19 @@
         solution: `def countApplesAndOranges(s, t, a, b, apples, oranges):
     apple_count = 0
     orange_count = 0
-    
+
     # Count apples that fall on the house
     for apple in apples:
         landing_pos = a + apple
         if s <= landing_pos <= t:
             apple_count += 1
-    
+
     # Count oranges that fall on the house
     for orange in oranges:
         landing_pos = b + orange
         if s <= landing_pos <= t:
             orange_count += 1
-    
+
     print(apple_count)
     print(orange_count)`
       },
@@ -224,13 +225,13 @@
     # If speeds are equal, they'll only meet if they start at the same position
     if v1 == v2:
         return "YES" if x1 == x2 else "NO"
-    
+
     # Calculate number of jumps for them to meet
     # x1 + n*v1 = x2 + n*v2
     # n*v1 - n*v2 = x2 - x1
     # n*(v1-v2) = x2-x1
     # n = (x2-x1)/(v1-v2)
-    
+
     if v1 > v2:
         # Check if the number of jumps is a non-negative integer
         n = (x2 - x1) / (v1 - v2)
@@ -253,10 +254,10 @@
     # Initialize with the first score
     highest_score = scores[0]
     lowest_score = scores[0]
-    
+
     highest_breaks = 0
     lowest_breaks = 0
-    
+
     for score in scores[1:]:
         if score > highest_score:
             highest_score = score
@@ -264,7 +265,7 @@
         elif score < lowest_score:
             lowest_score = score
             lowest_breaks += 1
-    
+
     return [highest_breaks, lowest_breaks]`
       },
       {
@@ -277,13 +278,13 @@
         solution: `def birthday(s, d, m):
     count = 0
     n = len(s)
-    
+
     # Iterate through the array to find valid segments
     for i in range(n - m + 1):
         segment_sum = sum(s[i:i+m])
         if segment_sum == d:
             count += 1
-            
+
     return count`
       },
       {
@@ -312,7 +313,7 @@
     count = {}
     for bird in arr:
         count[bird] = count.get(bird, 0) + 1
-    
+
     max_count = max(count.values())
     # Find the smallest id among the birds with max count
     return min(bird_id for bird_id, freq in count.items() if freq == max_count)`
@@ -334,7 +335,7 @@
     else:
         # Gregorian calendar
         is_leap = (year % 400 == 0) or (year % 4 == 0 and year % 100 != 0)
-    
+
     if is_leap:
         return f"12.09.{year}"
     else:
@@ -365,7 +366,7 @@
     color_counts = {}
     for color in ar:
         color_counts[color] = color_counts.get(color, 0) + 1
-    
+
     pairs = 0
     for count in color_counts.values():
         pairs += count // 2

@@ -376,11 +376,11 @@
   <div class="container">
     <h1>Python Game Learning — Interactive Programming Exercises</h1>
     <p class="subtitle">Learn programming principles through interactive games that get progressively harder</p>
-    
+
     <div class="nav">
       <a href="py.html">Python Basics</a>
       <a href="problems.html">Problem Solving</a>
-      <a href="games.html" style="background: rgba(255,255,255,0.3);">Game Learning</a>
+      <a href="game-based.html" style="background: rgba(255,255,255,0.3);">Game Learning</a>
     </div>
 
     <div class="welcome-box">
@@ -433,7 +433,7 @@
         <h2 class="game-title">🎯 Game 1: Number Guessing Game</h2>
         <span class="difficulty">Beginner</span>
       </div>
-      
+
       <div class="game-content">
         <div class="code-editor">
           <div class="code-header">game1.py - Complete the code below</div>
@@ -442,21 +442,21 @@
 
 def number_guessing_game():
     print("=== Welcome to Number Guessing Game! ===")
-    
+
     # TODO: Generate a random number between 1 and 100
     secret_number = # Your code here (use random.randint(1, 100))
-    
+
     attempts = 0
     max_attempts = 7
-    
+
     print(f"I'm thinking of a number between 1 and 100.")
     print(f"You have {max_attempts} attempts to guess it.")
-    
+
     # TODO: Start the game loop
     while # Your condition here (hint: attempts < max_attempts):
         attempts += 1
         attempts_left = max_attempts - attempts + 1
-        
+
         # TODO: Get user input
         try:
             guess = int(input(f"\nAttempt #{attempts} ({attempts_left} left): Enter your guess: "))
@@ -464,13 +464,13 @@ def number_guessing_game():
             print("Please enter a valid number!")
             attempts -= 1
             continue
-        
+
         # TODO: Check if guess is valid (between 1 and 100)
         if # Your condition here:
             print("Please enter a number between 1 and 100!")
             attempts -= 1
             continue
-        
+
         # TODO: Check the guess against the secret number
         if # Your condition here (check if guess equals secret_number):
             print(f"\n🎉 Congratulations! You guessed it in {attempts} attempts!")
@@ -480,14 +480,14 @@ def number_guessing_game():
             print("Too low! Try a higher number.")
         else:
             print("Too high! Try a lower number.")
-        
+
         # Give a hint after 3 attempts
         if attempts == 3:
             if secret_number % 2 == 0:
                 print("💡 Hint: The number is even!")
             else:
                 print("💡 Hint: The number is odd!")
-    
+
     # TODO: Check if player lost
     if # Your condition here (check if attempts reached max_attempts without winning):
         print(f"\n💔 Game Over! You've used all {max_attempts} attempts.")
@@ -498,7 +498,7 @@ if __name__ == "__main__":
     number_guessing_game()</textarea>
           </div>
         </div>
-        
+
         <div class="game-controls">
           <div class="output-window" id="output1">
 Game output will appear here...
@@ -516,7 +516,7 @@ Click "Run Code" to start playing!
             4. The winning condition: if guess == secret_number<br>
             5. The losing condition: if attempts >= max_attempts (and guess != secret_number)
           </div>
-          
+
           <div class="principles-box">
             <h4>Learning Principles in this Game:</h4>
             <div class="principle-item"><span class="checkmark">✓</span> <strong>Variables:</strong> Storing game data like secret_number, attempts</div>
@@ -534,7 +534,7 @@ Click "Run Code" to start playing!
         <h2 class="game-title">🔤 Game 2: Hangman Word Game</h2>
         <span class="difficulty">Intermediate</span>
       </div>
-      
+
       <div class="game-content">
         <div class="code-editor">
           <div class="code-header">game2.py - Complete the code below</div>
@@ -553,68 +553,68 @@ def display_word(word, guessed_letters):
 
 def get_random_word():
     """Return a random word from a list."""
-    words = ["python", "programming", "computer", "algorithm", 
+    words = ["python", "programming", "computer", "algorithm",
              "variable", "function", "dictionary", "javascript"]
     return random.choice(words)
 
 def hangman_game():
     print("=== Welcome to Hangman! ===")
-    
+
     # TODO: Get a random word and initialize game variables
     secret_word = # Your code here (use get_random_word())
     guessed_letters = []
     attempts = 6  # Player has 6 wrong attempts allowed
     wrong_guesses = 0
-    
+
     print("Try to guess the word letter by letter!")
     print(f"The word has {len(secret_word)} letters.")
     print(f"You can make {attempts} wrong guesses.")
-    
+
     # TODO: Start the game loop
     while # Your condition here (wrong_guesses < attempts and not all letters guessed):
         print("\n" + "=" * 40)
         print(f"Word: {display_word(secret_word, guessed_letters)}")
         print(f"Guessed letters: {', '.join(sorted(guessed_letters)) if guessed_letters else 'None'}")
         print(f"Wrong guesses left: {attempts - wrong_guesses}")
-        
+
         # TODO: Get user input
         guess = input("Enter a letter: ").lower()
-        
+
         # TODO: Validate input (single letter, alphabetic, not guessed before)
         if # Your condition here (check if guess is not a single letter):
             print("Please enter a single letter!")
             continue
-        
+
         if # Your condition here (check if guess is not alphabetic):
             print("Please enter a letter from A-Z!")
             continue
-        
+
         if guess in guessed_letters:
             print("You already guessed that letter!")
             continue
-        
+
         # Add guess to guessed letters
         guessed_letters.append(guess)
-        
+
         # TODO: Check if guess is in the secret word
         if # Your condition here:
             print(f"Good guess! '{guess}' is in the word.")
         else:
             wrong_guesses += 1
             print(f"Wrong guess! '{guess}' is not in the word.")
-        
+
         # TODO: Check if all letters have been guessed
         all_guessed = True
         for letter in secret_word:
             if # Your condition here (check if letter is not in guessed_letters):
                 all_guessed = False
                 break
-        
+
         if all_guessed:
             print(f"\n🎉 Congratulations! You guessed the word: {secret_word}")
             print(f"You won with {wrong_guesses} wrong guesses!")
             break
-    
+
     # TODO: Check if player lost
     if # Your condition here:
         print(f"\n💔 Game Over! You've used all {attempts} attempts.")
@@ -626,7 +626,7 @@ if __name__ == "__main__":
     hangman_game()</textarea>
           </div>
         </div>
-        
+
         <div class="game-controls">
           <div class="output-window" id="output2">
 Game output will appear here...
@@ -646,7 +646,7 @@ Complete Game 1 first, then tackle this challenge!
             6. Check if letter not guessed: letter not in guessed_letters<br>
             7. The losing condition: wrong_guesses >= attempts
           </div>
-          
+
           <div class="principles-box">
             <h4>Advanced Principles in this Game:</h4>
             <div class="principle-item"><span class="checkmark">✓</span> <strong>Functions:</strong> Modular code with display_word() and get_random_word()</div>
@@ -696,31 +696,31 @@ Complete Game 1 first, then tackle this challenge!
 
 def number_guessing_game():
     print("=== Welcome to Number Guessing Game! ===")
-    
+
     secret_number = random.randint(1, 100)
-    
+
     attempts = 0
     max_attempts = 7
-    
+
     print(f"I'm thinking of a number between 1 and 100.")
     print(f"You have {max_attempts} attempts to guess it.")
-    
+
     while attempts < max_attempts:
         attempts += 1
         attempts_left = max_attempts - attempts + 1
-        
+
         try:
             guess = int(input(f"\\nAttempt #{attempts} ({attempts_left} left): Enter your guess: "))
         except ValueError:
             print("Please enter a valid number!")
             attempts -= 1
             continue
-        
+
         if guess < 1 or guess > 100:
             print("Please enter a number between 1 and 100!")
             attempts -= 1
             continue
-        
+
         if guess == secret_number:
             print(f"\\n🎉 Congratulations! You guessed it in {attempts} attempts!")
             print(f"The number was {secret_number}!")
@@ -729,13 +729,13 @@ def number_guessing_game():
             print("Too low! Try a higher number.")
         else:
             print("Too high! Try a lower number.")
-        
+
         if attempts == 3:
             if secret_number % 2 == 0:
                 print("💡 Hint: The number is even!")
             else:
                 print("💡 Hint: The number is odd!")
-    
+
     if attempts >= max_attempts and guess != secret_number:
         print(f"\\n💔 Game Over! You've used all {max_attempts} attempts.")
         print(f"The secret number was {secret_number}.")
@@ -755,65 +755,65 @@ def display_word(word, guessed_letters):
     return display.strip()
 
 def get_random_word():
-    words = ["python", "programming", "computer", "algorithm", 
+    words = ["python", "programming", "computer", "algorithm",
              "variable", "function", "dictionary", "javascript"]
     return random.choice(words)
 
 def hangman_game():
     print("=== Welcome to Hangman! ===")
-    
+
     secret_word = get_random_word()
     guessed_letters = []
     attempts = 6
     wrong_guesses = 0
-    
+
     print("Try to guess the word letter by letter!")
     print(f"The word has {len(secret_word)} letters.")
     print(f"You can make {attempts} wrong guesses.")
-    
+
     while wrong_guesses < attempts:
         all_guessed = True
         for letter in secret_word:
             if letter not in guessed_letters:
                 all_guessed = False
                 break
-        
+
         if all_guessed:
             break
-        
+
         print("\\n" + "=" * 40)
         print(f"Word: {display_word(secret_word, guessed_letters)}")
         print(f"Guessed letters: {', '.join(sorted(guessed_letters)) if guessed_letters else 'None'}")
         print(f"Wrong guesses left: {attempts - wrong_guesses}")
-        
+
         guess = input("Enter a letter: ").lower()
-        
+
         if len(guess) != 1:
             print("Please enter a single letter!")
             continue
-        
+
         if not guess.isalpha():
             print("Please enter a letter from A-Z!")
             continue
-        
+
         if guess in guessed_letters:
             print("You already guessed that letter!")
             continue
-        
+
         guessed_letters.append(guess)
-        
+
         if guess in secret_word:
             print(f"Good guess! '{guess}' is in the word.")
         else:
             wrong_guesses += 1
             print(f"Wrong guess! '{guess}' is not in the word.")
-    
+
     all_guessed = True
     for letter in secret_word:
         if letter not in guessed_letters:
             all_guessed = False
             break
-    
+
     if all_guessed:
         print(f"\\n🎉 Congratulations! You guessed the word: {secret_word}")
         print(f"You won with {wrong_guesses} wrong guesses!")
@@ -836,12 +836,12 @@ if __name__ == "__main__":
       currentGame = gameNumber;
       document.getElementById('game1').style.display = gameNumber === 1 ? 'block' : 'none';
       document.getElementById('game2').style.display = gameNumber === 2 ? 'block' : 'none';
-      
+
       // Update progress steps
       document.getElementById('step1').className = gameNumber === 1 ? 'step active' : 'step completed';
       document.getElementById('step2').className = gameNumber === 2 ? 'step active' : (game1Completed ? 'step completed' : 'step');
       document.getElementById('step3').className = game1Completed && game2Completed ? 'step completed' : 'step';
-      
+
       // Update progress bar
       const progress = game1Completed && game2Completed ? 100 : (game1Completed ? 50 : 0);
       document.getElementById('progressBar').style.width = `${progress}%`;
@@ -851,9 +851,9 @@ if __name__ == "__main__":
     function runGame(gameNum) {
       const code = document.getElementById(`code${gameNum}`).value;
       const output = document.getElementById(`output${gameNum}`);
-      
+
       output.innerHTML = "Running your code...\n";
-      
+
       // In a real implementation, this would send code to a server for execution
       // For this demo, we'll simulate execution with the solution
       setTimeout(() => {
@@ -864,7 +864,7 @@ if __name__ == "__main__":
           output.innerHTML += "For this demo, the number is 42.\n";
           output.innerHTML += "Try running the code in your Python environment!\n\n";
           output.innerHTML += "💡 Tip: Copy the code to a .py file and run it with 'python filename.py'";
-          
+
           // Mark game as completed for demo purposes
           game1Completed = true;
           document.getElementById('step2').className = 'step active';
@@ -874,19 +874,19 @@ if __name__ == "__main__":
             output.innerHTML = "Please complete Game 1 first!";
             return;
           }
-          
+
           output.innerHTML = "=== Welcome to Hangman! ===\n";
           output.innerHTML += "Try to guess the word letter by letter!\n";
           output.innerHTML += "For this demo, the word is 'python'.\n";
           output.innerHTML += "You can make 6 wrong guesses.\n\n";
           output.innerHTML += "Try running the code in your Python environment!\n\n";
           output.innerHTML += "💡 Tip: Practice with different words by modifying the word list!";
-          
+
           // Mark game as completed for demo purposes
           game2Completed = true;
           document.getElementById('step3').className = 'step active';
           document.getElementById('progressBar').style.width = '100%';
-          
+
           // Show completion message after a delay
           setTimeout(() => {
             document.getElementById('completionMessage').classList.add('show');
