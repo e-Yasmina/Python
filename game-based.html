@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Python Game Learning — Interactive Programming Exercises</title>
+
+  <!-- Prism.js for syntax highlighting -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #333;
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 1rem;
+      font-weight: 800;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      font-size: 2.5rem;
+    }
+    .subtitle {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: rgba(255,255,255,0.9);
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .nav {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+    }
+    .nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.75rem 1.5rem;
+      background: rgba(255,255,255,0.1);
+      border: 2px solid rgba(255,255,255,0.2);
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+    .nav a:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    .welcome-box {
+      background: rgba(255,255,255,0.95);
+      border-radius: 20px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    .welcome-box h2 {
+      color: #667eea;
+      margin-bottom: 1rem;
+    }
+    .welcome-box p {
+      margin-bottom: 1rem;
+      color: #555;
+    }
+    .steps-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .step-card {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease;
+    }
+    .step-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    }
+    .step-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 1rem 1.5rem;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .step-number {
+      background: white;
+      color: #667eea;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+    .step-body {
+      padding: 1.5rem;
+    }
+    .step-title {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: #444;
+    }
+    .step-description {
+      color: #666;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+    .game-section {
+      background: rgba(255,255,255,0.95);
+      border-radius: 20px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    .game-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid #eee;
+    }
+    .game-title {
+      font-size: 1.5rem;
+      color: #667eea;
+      font-weight: 700;
+    }
+    .difficulty {
+      background: #ffc107;
+      color: #333;
+      padding: 0.25rem 0.75rem;
+      border-radius: 15px;
+      font-size: 0.85rem;
+      font-weight: bold;
+    }
+    .game-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    @media (max-width: 768px) {
+      .game-content {
+        grid-template-columns: 1fr;
+      }
+    }
+    .code-editor {
+      background: #2d2d2d;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .code-header {
+      background: #1e1e1e;
+      color: #ccc;
+      padding: 0.75rem 1rem;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+    }
+    .code-area {
+      padding: 1rem;
+      min-height: 300px;
+    }
+    textarea.code-input {
+      width: 100%;
+      min-height: 250px;
+      background: #2d2d2d;
+      color: #f8f8f2;
+      border: none;
+      font-family: 'Courier New', monospace;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      resize: vertical;
+      padding: 1rem;
+      border-radius: 5px;
+    }
+    .game-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .output-window {
+      background: #1e1e1e;
+      color: #f8f8f2;
+      border-radius: 10px;
+      padding: 1rem;
+      min-height: 200px;
+      max-height: 300px;
+      overflow-y: auto;
+      font-family: 'Courier New', monospace;
+      font-size: 0.95rem;
+      white-space: pre-wrap;
+    }
+    .buttons {
+      display: flex;
+      gap: 1rem;
+    }
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      flex: 1;
+      font-size: 0.95rem;
+    }
+    .btn-run {
+      background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+      color: white;
+    }
+    .btn-run:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+    }
+    .btn-hint {
+      background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+      color: white;
+    }
+    .btn-hint:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);
+    }
+    .hint-box {
+      background: #e8f4ff;
+      border-left: 4px solid #2196F3;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-top: 1rem;
+      display: none;
+    }
+    .hint-box.show {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .principles-box {
+      background: #f8f9fa;
+      border-radius: 15px;
+      padding: 1.5rem;
+      margin-top: 1rem;
+    }
+    .principles-box h4 {
+      color: #667eea;
+      margin-bottom: 0.5rem;
+    }
+    .principle-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.25rem;
+    }
+    .checkmark {
+      color: #4CAF50;
+      font-weight: bold;
+    }
+    .progress-container {
+      margin-top: 2rem;
+      background: white;
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    .progress-title {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      color: #444;
+      text-align: center;
+    }
+    .progress-steps {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      margin: 2rem 0;
+    }
+    .progress-steps::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: #e0e0e0;
+      transform: translateY(-50%);
+      z-index: 1;
+    }
+    .progress-bar {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      height: 4px;
+      background: #4CAF50;
+      transform: translateY(-50%);
+      z-index: 2;
+      transition: width 0.5s ease;
+    }
+    .step {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #e0e0e0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #666;
+      position: relative;
+      z-index: 3;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .step.active {
+      background: #4CAF50;
+      color: white;
+      transform: scale(1.1);
+      box-shadow: 0 0 0 5px rgba(76, 175, 80, 0.2);
+    }
+    .step.completed {
+      background: #2196F3;
+      color: white;
+    }
+    .step-label {
+      position: absolute;
+      top: 45px;
+      font-size: 0.8rem;
+      color: #666;
+      text-align: center;
+      min-width: 80px;
+    }
+    .game-completed {
+      text-align: center;
+      padding: 2rem;
+      background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+      color: white;
+      border-radius: 20px;
+      margin-top: 2rem;
+      display: none;
+    }
+    .game-completed.show {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+    .celebration {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Python Game Learning — Interactive Programming Exercises</h1>
+    <p class="subtitle">Learn programming principles through interactive games that get progressively harder</p>
+    
+    <div class="nav">
+      <a href="py.html">Python Basics</a>
+      <a href="problems.html">Problem Solving</a>
+      <a href="games.html" style="background: rgba(255,255,255,0.3);">Game Learning</a>
+    </div>
+
+    <div class="welcome-box">
+      <h2>🎮 Welcome to Game-Based Learning!</h2>
+      <p>Here you'll learn programming concepts by building and playing games. Each game introduces new programming principles in a fun, interactive way.</p>
+      <p>Start with Game 1 and progress to Game 2 as you master each concept. Follow the learning path below!</p>
+    </div>
+
+    <div class="steps-container">
+      <div class="step-card">
+        <div class="step-header">
+          <span>Step 1: Game 1</span>
+          <div class="step-number">1</div>
+        </div>
+        <div class="step-body">
+          <h3 class="step-title">Number Guessing Game</h3>
+          <p class="step-description">Learn variables, conditionals, loops, and basic input/output by creating a simple guessing game.</p>
+          <div class="principles-box">
+            <h4>Concepts Covered:</h4>
+            <div class="principle-item"><span class="checkmark">✓</span> Variables & Data Types</div>
+            <div class="principle-item"><span class="checkmark">✓</span> Conditional Statements (if/else)</div>
+            <div class="principle-item"><span class="checkmark">✓</span> While Loops</div>
+            <div class="principle-item"><span class="checkmark">✓</span> User Input/Output</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-header">
+          <span>Step 2: Game 2</span>
+          <div class="step-number">2</div>
+        </div>
+        <div class="step-body">
+          <h3 class="step-title">Hangman Game</h3>
+          <p class="step-description">Master lists, strings, functions, and game logic by building a word-guessing game.</p>
+          <div class="principles-box">
+            <h4>Concepts Covered:</h4>
+            <div class="principle-item"><span class="checkmark">✓</span> Lists & Strings</div>
+            <div class="principle-item"><span class="checkmark">✓</span> Functions</div>
+            <div class="principle-item"><span class="checkmark">✓</span> Random Module</div>
+            <div class="principle-item"><span class="checkmark">✓</span> Game State Management</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Game 1: Number Guessing -->
+    <div class="game-section" id="game1">
+      <div class="game-header">
+        <h2 class="game-title">🎯 Game 1: Number Guessing Game</h2>
+        <span class="difficulty">Beginner</span>
+      </div>
+      
+      <div class="game-content">
+        <div class="code-editor">
+          <div class="code-header">game1.py - Complete the code below</div>
+          <div class="code-area">
+            <textarea id="code1" class="code-input">import random
+
+def number_guessing_game():
+    print("=== Welcome to Number Guessing Game! ===")
+    
+    # TODO: Generate a random number between 1 and 100
+    secret_number = # Your code here (use random.randint(1, 100))
+    
+    attempts = 0
+    max_attempts = 7
+    
+    print(f"I'm thinking of a number between 1 and 100.")
+    print(f"You have {max_attempts} attempts to guess it.")
+    
+    # TODO: Start the game loop
+    while # Your condition here (hint: attempts < max_attempts):
+        attempts += 1
+        attempts_left = max_attempts - attempts + 1
+        
+        # TODO: Get user input
+        try:
+            guess = int(input(f"\nAttempt #{attempts} ({attempts_left} left): Enter your guess: "))
+        except ValueError:
+            print("Please enter a valid number!")
+            attempts -= 1
+            continue
+        
+        # TODO: Check if guess is valid (between 1 and 100)
+        if # Your condition here:
+            print("Please enter a number between 1 and 100!")
+            attempts -= 1
+            continue
+        
+        # TODO: Check the guess against the secret number
+        if # Your condition here (check if guess equals secret_number):
+            print(f"\n🎉 Congratulations! You guessed it in {attempts} attempts!")
+            print(f"The number was {secret_number}!")
+            break
+        elif guess < secret_number:
+            print("Too low! Try a higher number.")
+        else:
+            print("Too high! Try a lower number.")
+        
+        # Give a hint after 3 attempts
+        if attempts == 3:
+            if secret_number % 2 == 0:
+                print("💡 Hint: The number is even!")
+            else:
+                print("💡 Hint: The number is odd!")
+    
+    # TODO: Check if player lost
+    if # Your condition here (check if attempts reached max_attempts without winning):
+        print(f"\n💔 Game Over! You've used all {max_attempts} attempts.")
+        print(f"The secret number was {secret_number}.")
+
+# Start the game
+if __name__ == "__main__":
+    number_guessing_game()</textarea>
+          </div>
+        </div>
+        
+        <div class="game-controls">
+          <div class="output-window" id="output1">
+Game output will appear here...
+Click "Run Code" to start playing!
+          </div>
+          <div class="buttons">
+            <button class="btn btn-run" onclick="runGame(1)">▶ Run Code</button>
+            <button class="btn btn-hint" onclick="toggleHint(1)">💡 Show Hint</button>
+          </div>
+          <div class="hint-box" id="hint1">
+            <strong>Hints for Game 1:</strong><br>
+            1. Use random.randint(1, 100) to generate the secret number<br>
+            2. The while loop should run while attempts < max_attempts<br>
+            3. Check if guess is between 1 and 100: if guess < 1 or guess > 100<br>
+            4. The winning condition: if guess == secret_number<br>
+            5. The losing condition: if attempts >= max_attempts (and guess != secret_number)
+          </div>
+          
+          <div class="principles-box">
+            <h4>Learning Principles in this Game:</h4>
+            <div class="principle-item"><span class="checkmark">✓</span> <strong>Variables:</strong> Storing game data like secret_number, attempts</div>
+            <div class="principle-item"><span class="checkmark">✓</span> <strong>Conditionals:</strong> Using if/elif/else to check guesses</div>
+            <div class="principle-item"><span class="checkmark">✓</span> <strong>Loops:</strong> while loop for the main game logic</div>
+            <div class="principle-item"><span class="checkmark">✓</span> <strong>Input/Output:</strong> Getting user input and displaying feedback</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Game 2: Hangman -->
+    <div class="game-section" id="game2">
+      <div class="game-header">
+        <h2 class="game-title">🔤 Game 2: Hangman Word Game</h2>
+        <span class="difficulty">Intermediate</span>
+      </div>
+      
+      <div class="game-content">
+        <div class="code-editor">
+          <div class="code-header">game2.py - Complete the code below</div>
+          <div class="code-area">
+            <textarea id="code2" class="code-input">import random
+
+def display_word(word, guessed_letters):
+    """Display the word with underscores for unguessed letters."""
+    display = ""
+    for letter in word:
+        if letter in guessed_letters:
+            display += letter + " "
+        else:
+            display += "_ "
+    return display.strip()
+
+def get_random_word():
+    """Return a random word from a list."""
+    words = ["python", "programming", "computer", "algorithm", 
+             "variable", "function", "dictionary", "javascript"]
+    return random.choice(words)
+
+def hangman_game():
+    print("=== Welcome to Hangman! ===")
+    
+    # TODO: Get a random word and initialize game variables
+    secret_word = # Your code here (use get_random_word())
+    guessed_letters = []
+    attempts = 6  # Player has 6 wrong attempts allowed
+    wrong_guesses = 0
+    
+    print("Try to guess the word letter by letter!")
+    print(f"The word has {len(secret_word)} letters.")
+    print(f"You can make {attempts} wrong guesses.")
+    
+    # TODO: Start the game loop
+    while # Your condition here (wrong_guesses < attempts and not all letters guessed):
+        print("\n" + "=" * 40)
+        print(f"Word: {display_word(secret_word, guessed_letters)}")
+        print(f"Guessed letters: {', '.join(sorted(guessed_letters)) if guessed_letters else 'None'}")
+        print(f"Wrong guesses left: {attempts - wrong_guesses}")
+        
+        # TODO: Get user input
+        guess = input("Enter a letter: ").lower()
+        
+        # TODO: Validate input (single letter, alphabetic, not guessed before)
+        if # Your condition here (check if guess is not a single letter):
+            print("Please enter a single letter!")
+            continue
+        
+        if # Your condition here (check if guess is not alphabetic):
+            print("Please enter a letter from A-Z!")
+            continue
+        
+        if guess in guessed_letters:
+            print("You already guessed that letter!")
+            continue
+        
+        # Add guess to guessed letters
+        guessed_letters.append(guess)
+        
+        # TODO: Check if guess is in the secret word
+        if # Your condition here:
+            print(f"Good guess! '{guess}' is in the word.")
+        else:
+            wrong_guesses += 1
+            print(f"Wrong guess! '{guess}' is not in the word.")
+        
+        # TODO: Check if all letters have been guessed
+        all_guessed = True
+        for letter in secret_word:
+            if # Your condition here (check if letter is not in guessed_letters):
+                all_guessed = False
+                break
+        
+        if all_guessed:
+            print(f"\n🎉 Congratulations! You guessed the word: {secret_word}")
+            print(f"You won with {wrong_guesses} wrong guesses!")
+            break
+    
+    # TODO: Check if player lost
+    if # Your condition here:
+        print(f"\n💔 Game Over! You've used all {attempts} attempts.")
+        print(f"The word was: {secret_word}")
+        print(f"Your guesses: {', '.join(guessed_letters)}")
+
+# Start the game
+if __name__ == "__main__":
+    hangman_game()</textarea>
+          </div>
+        </div>
+        
+        <div class="game-controls">
+          <div class="output-window" id="output2">
+Game output will appear here...
+Complete Game 1 first, then tackle this challenge!
+          </div>
+          <div class="buttons">
+            <button class="btn btn-run" onclick="runGame(2)">▶ Run Code</button>
+            <button class="btn btn-hint" onclick="toggleHint(2)">💡 Show Hint</button>
+          </div>
+          <div class="hint-box" id="hint2">
+            <strong>Hints for Game 2:</strong><br>
+            1. Call get_random_word() to get the secret word<br>
+            2. The while loop should run while wrong_guesses < attempts and not all letters guessed<br>
+            3. Check if guess is single letter: len(guess) != 1<br>
+            4. Check if guess is alphabetic: not guess.isalpha()<br>
+            5. Check if guess is in word: guess in secret_word<br>
+            6. Check if letter not guessed: letter not in guessed_letters<br>
+            7. The losing condition: wrong_guesses >= attempts
+          </div>
+          
+          <div class="principles-box">
+            <h4>Advanced Principles in this Game:</h4>
+            <div class="principle-item"><span class="checkmark">✓</span> <strong>Functions:</strong> Modular code with display_word() and get_random_word()</div>
+            <div class="principle-item"><span class="checkmark">✓</span> <strong>Lists:</strong> Managing guessed_letters list</div>
+            <div class="principle-item"><span class="checkmark">✓</span> <strong>Strings:</strong> String manipulation and character checking</div>
+            <div class="principle-item"><span class="checkmark">✓</span> <strong>Game State:</strong> Tracking progress and win/lose conditions</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="progress-container">
+      <h3 class="progress-title">Your Learning Progress</h3>
+      <div class="progress-steps">
+        <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+        <div class="step active" id="step1" onclick="showGame(1)">
+          1
+          <div class="step-label">Game 1</div>
+        </div>
+        <div class="step" id="step2" onclick="showGame(2)">
+          2
+          <div class="step-label">Game 2</div>
+        </div>
+        <div class="step" id="step3" onclick="completeCourse()">
+          3
+          <div class="step-label">Complete!</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="game-completed" id="completionMessage">
+      <div class="celebration">🎉 🏆 🎊</div>
+      <h2>Course Completed!</h2>
+      <p>You've successfully completed both games and learned fundamental programming concepts!</p>
+      <p>You're now ready to tackle more advanced programming challenges.</p>
+    </div>
+  </div>
+
+  <!-- Prism.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+
+  <script>
+    // Sample solutions for the games
+    const solutions = {
+      game1: `import random
+
+def number_guessing_game():
+    print("=== Welcome to Number Guessing Game! ===")
+    
+    secret_number = random.randint(1, 100)
+    
+    attempts = 0
+    max_attempts = 7
+    
+    print(f"I'm thinking of a number between 1 and 100.")
+    print(f"You have {max_attempts} attempts to guess it.")
+    
+    while attempts < max_attempts:
+        attempts += 1
+        attempts_left = max_attempts - attempts + 1
+        
+        try:
+            guess = int(input(f"\\nAttempt #{attempts} ({attempts_left} left): Enter your guess: "))
+        except ValueError:
+            print("Please enter a valid number!")
+            attempts -= 1
+            continue
+        
+        if guess < 1 or guess > 100:
+            print("Please enter a number between 1 and 100!")
+            attempts -= 1
+            continue
+        
+        if guess == secret_number:
+            print(f"\\n🎉 Congratulations! You guessed it in {attempts} attempts!")
+            print(f"The number was {secret_number}!")
+            break
+        elif guess < secret_number:
+            print("Too low! Try a higher number.")
+        else:
+            print("Too high! Try a lower number.")
+        
+        if attempts == 3:
+            if secret_number % 2 == 0:
+                print("💡 Hint: The number is even!")
+            else:
+                print("💡 Hint: The number is odd!")
+    
+    if attempts >= max_attempts and guess != secret_number:
+        print(f"\\n💔 Game Over! You've used all {max_attempts} attempts.")
+        print(f"The secret number was {secret_number}.")
+
+if __name__ == "__main__":
+    number_guessing_game()`,
+
+      game2: `import random
+
+def display_word(word, guessed_letters):
+    display = ""
+    for letter in word:
+        if letter in guessed_letters:
+            display += letter + " "
+        else:
+            display += "_ "
+    return display.strip()
+
+def get_random_word():
+    words = ["python", "programming", "computer", "algorithm", 
+             "variable", "function", "dictionary", "javascript"]
+    return random.choice(words)
+
+def hangman_game():
+    print("=== Welcome to Hangman! ===")
+    
+    secret_word = get_random_word()
+    guessed_letters = []
+    attempts = 6
+    wrong_guesses = 0
+    
+    print("Try to guess the word letter by letter!")
+    print(f"The word has {len(secret_word)} letters.")
+    print(f"You can make {attempts} wrong guesses.")
+    
+    while wrong_guesses < attempts:
+        all_guessed = True
+        for letter in secret_word:
+            if letter not in guessed_letters:
+                all_guessed = False
+                break
+        
+        if all_guessed:
+            break
+        
+        print("\\n" + "=" * 40)
+        print(f"Word: {display_word(secret_word, guessed_letters)}")
+        print(f"Guessed letters: {', '.join(sorted(guessed_letters)) if guessed_letters else 'None'}")
+        print(f"Wrong guesses left: {attempts - wrong_guesses}")
+        
+        guess = input("Enter a letter: ").lower()
+        
+        if len(guess) != 1:
+            print("Please enter a single letter!")
+            continue
+        
+        if not guess.isalpha():
+            print("Please enter a letter from A-Z!")
+            continue
+        
+        if guess in guessed_letters:
+            print("You already guessed that letter!")
+            continue
+        
+        guessed_letters.append(guess)
+        
+        if guess in secret_word:
+            print(f"Good guess! '{guess}' is in the word.")
+        else:
+            wrong_guesses += 1
+            print(f"Wrong guess! '{guess}' is not in the word.")
+    
+    all_guessed = True
+    for letter in secret_word:
+        if letter not in guessed_letters:
+            all_guessed = False
+            break
+    
+    if all_guessed:
+        print(f"\\n🎉 Congratulations! You guessed the word: {secret_word}")
+        print(f"You won with {wrong_guesses} wrong guesses!")
+    else:
+        print(f"\\n💔 Game Over! You've used all {attempts} attempts.")
+        print(f"The word was: {secret_word}")
+        print(f"Your guesses: {', '.join(guessed_letters)}")
+
+if __name__ == "__main__":
+    hangman_game()`
+    };
+
+    // Game state management
+    let currentGame = 1;
+    let game1Completed = false;
+    let game2Completed = false;
+
+    // Show/hide games based on progress
+    function showGame(gameNumber) {
+      currentGame = gameNumber;
+      document.getElementById('game1').style.display = gameNumber === 1 ? 'block' : 'none';
+      document.getElementById('game2').style.display = gameNumber === 2 ? 'block' : 'none';
+      
+      // Update progress steps
+      document.getElementById('step1').className = gameNumber === 1 ? 'step active' : 'step completed';
+      document.getElementById('step2').className = gameNumber === 2 ? 'step active' : (game1Completed ? 'step completed' : 'step');
+      document.getElementById('step3').className = game1Completed && game2Completed ? 'step completed' : 'step';
+      
+      // Update progress bar
+      const progress = game1Completed && game2Completed ? 100 : (game1Completed ? 50 : 0);
+      document.getElementById('progressBar').style.width = `${progress}%`;
+    }
+
+    // Run game code
+    function runGame(gameNum) {
+      const code = document.getElementById(`code${gameNum}`).value;
+      const output = document.getElementById(`output${gameNum}`);
+      
+      output.innerHTML = "Running your code...\n";
+      
+      // In a real implementation, this would send code to a server for execution
+      // For this demo, we'll simulate execution with the solution
+      setTimeout(() => {
+        if (gameNum === 1) {
+          output.innerHTML = "=== Welcome to Number Guessing Game! ===\n";
+          output.innerHTML += "I'm thinking of a number between 1 and 100.\n";
+          output.innerHTML += "You have 7 attempts to guess it.\n\n";
+          output.innerHTML += "For this demo, the number is 42.\n";
+          output.innerHTML += "Try running the code in your Python environment!\n\n";
+          output.innerHTML += "💡 Tip: Copy the code to a .py file and run it with 'python filename.py'";
+          
+          // Mark game as completed for demo purposes
+          game1Completed = true;
+          document.getElementById('step2').className = 'step active';
+          document.getElementById('progressBar').style.width = '50%';
+        } else {
+          if (!game1Completed) {
+            output.innerHTML = "Please complete Game 1 first!";
+            return;
+          }
+          
+          output.innerHTML = "=== Welcome to Hangman! ===\n";
+          output.innerHTML += "Try to guess the word letter by letter!\n";
+          output.innerHTML += "For this demo, the word is 'python'.\n";
+          output.innerHTML += "You can make 6 wrong guesses.\n\n";
+          output.innerHTML += "Try running the code in your Python environment!\n\n";
+          output.innerHTML += "💡 Tip: Practice with different words by modifying the word list!";
+          
+          // Mark game as completed for demo purposes
+          game2Completed = true;
+          document.getElementById('step3').className = 'step active';
+          document.getElementById('progressBar').style.width = '100%';
+          
+          // Show completion message after a delay
+          setTimeout(() => {
+            document.getElementById('completionMessage').classList.add('show');
+          }, 1000);
+        }
+      }, 1000);
+    }
+
+    // Toggle hint visibility
+    function toggleHint(gameNum) {
+      const hint = document.getElementById(`hint${gameNum}`);
+      hint.classList.toggle('show');
+    }
+
+    // Complete course
+    function completeCourse() {
+      if (game1Completed && game2Completed) {
+        document.getElementById('completionMessage').classList.add('show');
+      } else {
+        alert("Please complete both games first!");
+      }
+    }
+
+    // Initialize
+    showGame(1);
+  </script>
+</body>
+</html>
