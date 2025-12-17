@@ -784,266 +784,238 @@ Complete Game 1 first, then tackle this challenge!
 
       <div class="game-content">
         <div class="code-editor">
-          <div class="code-header">main.py - Main game file</div>
+          <div class="code-header">main.py - Game Structure</div>
           <div class="code-area">
             <pre class="code-display"><code id="code3_main" class="language-python" contenteditable="true"># Text-based Adventure Game
-# main.py - Main game file
-import game_engine
-import rooms
-import items
+# main.py - Complete the game structure below
 
-def main():
-    print("=== Welcome to Dungeons & Data Structures! ===")
-    print("You're a brave adventurer exploring the mysterious dungeon.")
-    print("Your goal is to find the legendary treasure and escape safely!")
-    print()
+# TODO: Complete the following functions to build your adventure game:
+# 1. Initialize game state with player information (name, health, inventory, current room)
+# 2. Implement the main game loop that continues until game ends
+# 3. Handle different user commands:
+#    - 'go [direction]' to move between rooms
+#    - 'look' to describe current room
+#    - 'take [item]' to collect items
+#    - 'inventory' or 'i' to show collected items
+#    - 'use [item]' to use collected items
+# 4. Use the imported modules to handle game logic:
+#    - game_engine.describe_room(room_name) - Describe the current room
+#    - game_engine.move_player(current_room, direction) - Move between rooms
+#    - game_engine.take_item(player, room_name, item_name) - Take an item
+#    - game_engine.use_item(player, item_name) - Use an item
 
-    # Initialize game state
-    player = {
-        'name': 'Adventurer',
-        'health': 100,
-        'inventory': [],
-        'current_room': 'entrance'
-    }
+# Your game should:
+# - Welcome the player and explain the objective
+# - Initialize player data with name, health, inventory, and current room
+# - Run a loop that processes user commands until the game ends
+# - Handle all possible commands (go, look, take, inventory, use)
+# - Check win/lose conditions (health, finding treasure, etc.)
+# - Provide clear feedback to the player after each action
 
-    # Game loop
-    game_running = True
-    while game_running and player['health'] > 0:
-        print(game_engine.describe_room(player['current_room']))
-
-        action = input("What would you like to do? ").lower().strip()
-
-        if action == 'quit' or action == 'exit':
-            game_running = False
-        elif action.startswith('go '):
-            direction = action[3:]  # Get the direction after 'go '
-            new_room = game_engine.move_player(player['current_room'], direction)
-            if new_room:
-                player['current_room'] = new_room
-                print(f"You moved to {new_room}")
-            else:
-                print("You can't go that way!")
-        elif action == 'look':
-            print(game_engine.describe_room(player['current_room']))
-        elif action.startswith('take '):
-            item = action[5:]  # Get the item after 'take '
-            if game_engine.take_item(player, player['current_room'], item):
-                print(f"You took the {item}")
-            else:
-                print(f"There's no {item} here")
-        elif action == 'inventory' or action == 'i':
-            if player['inventory']:
-                print("You are carrying:", ', '.join(player['inventory']))
-            else:
-                print("Your inventory is empty")
-        elif action.startswith('use '):
-            item = action[4:]  # Get the item after 'use '
-            result = game_engine.use_item(player, item)
-            print(result)
-        else:
-            print("I don't understand that command. Try 'go north', 'take [item]', 'use [item]', 'look', or 'inventory'.")
-
-        print()
-
-    if player['health'] <= 0:
-        print("You have died! Game over.")
-    else:
-        print("Thanks for playing!")
-
-if __name__ == "__main__":
-    main()</code></pre>
+# Example structure:
+# def main():
+#     print("Welcome message...")
+#     # Initialize player data
+#     # Game loop with command processing
+#     # Handle win/lose conditions
+#
+# if __name__ == "__main__":
+#     main()
+</code></pre>
           </div>
         </div>
 
         <div class="code-editor" style="margin-top: 1rem;">
-          <div class="code-header">game_engine.py - Game engine functions</div>
+          <div class="code-header">game_engine.py - Implement these functions</div>
           <div class="code-area">
             <pre class="code-display"><code id="code3_engine" class="language-python" contenteditable="true"># game_engine.py - Game engine functions
-rooms = {
-    'entrance': {
-        'description': 'You are at the entrance of a dark dungeon. Paths lead north and east.',
-        'items': ['torch'],
-        'exits': {'north': 'hallway', 'east': 'armory'}
-    },
-    'hallway': {
-        'description': 'A long, narrow hallway with flickering torches on the walls. Paths lead south, east, and north.',
-        'items': [],
-        'exits': {'south': 'entrance', 'east': 'treasure_room', 'north': 'library'}
-    },
-    'armory': {
-        'description': 'An old armory filled with rusty weapons. Paths lead west and north.',
-        'items': ['sword', 'shield'],
-        'exits': {'west': 'entrance', 'north': 'treasure_room'}
-    },
-    'library': {
-        'description': 'A dusty library with ancient books. Paths lead south and east.',
-        'items': ['book'],
-        'exits': {'south': 'hallway', 'east': 'treasure_room'}
-    },
-    'treasure_room': {
-        'description': 'A magnificent treasure room filled with gold and a magical artifact. Path leads back.',
-        'items': ['artifact'],
-        'exits': {'west': 'library', 'south': 'armory', 'southwest': 'hallway'}
-    }
-}
+# TODO: Define the rooms data structure as a dictionary with room information
+# Each room should have: description, items (list), and exits (dict)
+# Example room structure:
+# rooms = {
+#     'room_name': {
+#         'description': 'Description of the room',
+#         'items': ['list', 'of', 'items'],
+#         'exits': {'direction': 'connected_room'}
+#     }
+# }
+
+# TODO: Implement the following functions:
 
 def describe_room(room_name):
-    """Return the description of the given room."""
-    if room_name in rooms:
-        room = rooms[room_name]
-        desc = room['description']
+    """Return the description of the given room.
 
-        if room['items']:
-            desc += f"\\nYou can see: {', '.join(room['items'])}"
-        else:
-            desc += "\\nNo items in this room."
+    Args:
+        room_name (str): Name of the room to describe
 
-        return desc
-    else:
-        return "You are in an unknown location."
+    Returns:
+        str: Description of the room, including any items present
+    """
+    # TODO: Return room description
+    # - Check if room_name exists in rooms
+    # - Include a list of items in the room if any exist
+    # - Return appropriate message for unknown rooms
+    pass
 
 def move_player(current_room, direction):
-    """Try to move the player in the given direction, return new room or None."""
-    if current_room in rooms and direction in rooms[current_room]['exits']:
-        return rooms[current_room]['exits'][direction]
-    return None
+    """Try to move the player in the given direction, return new room or None.
+
+    Args:
+        current_room (str): Current room name
+        direction (str): Direction to move (e.g., 'north', 'south')
+
+    Returns:
+        str or None: Name of the new room if move is valid, None otherwise
+    """
+    # TODO: Check if the current_room exists and has the specified direction exit
+    # - Return the name of the room in that direction if possible
+    # - Return None if the move is invalid
+    pass
 
 def take_item(player, room_name, item_name):
-    """Try to take an item from the current room."""
-    if room_name in rooms and item_name in rooms[room_name]['items']:
-        rooms[room_name]['items'].remove(item_name)
-        player['inventory'].append(item_name)
-        return True
-    return False
+    """Try to take an item from the current room.
+
+    Args:
+        player (dict): Player dictionary with 'inventory' key
+        room_name (str): Name of the room where the item is
+        item_name (str): Name of the item to take
+
+    Returns:
+        bool: True if item was taken, False otherwise
+    """
+    # TODO: Check if the room and item exist
+    # - Remove item from room's items list
+    # - Add item to player's inventory
+    # - Return True if successful, False otherwise
+    pass
 
 def use_item(player, item_name):
-    """Handle using an item from the player's inventory."""
-    if item_name in player['inventory']:
-        if item_name == 'torch':
-            return "The torch lights up the dark area!"
-        elif item_name == 'book':
-            return "You read an ancient book and learn secret knowledge!"
-        elif item_name == 'artifact':
-            return "You found the legendary artifact! You win the game!"
-        else:
-            return f"You use the {item_name}. Nothing special happens."
-    else:
-        return f"You don't have a {item_name} in your inventory."
+    """Handle using an item from the player's inventory.
+
+    Args:
+        player (dict): Player dictionary with 'inventory' key
+        item_name (str): Name of the item to use
+
+    Returns:
+        str: Result message of using the item
+    """
+    # TODO: Check if player has the item in inventory
+    # - Return special message for specific items (torch, book, artifact, etc.)
+    # - Return generic message for other items
+    # - Return message if player doesn't have the item
+    pass
 </code></pre>
           </div>
         </div>
 
         <div class="code-editor" style="margin-top: 1rem;">
-          <div class="code-header">rooms.py - Room definitions</div>
+          <div class="code-header">rooms.py - Implement these functions</div>
           <div class="code-area">
             <pre class="code-display"><code id="code3_rooms" class="language-python" contenteditable="true"># rooms.py - Room definitions
-rooms_data = {
-    'entrance': {
-        'description': 'You are at the entrance of a dark dungeon. Paths lead north and east.',
-        'items': ['torch'],
-        'exits': {'north': 'hallway', 'east': 'armory'}
-    },
-    'hallway': {
-        'description': 'A long, narrow hallway with flickering torches on the walls. Paths lead south, east, and north.',
-        'items': [],
-        'exits': {'south': 'entrance', 'east': 'treasure_room', 'north': 'library'}
-    },
-    'armory': {
-        'description': 'An old armory filled with rusty weapons. Paths lead west and north.',
-        'items': ['sword', 'shield'],
-        'exits': {'west': 'entrance', 'north': 'treasure_room'}
-    },
-    'library': {
-        'description': 'A dusty library with ancient books. Paths lead south and east.',
-        'items': ['book'],
-        'exits': {'south': 'hallway', 'east': 'treasure_room'}
-    },
-    'treasure_room': {
-        'description': 'A magnificent treasure room filled with gold and a magical artifact. Path leads back.',
-        'items': ['artifact'],
-        'exits': {'west': 'library', 'south': 'armory', 'southwest': 'hallway'}
-    }
-}
+# TODO: Define the rooms data structure as a dictionary with room information
+# This should be compatible with the game_engine implementation
+# Example structure:
+# rooms_data = {
+#     'room_name': {
+#         'description': 'Description of the room',
+#         'items': ['list', 'of', 'items'],
+#         'exits': {'direction': 'connected_room'}
+#     }
+# }
+
+# TODO: Implement the following functions:
 
 def get_room_description(room_name):
-    """Return the description of the given room."""
-    if room_name in rooms_data:
-        room = rooms_data[room_name]
-        desc = room['description']
+    """Return the description of the given room.
 
-        if room['items']:
-            desc += f"\\nYou can see: {', '.join(room['items'])}"
-        else:
-            desc += "\\nNo items in this room."
+    Args:
+        room_name (str): Name of the room to describe
 
-        return desc
-    else:
-        return "You are in an unknown location."
+    Returns:
+        str: Description of the room, including any items present
+    """
+    # TODO: Return room description
+    # - Check if room_name exists in rooms_data
+    # - Include a list of items in the room if any exist
+    # - Return appropriate message for unknown rooms
+    pass
 
 def get_room_exits(room_name):
-    """Return the exits for the given room."""
-    if room_name in rooms_data:
-        return rooms_data[room_name]['exits']
-    else:
-        return {}
+    """Return the exits for the given room.
+
+    Args:
+        room_name (str): Name of the room to get exits for
+
+    Returns:
+        dict: Dictionary of exits for the room (e.g., {'north': 'hallway'})
+    """
+    # TODO: Return the exits for the given room
+    # - Check if room_name exists in rooms_data
+    # - Return the exits dictionary if it exists
+    # - Return empty dictionary for unknown rooms
+    pass
 </code></pre>
           </div>
         </div>
 
         <div class="code-editor" style="margin-top: 1rem;">
-          <div class="code-header">items.py - Item definitions</div>
+          <div class="code-header">items.py - Implement these functions</div>
           <div class="code-area">
             <pre class="code-display"><code id="code3_items" class="language-python" contenteditable="true"># items.py - Item definitions
-items_data = {
-    'torch': {
-        'description': 'A wooden torch that provides light in dark areas.',
-        'usable': True
-    },
-    'sword': {
-        'description': 'An old but sharp sword.',
-        'usable': False
-    },
-    'shield': {
-        'description': 'A rusty shield that can protect you.',
-        'usable': False
-    },
-    'book': {
-        'description': 'An ancient book filled with secrets.',
-        'usable': True
-    },
-    'artifact': {
-        'description': 'A magical artifact that grants special powers.',
-        'usable': True
-    }
-}
+# TODO: Define the items data structure as a dictionary with item information
+# Each item should have: description, and usable (boolean)
+# Example structure:
+# items_data = {
+#     'item_name': {
+#         'description': 'Description of the item',
+#         'usable': boolean
+#     }
+# }
+
+# TODO: Implement the following functions:
 
 def get_item_description(item_name):
-    """Return the description of the given item."""
-    if item_name in items_data:
-        return items_data[item_name]['description']
-    else:
-        return f"Unknown item: {item_name}"
+    """Return the description of the given item.
+
+    Args:
+        item_name (str): Name of the item to describe
+
+    Returns:
+        str: Description of the item
+    """
+    # TODO: Return item description
+    # - Check if item_name exists in items_data
+    # - Return appropriate message for unknown items
+    pass
 
 def is_item_usable(item_name):
-    """Return True if the item can be used."""
-    if item_name in items_data:
-        return items_data[item_name]['usable']
-    else:
-        return False
+    """Return True if the item can be used.
+
+    Args:
+        item_name (str): Name of the item to check
+
+    Returns:
+        bool: True if the item is usable, False otherwise
+    """
+    # TODO: Check if the item exists and is usable
+    # - Return the 'usable' value from items_data for the item
+    # - Return False for unknown items
+    pass
 
 def use_item(item_name):
-    """Handle using an item."""
-    if is_item_usable(item_name):
-        if item_name == 'torch':
-            return "The torch lights up the dark area!"
-        elif item_name == 'book':
-            return "You read an ancient book and learn secret knowledge!"
-        elif item_name == 'artifact':
-            return "You found the legendary artifact! You win the game!"
-        else:
-            return f"You use the {item_name}. Something magical happens!"
-    else:
-        return f"The {item_name} is not usable."
+    """Handle using an item.
+
+    Args:
+        item_name (str): Name of the item to use
+
+    Returns:
+        str: Result message of using the item
+    """
+    # TODO: Check if the item is usable
+    # - Return special message for specific items (torch, book, artifact, etc.)
+    # - Return generic message for other usable items
+    # - Return message indicating item is not usable for non-usable items
+    pass
 </code></pre>
           </div>
         </div>
@@ -1056,6 +1028,7 @@ Complete Games 1 & 2 first, then tackle this advanced challenge!
           <div class="buttons">
             <button class="btn btn-run" onclick="runGame(3)">▶ Run Code</button>
             <button class="btn btn-hint" onclick="toggleHint(3)">💡 Show Hint</button>
+            <button class="btn btn-hint" onclick="toggleSolution(3)">🔍 Show Solution</button>
           </div>
           <div class="hint-box" id="hint3">
             <strong>Hints for Game 3:</strong><br>
@@ -1066,12 +1039,45 @@ Complete Games 1 & 2 first, then tackle this advanced challenge!
             5. Use dictionaries and lists to manage game state
           </div>
 
+          <div class="hint-box" id="solution3" style="display:none;">
+            <strong>Solutions for Game 3:</strong><br>
+            <div class="code-editor" style="margin-top: 1rem; margin-bottom: 1rem;">
+              <div class="code-header">main.py solution</div>
+              <pre class="code-display"><code class="language-python" id="solution3_main"></code></pre>
+            </div>
+            <div class="code-editor" style="margin-top: 1rem; margin-bottom: 1rem;">
+              <div class="code-header">game_engine.py solution</div>
+              <pre class="code-display"><code class="language-python" id="solution3_engine"></code></pre>
+            </div>
+            <div class="code-editor" style="margin-top: 1rem; margin-bottom: 1rem;">
+              <div class="code-header">rooms.py solution</div>
+              <pre class="code-display"><code class="language-python" id="solution3_rooms"></code></pre>
+            </div>
+            <div class="code-editor" style="margin-top: 1rem; margin-bottom: 1rem;">
+              <div class="code-header">items.py solution</div>
+              <pre class="code-display"><code class="language-python" id="solution3_items"></code></pre>
+            </div>
+          </div>
+
           <div class="principles-box">
             <h4>Advanced Principles in this Game:</h4>
             <div class="principle-item"><span class="checkmark">✓</span> <strong>Modules:</strong> Breaking code into multiple files with imports</div>
             <div class="principle-item"><span class="checkmark">✓</span> <strong>Data Structures:</strong> Using dictionaries and lists for game state</div>
             <div class="principle-item"><span class="checkmark">✓</span> <strong>Functions:</strong> Modular functions across multiple files</div>
             <div class="principle-item"><span class="checkmark">✓</span> <strong>Game Logic:</strong> Complex state management and user interactions</div>
+          </div>
+
+          <div class="principles-box" id="conclusion3" style="margin-top: 1rem; display: none;">
+            <h4>Conclusion for Game 3:</h4>
+            <p>After completing Game 3, you should have learned:</p>
+            <ul>
+              <li>How to structure a Python application across multiple modules</li>
+              <li>How to use dictionaries and lists to manage game state</li>
+              <li>How to implement functions that interact with shared data structures</li>
+              <li>How to organize code for better maintainability and readability</li>
+              <li>How to implement game logic for a text-based adventure game</li>
+            </ul>
+            <p>These skills are essential for building larger applications in Python.</p>
           </div>
         </div>
       </div>
@@ -1086,198 +1092,170 @@ Complete Games 1 & 2 first, then tackle this advanced challenge!
 
       <div class="game-content">
         <div class="code-editor">
-          <div class="code-header">game.py - Main game logic</div>
+          <div class="code-header">game.py - Game Logic Structure</div>
           <div class="code-area">
             <pre class="code-display"><code id="code4_main" class="language-python" contenteditable="true"># Tic-Tac-Toe Game
-# game.py - Main game logic
-import board
-import player
-import ai
+# game.py - Complete the game logic below
 
-def main():
-    print("=== Welcome to Tic-Tac-Toe Tournament! ===")
-    print("Play against a friend or the computer!")
+# TODO: Complete the following functions to build your Tic-Tac-Toe game:
+# 1. Import required modules (board, ai)
+# 2. Implement the main game loop that continues until game ends
+# 3. Handle different game modes (friend vs computer)
+# 4. Use the imported modules to handle game logic:
+#    - board.initialize_board() - Create a new empty board
+#    - board.display_board(board) - Display the current board
+#    - board.position_to_coords(position) - Convert position (1-9) to coordinates
+#    - board.check_win(board, player) - Check if a player has won
+#    - board.check_tie(board) - Check if the game is a tie
+#    - ai.get_best_move(board, current_player) - Get the computer's move
 
-    # Determine game mode
-    mode = input("Choose mode - 'friend' or 'computer': ").lower()
+# Your game should:
+# - Welcome the player and allow choice between vs friend or vs computer
+# - Initialize the game board
+# - Alternate turns between players (X and O)
+# - Handle input validation for player moves
+# - Check for win/tie conditions after each move
+# - Display the board after each move
+# - Allow playing again after game ends
 
-    # Initialize game
-    game_board = board.initialize_board()
-    current_player = 'X'
-
-    # Game loop
-    game_over = False
-    winner = None
-
-    while not game_over:
-        print(board.display_board(game_board))
-
-        if mode == 'computer' and current_player == 'O':
-            # Computer's turn
-            print("Computer's turn...")
-            row, col = ai.get_best_move(game_board, current_player)
-            game_board[row][col] = current_player
-        else:
-            # Human player's turn
-            try:
-                position = int(input(f"Player {current_player}, enter position (1-9): "))
-                row, col = board.position_to_coords(position)
-
-                # Check if position is valid and available
-                if game_board[row][col] == ' ':
-                    game_board[row][col] = current_player
-                else:
-                    print("That position is already taken!")
-                    continue
-            except (ValueError, IndexError):
-                print("Please enter a valid number between 1-9!")
-                continue
-
-        # Check for win
-        if board.check_win(game_board, current_player):
-            print(board.display_board(game_board))
-            print(f"Player {current_player} wins!")
-            game_over = True
-            winner = current_player
-        elif board.check_tie(game_board):
-            print(board.display_board(game_board))
-            print("It's a tie!")
-            game_over = True
-        else:
-            # Switch player
-            current_player = 'O' if current_player == 'X' else 'X'
-
-    play_again = input("Play again? (y/n): ").lower()
-    if play_again == 'y':
-        main()  # Restart the game
-    else:
-        print("Thanks for playing!")
-
-if __name__ == "__main__":
-    main()</code></pre>
-          </div>
-        </div>
-
-        <div class="code-editor" style="margin-top: 1rem;">
-          <div class="code-header">board.py - Board management functions</div>
-          <div class="code-area">
-            <pre class="code-display"><code id="code4_board" class="language-python" contenteditable="true"># board.py - Board management functions
-
-def initialize_board():
-    """Create a new 3x3 game board filled with empty spaces."""
-    return [[' ' for _ in range(3)] for _ in range(3)]
-
-def display_board(board):
-    """Return a string representation of the board."""
-    result = "\\n"
-    result += " " + board[0][0] + " | " + board[0][1] + " | " + board[0][2] + "\\n"
-    result += "---|---|---\\n"
-    result += " " + board[1][0] + " | " + board[1][1] + " | " + board[1][2] + "\\n"
-    result += "---|---|---\\n"
-    result += " " + board[2][0] + " | " + board[2][1] + " | " + board[2][2] + "\\n"
-    return result
-
-def position_to_coords(position):
-    """Convert a position number (1-9) to row, col coordinates (0-2)."""
-    if position < 1 or position > 9:
-        raise ValueError("Position must be between 1 and 9")
-
-    # Map positions 1-9 to board coordinates
-    # 1 2 3
-    # 4 5 6
-    # 7 8 9
-    position -= 1  # Convert to 0-8 range
-    row = position // 3
-    col = position % 3
-    return row, col
-
-def check_win(board, player):
-    """Check if the specified player has won."""
-    # Check rows
-    for row in range(3):
-        if all(board[row][col] == player for col in range(3)):
-            return True
-
-    # Check columns
-    for col in range(3):
-        if all(board[row][col] == player for row in range(3)):
-            return True
-
-    # Check diagonals
-    if all(board[i][i] == player for i in range(3)):
-        return True
-    if all(board[i][2-i] == player for i in range(3)):
-        return True
-
-    return False
-
-def check_tie(board):
-    """Check if the game is a tie (board is full)."""
-    for row in range(3):
-        for col in range(3):
-            if board[row][col] == ' ':
-                return False
-    return True
+# Example structure and required functions:
+# def main():
+#     print("Welcome message...")
+#     # Ask for game mode (friend or computer)
+#     # Initialize board and set starting player
+#     # Main game loop
+#     #   Display board
+#     #   Handle player move (or computer move)
+#     #   Check win/tie conditions
+#     #   Switch player if no win/tie
+#     # Ask to play again
+#
+# if __name__ == "__main__":
+#     main()
 </code></pre>
           </div>
         </div>
 
         <div class="code-editor" style="margin-top: 1rem;">
-          <div class="code-header">ai.py - AI opponent logic</div>
+          <div class="code-header">board.py - Implement these functions</div>
+          <div class="code-area">
+            <pre class="code-display"><code id="code4_board" class="language-python" contenteditable="true"># board.py - Board management functions
+
+# TODO: Implement the following functions for Tic-Tac-Toe:
+
+def initialize_board():
+    """Create a new 3x3 game board filled with empty spaces.
+
+    Returns:
+        list: 3x3 2D list filled with empty spaces (' ')
+    """
+    # TODO: Create and return a 3x3 board filled with ' ' characters
+    pass
+
+def display_board(board):
+    """Return a string representation of the board.
+
+    Args:
+        board (list): 3x3 2D list representing the game board
+
+    Returns:
+        str: Formatted string showing the board with separators
+    """
+    # TODO: Format and return the board as a string
+    # Example format:
+    #  X | O | X
+    # ---|---|---
+    #  O | X | O
+    # ---|---|---
+    #  X |   | O
+    pass
+
+def position_to_coords(position):
+    """Convert a position number (1-9) to row, col coordinates (0-2).
+
+    Args:
+        position (int): Position number from 1-9 (like a numeric keypad)
+
+    Returns:
+        tuple: (row, col) coordinates where 1-9 maps to board positions
+
+    Raises:
+        ValueError: If position is not between 1 and 9
+    """
+    # TODO: Convert position (1-9) to (row, col) coordinates
+    # Position mapping:
+    # 1 2 3
+    # 4 5 6
+    # 7 8 9
+    pass
+
+def check_win(board, player):
+    """Check if the specified player has won.
+
+    Args:
+        board (list): 3x3 2D list representing the game board
+        player (str): Player symbol ('X' or 'O')
+
+    Returns:
+        bool: True if the player has won, False otherwise
+    """
+    # TODO: Check for win in rows, columns, and diagonals
+    # Return True if player has 3 in a row, column, or diagonal
+    pass
+
+def check_tie(board):
+    """Check if the game is a tie (board is full).
+
+    Args:
+        board (list): 3x3 2D list representing the game board
+
+    Returns:
+        bool: True if the game is a tie, False otherwise
+    """
+    # TODO: Check if all positions are filled (no spaces available)
+    # Return True if no empty spaces remain, False otherwise
+    pass
+</code></pre>
+          </div>
+        </div>
+
+        <div class="code-editor" style="margin-top: 1rem;">
+          <div class="code-header">ai.py - Implement AI logic</div>
           <div class="code-area">
             <pre class="code-display"><code id="code4_ai" class="language-python" contenteditable="true"># ai.py - AI opponent logic
 import random
 
 def get_best_move(board, ai_player):
-    """Return the best move for the AI player using a simple strategy."""
-    # Simple strategy: try to win, then block opponent, then take center, then corner, then any valid move
+    """Return the best move for the AI player using a simple strategy.
 
-    # First, try to find a winning move
-    for row in range(3):
-        for col in range(3):
-            if board[row][col] == ' ':
-                board[row][col] = ai_player
-                if check_win(board, ai_player):
-                    board[row][col] = ' '  # Reset the board
-                    return row, col
-                board[row][col] = ' '  # Reset the board
+    Args:
+        board (list): 3x3 2D list representing the game board
+        ai_player (str): The AI player's symbol ('X' or 'O')
 
-    # If no winning move, try to block opponent
-    opponent = 'X' if ai_player == 'O' else 'X'
-    for row in range(3):
-        for col in range(3):
-            if board[row][col] == ' ':
-                board[row][col] = opponent
-                if check_win(board, opponent):
-                    board[row][col] = ' '  # Reset the board
-                    return row, col
-                board[row][col] = ' '  # Reset the board
+    Returns:
+        tuple: (row, col) coordinates for the best move, or (None, None) if no moves available
+    """
+    # TODO: Implement AI strategy with the following prioritized approach:
+    # 1. Check for a winning move (3 in a row for AI)
+    # 2. Check for opponent's winning move and block it
+    # 3. Try to take the center position if available
+    # 4. Try to take a corner position if available
+    # 5. Take any random available position
 
-    # If no blocking move, try to take center
-    if board[1][1] == ' ':
-        return 1, 1
-
-    # If center is taken, try a corner
-    corners = [(0, 0), (0, 2), (2, 0), (2, 2)]
-    open_corners = [(r, c) for r, c in corners if board[r][c] == ' ']
-    if open_corners:
-        return random.choice(open_corners)
-
-    # If all else fails, pick a random available position
-    available = []
-    for row in range(3):
-        for col in range(3):
-            if board[row][col] == ' ':
-                available.append((row, col))
-
-    if available:
-        return random.choice(available)
-
-    # Should not reach here if board is not full
-    return None, None
+    # HINT: You can use check_win(board, player) to see if a move would result in a win
+    pass
 
 def check_win(board, player):
-    """Check if the specified player has won."""
+    """Check if the specified player has won. (Provided for use in get_best_move)
+
+    Args:
+        board (list): 3x3 2D list representing the game board
+        player (str): Player symbol ('X' or 'O')
+
+    Returns:
+        bool: True if the player has won, False otherwise
+    """
+    # This function is provided as it's also used in board.py
     # Check rows
     for row in range(3):
         if all(board[row][col] == player for col in range(3)):
@@ -1307,6 +1285,7 @@ Complete Game 1, 2, and 3 first, then tackle this expert challenge!
           <div class="buttons">
             <button class="btn btn-run" onclick="runGame(4)">▶ Run Code</button>
             <button class="btn btn-hint" onclick="toggleHint(4)">💡 Show Hint</button>
+            <button class="btn btn-hint" onclick="toggleSolution(4)">🔍 Show Solution</button>
           </div>
           <div class="hint-box" id="hint4">
             <strong>Hints for Game 4:</strong><br>
@@ -1317,12 +1296,41 @@ Complete Game 1, 2, and 3 first, then tackle this expert challenge!
             5. Consider implementing the minimax algorithm for an intelligent AI
           </div>
 
+          <div class="hint-box" id="solution4" style="display:none;">
+            <strong>Solutions for Game 4:</strong><br>
+            <div class="code-editor" style="margin-top: 1rem; margin-bottom: 1rem;">
+              <div class="code-header">game.py solution</div>
+              <pre class="code-display"><code class="language-python" id="solution4_main"></code></pre>
+            </div>
+            <div class="code-editor" style="margin-top: 1rem; margin-bottom: 1rem;">
+              <div class="code-header">board.py solution</div>
+              <pre class="code-display"><code class="language-python" id="solution4_board"></code></pre>
+            </div>
+            <div class="code-editor" style="margin-top: 1rem; margin-bottom: 1rem;">
+              <div class="code-header">ai.py solution</div>
+              <pre class="code-display"><code class="language-python" id="solution4_ai"></code></pre>
+            </div>
+          </div>
+
           <div class="principles-box">
             <h4>Expert Principles in this Game:</h4>
             <div class="principle-item"><span class="checkmark">✓</span> <strong>Multi-file Architecture:</strong> Complex project structure with multiple modules</div>
             <div class="principle-item"><span class="checkmark">✓</span> <strong>2D Data Structures:</strong> Working with 2D lists for the game board</div>
             <div class="principle-item"><span class="checkmark">✓</span> <strong>Algorithms:</strong> Implementing AI algorithms (optional)</div>
             <div class="principle-item"><span class="checkmark">✓</span> <strong>Advanced Programming:</strong> Complex conditional logic and data manipulation</div>
+          </div>
+
+          <div class="principles-box" id="conclusion4" style="margin-top: 1rem; display: none;">
+            <h4>Conclusion for Game 4:</h4>
+            <p>After completing Game 4, you should have learned:</p>
+            <ul>
+              <li>How to implement 2D data structures for game boards</li>
+              <li>How to create an AI opponent with strategic decision making</li>
+              <li>How to represent and manipulate game positions</li>
+              <li>How to implement win/tie checking algorithms</li>
+              <li>How to structure a complex game with multiple interacting components</li>
+            </ul>
+            <p>These skills will help you tackle more complex programming challenges.</p>
           </div>
         </div>
       </div>
@@ -1640,7 +1648,311 @@ def main():
         print("Thanks for playing!")
 
 if __name__ == "__main__":
-    main()`
+    main()`,
+
+      game3_engine: `# game_engine.py - Game engine functions
+rooms = {
+    'entrance': {
+        'description': 'You are at the entrance of a dark dungeon. Paths lead north and east.',
+        'items': ['torch'],
+        'exits': {'north': 'hallway', 'east': 'armory'}
+    },
+    'hallway': {
+        'description': 'A long, narrow hallway with flickering torches on the walls. Paths lead south, east, and north.',
+        'items': [],
+        'exits': {'south': 'entrance', 'east': 'treasure_room', 'north': 'library'}
+    },
+    'armory': {
+        'description': 'An old armory filled with rusty weapons. Paths lead west and north.',
+        'items': ['sword', 'shield'],
+        'exits': {'west': 'entrance', 'north': 'treasure_room'}
+    },
+    'library': {
+        'description': 'A dusty library with ancient books. Paths lead south and east.',
+        'items': ['book'],
+        'exits': {'south': 'hallway', 'east': 'treasure_room'}
+    },
+    'treasure_room': {
+        'description': 'A magnificent treasure room filled with gold and a magical artifact. Path leads back.',
+        'items': ['artifact'],
+        'exits': {'west': 'library', 'south': 'armory', 'southwest': 'hallway'}
+    }
+}
+
+def describe_room(room_name):
+    """Return the description of the given room."""
+    if room_name in rooms:
+        room = rooms[room_name]
+        desc = room['description']
+
+        if room['items']:
+            desc += f"\\nYou can see: {', '.join(room['items'])}"
+        else:
+            desc += "\\nNo items in this room."
+
+        return desc
+    else:
+        return "You are in an unknown location."
+
+def move_player(current_room, direction):
+    """Try to move the player in the given direction, return new room or None."""
+    if current_room in rooms and direction in rooms[current_room]['exits']:
+        return rooms[current_room]['exits'][direction]
+    return None
+
+def take_item(player, room_name, item_name):
+    """Try to take an item from the current room."""
+    if room_name in rooms and item_name in rooms[room_name]['items']:
+        rooms[room_name]['items'].remove(item_name)
+        player['inventory'].append(item_name)
+        return True
+    return False
+
+def use_item(player, item_name):
+    """Handle using an item from the player's inventory."""
+    if item_name in player['inventory']:
+        if item_name == 'torch':
+            return "The torch lights up the dark area!"
+        elif item_name == 'book':
+            return "You read an ancient book and learn secret knowledge!"
+        elif item_name == 'artifact':
+            return "You found the legendary artifact! You win the game!"
+        else:
+            return f"You use the {item_name}. Nothing special happens."
+    else:
+        return f"You don't have a {item_name} in your inventory."`,
+
+      game3_rooms: `# rooms.py - Room definitions
+rooms_data = {
+    'entrance': {
+        'description': 'You are at the entrance of a dark dungeon. Paths lead north and east.',
+        'items': ['torch'],
+        'exits': {'north': 'hallway', 'east': 'armory'}
+    },
+    'hallway': {
+        'description': 'A long, narrow hallway with flickering torches on the walls. Paths lead south, east, and north.',
+        'items': [],
+        'exits': {'south': 'entrance', 'east': 'treasure_room', 'north': 'library'}
+    },
+    'armory': {
+        'description': 'An old armory filled with rusty weapons. Paths lead west and north.',
+        'items': ['sword', 'shield'],
+        'exits': {'west': 'entrance', 'north': 'treasure_room'}
+    },
+    'library': {
+        'description': 'A dusty library with ancient books. Paths lead south and east.',
+        'items': ['book'],
+        'exits': {'south': 'hallway', 'east': 'treasure_room'}
+    },
+    'treasure_room': {
+        'description': 'A magnificent treasure room filled with gold and a magical artifact. Path leads back.',
+        'items': ['artifact'],
+        'exits': {'west': 'library', 'south': 'armory', 'southwest': 'hallway'}
+    }
+}
+
+def get_room_description(room_name):
+    """Return the description of the given room."""
+    if room_name in rooms_data:
+        room = rooms_data[room_name]
+        desc = room['description']
+
+        if room['items']:
+            desc += f"\\nYou can see: {', '.join(room['items'])}"
+        else:
+            desc += "\\nNo items in this room."
+
+        return desc
+    else:
+        return "You are in an unknown location."
+
+def get_room_exits(room_name):
+    """Return the exits for the given room."""
+    if room_name in rooms_data:
+        return rooms_data[room_name]['exits']
+    else:
+        return {}`,
+
+      game3_items: `# items.py - Item definitions
+items_data = {
+    'torch': {
+        'description': 'A wooden torch that provides light in dark areas.',
+        'usable': True
+    },
+    'sword': {
+        'description': 'An old but sharp sword.',
+        'usable': False
+    },
+    'shield': {
+        'description': 'A rusty shield that can protect you.',
+        'usable': False
+    },
+    'book': {
+        'description': 'An ancient book filled with secrets.',
+        'usable': True
+    },
+    'artifact': {
+        'description': 'A magical artifact that grants special powers.',
+        'usable': True
+    }
+}
+
+def get_item_description(item_name):
+    """Return the description of the given item."""
+    if item_name in items_data:
+        return items_data[item_name]['description']
+    else:
+        return f"Unknown item: {item_name}"
+
+def is_item_usable(item_name):
+    """Return True if the item can be used."""
+    if item_name in items_data:
+        return items_data[item_name]['usable']
+    else:
+        return False
+
+def use_item(item_name):
+    """Handle using an item."""
+    if is_item_usable(item_name):
+        if item_name == 'torch':
+            return "The torch lights up the dark area!"
+        elif item_name == 'book':
+            return "You read an ancient book and learn secret knowledge!"
+        elif item_name == 'artifact':
+            return "You found the legendary artifact! You win the game!"
+        else:
+            return f"You use the {item_name}. Something magical happens!"
+    else:
+        return f"The {item_name} is not usable."`,
+
+      game4_board: `# board.py - Board management functions
+
+def initialize_board():
+    """Create a new 3x3 game board filled with empty spaces."""
+    return [[' ' for _ in range(3)] for _ in range(3)]
+
+def display_board(board):
+    """Return a string representation of the board."""
+    result = "\\n"
+    result += " " + board[0][0] + " | " + board[0][1] + " | " + board[0][2] + "\\n"
+    result += "---|---|---\\n"
+    result += " " + board[1][0] + " | " + board[1][1] + " | " + board[1][2] + "\\n"
+    result += "---|---|---\\n"
+    result += " " + board[2][0] + " | " + board[2][1] + " | " + board[2][2] + "\\n"
+    return result
+
+def position_to_coords(position):
+    """Convert a position number (1-9) to row, col coordinates (0-2)."""
+    if position < 1 or position > 9:
+        raise ValueError("Position must be between 1 and 9")
+
+    # Map positions 1-9 to board coordinates
+    # 1 2 3
+    # 4 5 6
+    # 7 8 9
+    position -= 1  # Convert to 0-8 range
+    row = position // 3
+    col = position % 3
+    return row, col
+
+def check_win(board, player):
+    """Check if the specified player has won."""
+    # Check rows
+    for row in range(3):
+        if all(board[row][col] == player for col in range(3)):
+            return True
+
+    # Check columns
+    for col in range(3):
+        if all(board[row][col] == player for row in range(3)):
+            return True
+
+    # Check diagonals
+    if all(board[i][i] == player for i in range(3)):
+        return True
+    if all(board[i][2-i] == player for i in range(3)):
+        return True
+
+    return False
+
+def check_tie(board):
+    """Check if the game is a tie (board is full)."""
+    for row in range(3):
+        for col in range(3):
+            if board[row][col] == ' ':
+                return False
+    return True`,
+
+      game4_ai: `# ai.py - AI opponent logic
+import random
+
+def get_best_move(board, ai_player):
+    """Return the best move for the AI player using a simple strategy."""
+    # Simple strategy: try to win, then block opponent, then take center, then corner, then any valid move
+
+    # First, try to find a winning move
+    for row in range(3):
+        for col in range(3):
+            if board[row][col] == ' ':
+                board[row][col] = ai_player
+                if check_win(board, ai_player):
+                    board[row][col] = ' '  # Reset the board
+                    return row, col
+                board[row][col] = ' '  # Reset the board
+
+    # If no winning move, try to block opponent
+    opponent = 'X' if ai_player == 'O' else 'X'
+    for row in range(3):
+        for col in range(3):
+            if board[row][col] == ' ':
+                board[row][col] = opponent
+                if check_win(board, opponent):
+                    board[row][col] = ' '  # Reset the board
+                    return row, col
+                board[row][col] = ' '  # Reset the board
+
+    # If no blocking move, try to take center
+    if board[1][1] == ' ':
+        return 1, 1
+
+    # If center is taken, try a corner
+    corners = [(0, 0), (0, 2), (2, 0), (2, 2)]
+    open_corners = [(r, c) for r, c in corners if board[r][c] == ' ']
+    if open_corners:
+        return random.choice(open_corners)
+
+    # If all else fails, pick a random available position
+    available = []
+    for row in range(3):
+        for col in range(3):
+            if board[row][col] == ' ':
+                available.append((row, col))
+
+    if available:
+        return random.choice(available)
+
+    # Should not reach here if board is not full
+    return None, None
+
+def check_win(board, player):
+    """Check if the specified player has won."""
+    # Check rows
+    for row in range(3):
+        if all(board[row][col] == player for col in range(3)):
+            return True
+
+    # Check columns
+    for col in range(3):
+        if all(board[row][col] == player for row in range(3)):
+            return True
+
+    # Check diagonals
+    if all(board[i][i] == player for i in range(3)):
+        return True
+    if all(board[i][2-i] == player for i in range(3)):
+        return True
+
+    return False`
     };
 
     // Game state management
@@ -1781,6 +2093,45 @@ if __name__ == "__main__":
     function toggleHint(gameNum) {
       const hint = document.getElementById(`hint${gameNum}`);
       hint.classList.toggle('show');
+    }
+
+    // Toggle solution visibility
+    function toggleSolution(gameNum) {
+      const solution = document.getElementById(`solution${gameNum}`);
+      const conclusion = document.getElementById(`conclusion${gameNum}`);
+
+      // Toggle solution visibility
+      if (solution.style.display === 'none' || solution.style.display === '') {
+        solution.style.display = 'block';
+
+        // Set the solution code for each file
+        if (gameNum === 3) {
+          document.getElementById('solution3_main').textContent = solutions.game3;
+          document.getElementById('solution3_engine').textContent = solutions.game3_engine;
+          document.getElementById('solution3_rooms').textContent = solutions.game3_rooms;
+          document.getElementById('solution3_items').textContent = solutions.game3_items;
+          // Show conclusion after a delay
+          setTimeout(() => {
+            if (conclusion) conclusion.style.display = 'block';
+          }, 500);
+        } else if (gameNum === 4) {
+          document.getElementById('solution4_main').textContent = solutions.game4;
+          document.getElementById('solution4_board').textContent = solutions.game4_board;
+          document.getElementById('solution4_ai').textContent = solutions.game4_ai;
+          // Show conclusion after a delay
+          setTimeout(() => {
+            if (conclusion) conclusion.style.display = 'block';
+          }, 500);
+        }
+
+        // Also highlight the code blocks with Prism
+        setTimeout(() => {
+          Prism.highlightAll();
+        }, 100);
+      } else {
+        solution.style.display = 'none';
+        if (conclusion) conclusion.style.display = 'none';
+      }
     }
 
     // Complete course
