@@ -83,155 +83,225 @@
     <!-- Section: Variables -->
     <section id="variables">
       <h2>Step 1: Variables and Data Types</h2>
-      <p>Variables are containers for storing data values. In Python, you don't need to declare the type of a variable; it's determined automatically.</p>
-      <p><strong>Common Data Types:</strong></p>
+      <p>Think of a variable as a labeled box where you can store information. You give the box a name (the variable name) and put something inside it (the value).</p>
+      <p>In Python, you create a variable by giving it a name and using the equals sign (<code>=</code>) to assign it a value. Python is smart enough to figure out the type of data you're storing.</p>
+      
+      <h3>Naming Rules</h3>
       <ul>
-        <li><strong>String (str):</strong> Text, enclosed in quotes. Example: <code>"Hello"</code></li>
-        <li><strong>Integer (int):</strong> Whole numbers. Example: <code>10</code></li>
-        <li><strong>Float (float):</strong> Decimal numbers. Example: <code>3.14</code></li>
-        <li><strong>Boolean (bool):</strong> Represents <code>True</code> or <code>False</code>.</li>
+        <li>A variable name must start with a letter or the underscore character (<code>_</code>).</li>
+        <li>A variable name cannot start with a number.</li>
+        <li>A variable name can only contain alpha-numeric characters and underscores (A-z, 0-9, and _ ).</li>
+        <li>Variable names are case-sensitive (<code>age</code>, <code>Age</code> and <code>AGE</code> are three different variables).</li>
       </ul>
-      <pre><code class="language-python"># String
-name = "Alice"
 
-# Integer
-age = 30
+      <h3>Common Data Types</h3>
+      <ul>
+        <li><strong>String (str):</strong> Used for text. You must enclose them in single (<code>'</code>) or double (<code>"</code>) quotes.</li>
+        <li><strong>Integer (int):</strong> Used for whole numbers, without decimals.</li>
+        <li><strong>Float (float):</strong> Used for numbers with decimals.</li>
+        <li><strong>Boolean (bool):</strong> A special type that can only be <code>True</code> or <code>False</code>.</li>
+      </ul>
+      <pre><code class="language-python"># String: for storing text
+greeting = "Hello, Python learner!"
+# Integer: for whole numbers
+user_age = 25
+# Float: for decimal numbers
+pi_value = 3.14159
+# Boolean: for true/false values
+is_learning = True
 
-# Float
-height = 5.5
-
-# Boolean
-is_student = True
-
-print(name)
-print(age)</code></pre>
+print(f"User's age: {user_age}")</code></pre>
 
       <div class="challenge">
         <h3>Challenge: Your First Variables</h3>
-        <p>Create variables to store the name of your city, the current temperature, and whether it is currently raining.</p>
+        <p>Create variables to store the name of your city, the current temperature, and whether it is currently raining. Print them out using an f-string.</p>
         <button class="solution-toggle" onclick="toggleSolution('solution1')">Show Solution</button>
         <div class="solution-content" id="solution1">
           <pre><code class="language-python">city = "New York"
 temperature = 15.5
 is_raining = False
+print(f"The weather in {city} is {temperature}°C. Is it raining? {is_raining}")</code></pre>
+        </div>
+      </div>
+    </section>
 
-print(f"City: {city}")
-print(f"Temperature: {temperature}°C")
-print(f"Is it raining? {is_raining}")</code></pre>
+    <!-- Section: Strings -->
+    <section id="strings">
+      <h2>Step 2: Working with Strings</h2>
+      <p>Strings are one of the most common data types. Since they are sequences of characters, you can do a lot more than just store text.</p>
+      
+      <h3>String Concatenation</h3>
+      <p>You can combine strings using the <code>+</code> operator.</p>
+      <pre><code class="language-python">first_name = "John"
+last_name = "Doe"
+full_name = first_name + " " + last_name
+print(full_name) # Output: John Doe</code></pre>
+
+      <h3>Indexing and Slicing</h3>
+      <p>You can access parts of a string using indexes (positions) in square brackets <code>[]</code>. Slicing lets you get a substring.</p>
+      <pre><code class="language-python">sentence = "The quick brown fox"
+first_char = sentence[0] # 'T' (index 0)
+word = sentence[4:9] # 'quick' (from index 4 up to, but not including, 9)
+print(f"The first character is: {first_char}")
+print(f"A sliced word is: {word}")</code></pre>
+
+      <h3>Common String Methods</h3>
+      <p>Methods are special functions that belong to an object. Here are a few useful ones for strings:</p>
+      <ul>
+        <li><code>.upper()</code>: Converts the string to uppercase.</li>
+        <li><code>.lower()</code>: Converts the string to lowercase.</li>
+        <li><code>.strip()</code>: Removes any leading and trailing whitespace.</li>
+        <li><code>len()</code>: A built-in function to get the length of the string.</li>
+      </ul>
+      <pre><code class="language-python">messy_text = "   Some Text Here   "
+print(f"Original: '{messy_text}'")
+print(f"Stripped: '{messy_text.strip()}'")
+print(f"Uppercase: '{messy_text.upper()}'")
+print(f"Length of stripped text: {len(messy_text.strip())}")</code></pre>
+      
+      <div class="challenge">
+        <h3>Challenge: String Cleanup</h3>
+        <p>You have a messy string: <code>"  heLLo wORLd  "</code>. Clean it up by removing the extra spaces and capitalizing it properly (so it looks like "Hello world").</p>
+        <button class="solution-toggle" onclick="toggleSolution('solution_string1')">Show Solution</button>
+        <div class="solution-content" id="solution_string1">
+          <pre><code class="language-python">messy = "  heLLo wORLd  "
+# 1. Strip whitespace, 2. Convert to lowercase, 3. Capitalize the first letter.
+cleaned = messy.strip().lower().capitalize()
+print(cleaned) # Output: Hello world
+# Note: .capitalize() is another useful method!</code></pre>
         </div>
       </div>
     </section>
 
     <!-- Section: Flow Control -->
     <section id="flow-control">
-      <h2>Step 2: Flow Control (if/else)</h2>
-      <p>Flow control allows your program to make decisions. The <code>if</code>, <code>elif</code> (else if), and <code>else</code> statements are used to execute different blocks of code based on conditions.</p>
-      <pre><code class="language-python">age = 18
+      <h2>Step 3: Flow Control (if/else)</h2>
+      <p>Flow control lets your code make decisions. It's like a fork in the road.</p>
+      <p>You can also combine conditions with logical operators:</p>
+      <ul>
+          <li><code>and</code>: Both conditions must be true.</li>
+          <li><code>or</code>: At least one condition must be true.</li>
+          <li><code>not</code>: Inverts the result (<code>True</code> becomes <code>False</code> and vice-versa).</li>
+      </ul>
+      <pre><code class="language-python">age = 22
+has_license = True
 
-if age < 13:
-    print("You are a child.")
-elif age < 20:
-    print("You are a teenager.")
+if age >= 18 and has_license:
+    print("You are allowed to drive.")
+elif age >= 18 and not has_license:
+    print("You are old enough, but you need a license to drive.")
 else:
-    print("You are an adult.")</code></pre>
+    print("You are not allowed to drive.")</code></pre>
 
       <div class="challenge">
-        <h3>Challenge: Number Checker</h3>
-        <p>Write a program that checks if a number is positive, negative, or zero.</p>
+        <h3>Challenge: Movie Ticket Pricing</h3>
+        <p>Write a program to determine the price of a movie ticket based on age.
+          <ul>
+            <li>Children (age under 13): $10</li>
+            <li>Adults (age 13 to 64): $15</li>
+            <li>Seniors (age 65 and over): $12</li>
+          </ul>
+        </p>
         <button class="solution-toggle" onclick="toggleSolution('solution2')">Show Solution</button>
         <div class="solution-content" id="solution2">
-          <pre><code class="language-python">num = -5
+          <pre><code class="language-python">customer_age = 45
+ticket_price = 0
 
-if num > 0:
-    print("The number is positive.")
-elif num < 0:
-    print("The number is negative.")
-else:
-    print("The number is zero.")</code></pre>
+if customer_age < 13:
+    ticket_price = 10
+elif customer_age >= 13 and customer_age <= 64:
+    ticket_price = 15
+else: # Over 64
+    ticket_price = 12
+
+print(f"The ticket price for a {customer_age}-year-old is ${ticket_price}.")</code></pre>
         </div>
       </div>
     </section>
 
     <!-- Section: Lists -->
     <section id="lists">
-      <h2>Step 3: Lists</h2>
-      <p>A list is a collection of items which is ordered and changeable. Lists are written with square brackets.</p>
-      <p>You can add items using <code>.append()</code> and access them by their index (starting from 0).</p>
-      <pre><code class="language-python"># Create a list
-fruits = ["apple", "banana", "cherry"]
-print(fruits)
+      <h2>Step 4: Lists</h2>
+      <p>A list is an ordered, changeable collection of items. They are one of the most versatile data types in Python.</p>
+      <h3>Modifying a List</h3>
+      <p>You can change, add, and remove items.</p>
+      <ul>
+        <li>Change an item by accessing its index: <code>my_list[1] = "new_item"</code>.</li>
+        <li>Add an item with <code>.append()</code>.</li>
+        <li>Remove an item with <code>.remove("item_name")</code> or <code>del my_list[index]</code>.</li>
+      </ul>
+      <pre><code class="language-python"># A list of tasks
+tasks = ["wash car", "buy groceries", "pay bills"]
+print(f"Original tasks: {tasks}")
 
-# Access an item
-print(fruits[1])  # Output: banana
+# Change an item
+tasks[0] = "wash the dog"
+print(f"Updated tasks: {tasks}")
 
-# Add an item
-fruits.append("orange")
-print(fruits)</code></pre>
+# Remove an item
+tasks.remove("pay bills")
+print(f"Final tasks: {tasks}")</code></pre>
 
       <div class="challenge">
-        <h3>Challenge: Even Numbers</h3>
-        <p>Create a list of numbers from 1 to 10. Then, write a loop to print only the even numbers from the list.</p>
+        <h3>Challenge: Shopping List</h3>
+        <p>Start with a shopping list: <code>["milk", "bread"]</code>. First, add "butter" to the list. Then, remove "bread". Finally, print the final list.</p>
         <button class="solution-toggle" onclick="toggleSolution('solution3')">Show Solution</button>
         <div class="solution-content" id="solution3">
-          <pre><code class="language-python">numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+          <pre><code class="language-python">shopping_list = ["milk", "bread"]
+print(f"Initial list: {shopping_list}")
 
-for number in numbers:
-    # The % operator gives the remainder of a division
-    if number % 2 == 0:
-        print(number)</code></pre>
+shopping_list.append("butter")
+print(f"After adding butter: {shopping_list}")
+
+shopping_list.remove("bread")
+print(f"Final list: {shopping_list}")</code></pre>
         </div>
       </div>
     </section>
 
     <!-- Section: Loops -->
     <section id="loops">
-      <h2>Step 4: Loops</h2>
-      <p>Loops are used to execute a block of code repeatedly.</p>
-      <p><strong><code>for</code> loop:</strong> Used for iterating over a sequence (like a list or a range).</p>
-      <pre><code class="language-python"># Loop through a list
-fruits = ["apple", "banana", "cherry"]
-for fruit in fruits:
-    print(fruit)
+      <h2>Step 5: Loops</h2>
+      <p>Loops are for doing something over and over. This is known as "iteration".</p>
+      
+      <h3>The <code>for</code> loop with <code>range()</code></h3>
+      <p>The <code>range()</code> function is flexible. You can give it a start, stop, and step: <code>range(start, stop, step)</code>.</p>
+      <pre><code class="language-python"># Countdown from 5 down to 1
+for i in range(5, 0, -1):
+    print(f"Countdown: {i}")
+print("Blast off!")</code></pre>
 
-# Loop a specific number of times
-for i in range(5):  # from 0 to 4
-    print(f"Loop number {i}")</code></pre>
+      <h3>The <code>while</code> loop</h3>
+      <p>A <code>while</code> loop is perfect for when you want to repeat something until a certain condition is met.</p>
+      <pre><code class="language-python"># Keep asking for input until the user types 'quit'
+command = ""
+while command.lower() != "quit":
+    command = input("Enter a command (or 'quit' to exit): ")
+    print(f"You entered: {command}")
+
+print("Exiting the program.")</code></pre>
+
+      <div class="challenge">
+        <h3>Challenge: Sum of Numbers</h3>
+        <p>Use a <code>for</code> loop and <code>range()</code> to calculate the sum of all numbers from 1 to 100.</p>
+        <button class="solution-toggle" onclick="toggleSolution('solution_loop1')">Show Solution</button>
+        <div class="solution-content" id="solution_loop1">
+          <pre><code class="language-python">total = 0
+# range(1, 101) goes from 1 up to, but not including, 101.
+for number in range(1, 101):
+    total = total + number
+
+print(f"The sum of numbers from 1 to 100 is: {total}")</code></pre>
+        </div>
+      </div>
 
       <div class="challenge">
         <h3>Challenge: Print a Triangle</h3>
         <p>Use a <code>for</code> loop to print a right-angled triangle made of asterisks (*), 5 rows high.</p>
         <button class="solution-toggle" onclick="toggleSolution('solution4')">Show Solution</button>
         <div class="solution-content" id="solution4">
-          <pre><code class="language-python">for i in range(1, 6):  # from 1 to 5
-    print("* " * i)
-
-# Output:
-# *
-# * *
-# * * *
-# * * * *
-# * * * * *</code></pre>
-        </div>
-      </div>
-
-      <div class="challenge">
-        <h3>Challenge: Print a Rectangle</h3>
-        <p>Use nested <code>for</code> loops to print a 4x5 rectangle of asterisks (*).</p>
-        <button class="solution-toggle" onclick="toggleSolution('solution5')">Show Solution</button>
-        <div class="solution-content" id="solution5">
-          <pre><code class="language-python">rows = 4
-cols = 5
-
-for i in range(rows):
-    for j in range(cols):
-        print("* ", end="")
-    print() # Move to the next line after each row
-
-# Output:
-# * * * * * 
-# * * * * * 
-# * * * * * 
-# * * * * * </code></pre>
+          <pre><code class="language-python">for i in range(1, 6):
+    print("* " * i)</code></pre>
         </div>
       </div>
     </section>
@@ -250,7 +320,6 @@ for i in range(rows):
         solution.style.display = "block";
       }
     }
-    // Highlight all code blocks
     Prism.highlightAll();
   </script>
 </body>
