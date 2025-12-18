@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Python Basics Tutorial</title>
+
+  <!-- Prism.js for syntax highlighting -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f8f9fa;
+      color: #333;
+      padding: 2rem;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    h2 {
+      border-bottom: 2px solid #4CAF50;
+      padding-bottom: 0.5rem;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+    p {
+      margin-bottom: 1rem;
+    }
+    pre {
+      margin-bottom: 1rem;
+      font-size: 0.92rem;
+      overflow-x: auto;
+    }
+    .challenge {
+      background: #e8f4ff;
+      border-left: 4px solid #2196F3;
+      padding: 1rem;
+      margin-top: 1rem;
+      border-radius: 4px;
+    }
+    .challenge h3 {
+      margin-top: 0;
+      color: #2196F3;
+    }
+    .solution-toggle {
+      background: #f1f3f5;
+      border: none;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      font-weight: bold;
+      color: #555;
+      border-radius: 4px;
+      margin-top: 1rem;
+    }
+    .solution-content {
+      display: none;
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #fafafa;
+      border: 1px dashed #ccc;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Python Basics: A Step-by-Step Guide</h1>
+
+    <!-- Section: Variables -->
+    <section id="variables">
+      <h2>Step 1: Variables and Data Types</h2>
+      <p>Variables are containers for storing data values. In Python, you don't need to declare the type of a variable; it's determined automatically.</p>
+      <p><strong>Common Data Types:</strong></p>
+      <ul>
+        <li><strong>String (str):</strong> Text, enclosed in quotes. Example: <code>"Hello"</code></li>
+        <li><strong>Integer (int):</strong> Whole numbers. Example: <code>10</code></li>
+        <li><strong>Float (float):</strong> Decimal numbers. Example: <code>3.14</code></li>
+        <li><strong>Boolean (bool):</strong> Represents <code>True</code> or <code>False</code>.</li>
+      </ul>
+      <pre><code class="language-python"># String
+name = "Alice"
+
+# Integer
+age = 30
+
+# Float
+height = 5.5
+
+# Boolean
+is_student = True
+
+print(name)
+print(age)</code></pre>
+
+      <div class="challenge">
+        <h3>Challenge: Your First Variables</h3>
+        <p>Create variables to store the name of your city, the current temperature, and whether it is currently raining.</p>
+        <button class="solution-toggle" onclick="toggleSolution('solution1')">Show Solution</button>
+        <div class="solution-content" id="solution1">
+          <pre><code class="language-python">city = "New York"
+temperature = 15.5
+is_raining = False
+
+print(f"City: {city}")
+print(f"Temperature: {temperature}°C")
+print(f"Is it raining? {is_raining}")</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Flow Control -->
+    <section id="flow-control">
+      <h2>Step 2: Flow Control (if/else)</h2>
+      <p>Flow control allows your program to make decisions. The <code>if</code>, <code>elif</code> (else if), and <code>else</code> statements are used to execute different blocks of code based on conditions.</p>
+      <pre><code class="language-python">age = 18
+
+if age < 13:
+    print("You are a child.")
+elif age < 20:
+    print("You are a teenager.")
+else:
+    print("You are an adult.")</code></pre>
+
+      <div class="challenge">
+        <h3>Challenge: Number Checker</h3>
+        <p>Write a program that checks if a number is positive, negative, or zero.</p>
+        <button class="solution-toggle" onclick="toggleSolution('solution2')">Show Solution</button>
+        <div class="solution-content" id="solution2">
+          <pre><code class="language-python">num = -5
+
+if num > 0:
+    print("The number is positive.")
+elif num < 0:
+    print("The number is negative.")
+else:
+    print("The number is zero.")</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Lists -->
+    <section id="lists">
+      <h2>Step 3: Lists</h2>
+      <p>A list is a collection of items which is ordered and changeable. Lists are written with square brackets.</p>
+      <p>You can add items using <code>.append()</code> and access them by their index (starting from 0).</p>
+      <pre><code class="language-python"># Create a list
+fruits = ["apple", "banana", "cherry"]
+print(fruits)
+
+# Access an item
+print(fruits[1])  # Output: banana
+
+# Add an item
+fruits.append("orange")
+print(fruits)</code></pre>
+
+      <div class="challenge">
+        <h3>Challenge: Even Numbers</h3>
+        <p>Create a list of numbers from 1 to 10. Then, write a loop to print only the even numbers from the list.</p>
+        <button class="solution-toggle" onclick="toggleSolution('solution3')">Show Solution</button>
+        <div class="solution-content" id="solution3">
+          <pre><code class="language-python">numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+for number in numbers:
+    # The % operator gives the remainder of a division
+    if number % 2 == 0:
+        print(number)</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Loops -->
+    <section id="loops">
+      <h2>Step 4: Loops</h2>
+      <p>Loops are used to execute a block of code repeatedly.</p>
+      <p><strong><code>for</code> loop:</strong> Used for iterating over a sequence (like a list or a range).</p>
+      <pre><code class="language-python"># Loop through a list
+fruits = ["apple", "banana", "cherry"]
+for fruit in fruits:
+    print(fruit)
+
+# Loop a specific number of times
+for i in range(5):  # from 0 to 4
+    print(f"Loop number {i}")</code></pre>
+
+      <div class="challenge">
+        <h3>Challenge: Print a Triangle</h3>
+        <p>Use a <code>for</code> loop to print a right-angled triangle made of asterisks (*), 5 rows high.</p>
+        <button class="solution-toggle" onclick="toggleSolution('solution4')">Show Solution</button>
+        <div class="solution-content" id="solution4">
+          <pre><code class="language-python">for i in range(1, 6):  # from 1 to 5
+    print("* " * i)
+
+# Output:
+# *
+# * *
+# * * *
+# * * * *
+# * * * * *</code></pre>
+        </div>
+      </div>
+
+      <div class="challenge">
+        <h3>Challenge: Print a Rectangle</h3>
+        <p>Use nested <code>for</code> loops to print a 4x5 rectangle of asterisks (*).</p>
+        <button class="solution-toggle" onclick="toggleSolution('solution5')">Show Solution</button>
+        <div class="solution-content" id="solution5">
+          <pre><code class="language-python">rows = 4
+cols = 5
+
+for i in range(rows):
+    for j in range(cols):
+        print("* ", end="")
+    print() # Move to the next line after each row
+
+# Output:
+# * * * * * 
+# * * * * * 
+# * * * * * 
+# * * * * * </code></pre>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Prism.js and toggle script -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  <script>
+    function toggleSolution(id) {
+      const solution = document.getElementById(id);
+      if (solution.style.display === "block") {
+        solution.style.display = "none";
+      } else {
+        solution.style.display = "block";
+      }
+    }
+    // Highlight all code blocks
+    Prism.highlightAll();
+  </script>
+</body>
+</html>
