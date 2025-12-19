@@ -3,161 +3,52 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Python Game Learning — Interactive Programming Exercises</title>
+  <title>Python Game Learning</title>
   <link rel="icon" href="logo.png" type="image/png" />
 
   <!-- Prism.js for syntax highlighting -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: #f8f9fa;
       color: #333;
-      min-height: 100vh;
-      line-height: 1.5;
+      padding: 2rem;
+      line-height: 1.6;
     }
     .container {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 2rem 1rem;
     }
-    h1 {
-      text-align: center;
-      margin-bottom: 1rem;
-      font-weight: 800;
-      color: white;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-      font-size: 2.5rem;
-    }
-    .subtitle {
+    h1, h2 {
+      color: #2c3e50;
       text-align: center;
       margin-bottom: 2rem;
-      color: rgba(255,255,255,0.9);
-      font-size: 1.2rem;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
+    }
+    h2 {
+      border-bottom: 2px solid #4CAF50;
+      padding-bottom: 0.5rem;
+      margin-top: 3rem;
     }
     .nav {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin-bottom: 3rem;
-      flex-wrap: wrap;
+      text-align: center;
+      margin-bottom: 2rem;
     }
     .nav a {
-      color: white;
+      color: #4CAF50;
       text-decoration: none;
-      font-weight: 600;
-      padding: 0.75rem 1.5rem;
-      background: rgba(255,255,255,0.1);
-      border: 2px solid rgba(255,255,255,0.2);
-      border-radius: 50px;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(10px);
-    }
-    .nav a:hover {
-      background: rgba(255,255,255,0.2);
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    }
-    .welcome-box {
-      background: rgba(255,255,255,0.95);
-      border-radius: 20px;
-      padding: 2rem;
-      margin-bottom: 2rem;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    }
-    .welcome-box h2 {
-      color: #667eea;
-      margin-bottom: 1rem;
-    }
-    .welcome-box p {
-      margin-bottom: 1rem;
-      color: #555;
-    }
-    .steps-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 2rem;
-    }
-    .step-card {
-      background: white;
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-      transition: transform 0.3s ease;
-    }
-    .step-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-    }
-    .step-header {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      padding: 1rem 1.5rem;
-      font-weight: 600;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .step-number {
-      background: white;
-      color: #667eea;
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       font-weight: bold;
-    }
-    .step-body {
-      padding: 1.5rem;
-    }
-    .step-title {
-      font-size: 1.2rem;
-      margin-bottom: 0.5rem;
-      color: #444;
-    }
-    .step-description {
-      color: #666;
-      margin-bottom: 1rem;
-      font-size: 0.95rem;
+      margin: 0 15px;
+      padding: 8px 16px;
+      border: 2px solid #4CAF50;
+      border-radius: 4px;
     }
     .game-section {
-      background: rgba(255,255,255,0.95);
-      border-radius: 20px;
+      background: white;
       padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.07);
       margin-bottom: 2rem;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    }
-    .game-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.5rem;
-      padding-bottom: 1rem;
-      border-bottom: 2px solid #eee;
-    }
-    .game-title {
-      font-size: 1.5rem;
-      color: #667eea;
-      font-weight: 700;
-    }
-    .difficulty {
-      background: #ffc107;
-      color: #333;
-      padding: 0.25rem 0.75rem;
-      border-radius: 15px;
-      font-size: 0.85rem;
-      font-weight: bold;
     }
     .game-content {
       display: grid;
@@ -169,107 +60,20 @@
         grid-template-columns: 1fr;
       }
     }
-    .code-editor {
-      background: #2d2d2d;
-      border-radius: 10px;
-      overflow: hidden;
-    }
-    .code-header {
-      background: #1e1e1e;
-      color: #ccc;
-      padding: 0.75rem 1rem;
-      font-family: 'Courier New', monospace;
-      font-size: 0.9rem;
-    }
-    .code-area {
+    .code-editor, .game-controls {
+      border: 1px solid #ddd;
+      border-radius: 8px;
       padding: 1rem;
-      min-height: 300px;
-      background: #2d2d2d;
-    }
-    textarea.code-input {
-      width: 100%;
-      min-height: 250px;
-      background: #2d2d2d;
-      color: #f8f8f2;
-      border: none;
-      font-family: 'Courier New', monospace;
-      font-size: 0.95rem;
-      line-height: 1.5;
-      resize: vertical;
-      padding: 1rem;
-      border-radius: 5px;
-    }
-
-    /* Prism.js styling overrides */
-    .code-area pre {
-      margin: 0;
-      padding: 0;
-      background: none;
-      border: none;
-    }
-    .code-area code {
-      font-family: 'Courier New', monospace;
-      font-size: 0.95rem;
-      line-height: 1.5;
-      display: block;
-      padding: 1rem !important;
-      min-height: 250px;
-    }
-    .token.comment {
-      color: #7c7c7c !important;
-    }
-    .token.string {
-      color: #56db3a !important;
-    }
-    .token.keyword {
-      color: #ff6b6b !important;
-    }
-    .token.function {
-      color: #5e9bff !important;
-    }
-    .token.operator {
-      color: #ffcc66 !important;
-    }
-    .token.number {
-      color: #ff9d6c !important;
-    }
-    .token.builtin {
-      color: #ff6b6b !important;
-    }
-
-    /* Content editable styling */
-    [contenteditable="true"] {
-      outline: none;
-      cursor: text;
-    }
-
-    .code-display {
-      margin: 0;
-      padding: 0;
-      background: #2d2d2d;
-      border-radius: 5px;
-      overflow: auto;
-    }
-    .game-controls {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
     }
     .output-window {
-      background: #1e1e1e;
+      background: #2d2d2d;
       color: #f8f8f2;
-      border-radius: 10px;
+      border-radius: 5px;
       padding: 1rem;
-      min-height: 200px;
-      max-height: 300px;
-      overflow-y: auto;
+      min-height: 150px;
       font-family: 'Courier New', monospace;
-      font-size: 0.95rem;
       white-space: pre-wrap;
-    }
-    .buttons {
-      display: flex;
-      gap: 1rem;
+      margin-bottom: 1rem;
     }
     .btn {
       padding: 0.75rem 1.5rem;
@@ -278,1874 +82,305 @@
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
-      flex: 1;
-      font-size: 0.95rem;
+      width: 100%;
+      margin-top: 0.5rem;
     }
     .btn-run {
-      background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+      background: #4CAF50;
       color: white;
-    }
-    .btn-run:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
     }
     .btn-hint {
-      background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+      background: #2196F3;
       color: white;
-    }
-    .btn-hint:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);
     }
     .hint-box {
       background: #e8f4ff;
       border-left: 4px solid #2196F3;
       padding: 1rem;
-      border-radius: 8px;
+      border-radius: 4px;
       margin-top: 1rem;
       display: none;
-    }
-    .hint-box.show {
-      display: block;
-      animation: fadeIn 0.3s ease;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .principles-box {
-      background: #f8f9fa;
-      border-radius: 15px;
-      padding: 1.5rem;
-      margin-top: 1rem;
-    }
-    .principles-box h4 {
-      color: #667eea;
-      margin-bottom: 0.5rem;
-    }
-    .principle-item {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 0.25rem;
-    }
-    .checkmark {
-      color: #4CAF50;
-      font-weight: bold;
-    }
-    .progress-container {
-      margin-top: 2rem;
-      margin-bottom: 2rem;
-      background: white;
-      border-radius: 20px;
-      padding: 2rem;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    }
-    .progress-title {
-      font-size: 1.3rem;
-      margin-bottom: 1rem;
-      color: #444;
-      text-align: center;
-    }
-    .progress-steps {
-      display: flex;
-      justify-content: space-between;
-      position: relative;
-      margin: 2rem 0;
-    }
-    .progress-steps::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: #e0e0e0;
-      transform: translateY(-50%);
-      z-index: 1;
-    }
-    .progress-bar {
-      position: absolute;
-      top: 50%;
-      left: 0;
-      height: 4px;
-      background: #4CAF50;
-      transform: translateY(-50%);
-      z-index: 2;
-      transition: width 0.5s ease;
-    }
-    .step {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: #e0e0e0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      color: #666;
-      position: relative;
-      z-index: 3;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    .step.active {
-      background: #4CAF50;
-      color: white;
-      transform: scale(1.1);
-      box-shadow: 0 0 0 5px rgba(76, 175, 80, 0.2);
-    }
-    .step.completed {
-      background: #2196F3;
-      color: white;
-    }
-    .step-label {
-      position: absolute;
-      top: 45px;
-      font-size: 0.8rem;
-      color: #666;
-      text-align: center;
-      min-width: 80px;
-    }
-    .game-completed {
-      text-align: center;
-      padding: 2rem;
-      background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
-      color: white;
-      border-radius: 20px;
-      margin-top: 2rem;
-      display: none;
-    }
-    .game-completed.show {
-      display: block;
-      animation: fadeIn 0.5s ease;
-    }
-    .celebration {
-      font-size: 3rem;
-      margin-bottom: 1rem;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Python Game Learning — Interactive Programming Exercises</h1>
-    <p class="subtitle">Learn programming principles through interactive games that get progressively harder</p>
+    <h1>Python Game-Based Learning</h1>
 
     <div class="nav">
       <a href="py.html">Python Basics</a>
-      <a href="python_basics.html" style="color: #4CAF50; text-decoration: none; font-weight: bold; margin: 0 15px; padding: 8px 16px; border: 2px solid #4CAF50; border-radius: 4px;">Python Exercises</a>
+      <a href="python_basics.html">Python Exercises</a>
       <a href="problems.html">Problem Solving</a>
-      <a href="game-based.html" style="background: rgba(255,255,255,0.3);">Game Learning</a>
-    </div>
-
-    <div class="welcome-box">
-      <h2>🎮 Welcome to Game-Based Learning!</h2>
-      <p>Here you'll learn programming concepts by building and playing games. Each game introduces new programming principles in a fun, interactive way.</p>
-      <p>Start with Game 1 and progress to Game 2 as you master each concept. Follow the learning path below!</p>
-    </div>
-
-    <div class="steps-container">
-      <div class="step-card">
-        <div class="step-header">
-          <span>Step 1: Game 1</span>
-          <div class="step-number">1</div>
-        </div>
-        <div class="step-body">
-          <h3 class="step-title">Number Guessing Game</h3>
-          <p class="step-description">Learn variables, conditionals, loops, and basic input/output by creating a simple guessing game.</p>
-          <div class="principles-box">
-            <h4>Concepts Covered:</h4>
-            <div class="principle-item"><span class="checkmark">✓</span> Variables & Data Types</div>
-            <div class="principle-item"><span class="checkmark">✓</span> Conditional Statements (if/else)</div>
-            <div class="principle-item"><span class="checkmark">✓</span> While Loops</div>
-            <div class="principle-item"><span class="checkmark">✓</span> User Input/Output</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="step-card">
-        <div class="step-header">
-          <span>Step 2: Game 2</span>
-          <div class="step-number">2</div>
-        </div>
-        <div class="step-body">
-          <h3 class="step-title">Hangman Game</h3>
-          <p class="step-description">Master lists, strings, functions, and game logic by building a word-guessing game.</p>
-          <div class="principles-box">
-            <h4>Concepts Covered:</h4>
-            <div class="principle-item"><span class="checkmark">✓</span> Lists & Strings</div>
-            <div class="principle-item"><span class="checkmark">✓</span> Functions</div>
-            <div class="principle-item"><span class="checkmark">✓</span> Random Module</div>
-            <div class="principle-item"><span class="checkmark">✓</span> Game State Management</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="step-card">
-        <div class="step-header">
-          <span>Step 3: Game 3</span>
-          <div class="step-number">3</div>
-        </div>
-        <div class="step-body">
-          <h3 class="step-title">Dungeons & Data Structures: Adventure Game</h3>
-          <p class="step-description">Build a text-based adventure game to learn about modular programming, data structures, and complex game logic.</p>
-          <div class="principles-box">
-            <h4>Concepts Covered:</h4>
-            <div class="principle-item"><span class="checkmark">✓</span> Modules</div>
-            <div class="principle-item"><span class="checkmark">✓</span> Data Structures</div>
-            <div class="principle-item"><span class="checkmark">✓</span> Functions</div>
-            <div class="principle-item"><span class="checkmark">✓</span> Game Logic</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="step-card">
-        <div class="step-header">
-          <span>Step 4: Game 4</span>
-          <div class="step-number">4</div>
-        </div>
-        <div class="step-body">
-          <h3 class="step-title">Tic-Tac-Toe Tournament</h3>
-          <p class="step-description">Develop a classic Tic-Tac-Toe game, exploring multi-file architecture, 2D data structures, and AI algorithms.</p>
-          <div class="principles-box">
-            <h4>Concepts Covered:</h4>
-            <div class="principle-item"><span class="checkmark">✓</span> Multi-file Architecture</div>
-            <div class="principle-item"><span class="checkmark">✓</span> 2D Data Structures</div>
-            <div class="principle-item"><span class="checkmark">✓</span> Algorithms</div>
-            <div class="principle-item"><span class="checkmark">✓</span> Advanced Programming</div>
-          </div>
-        </div>
-      </div>
+      <a href="game-based.html">Game Learning</a>
     </div>
 
     <!-- Game 1: Number Guessing -->
-    <div class="game-section" id="game1">
-      <div class="game-header">
-        <h2 class="game-title">🎯 Game 1: Number Guessing Game</h2>
-        <span class="difficulty">Beginner</span>
-      </div>
-
+    <section class="game-section" id="game1">
+      <h2>Game 1: Number Guessing Game</h2>
+      <p><strong>Goal:</strong> Write a program where the computer thinks of a number and the player has to guess it.</p>
+      <p><strong>Concepts:</strong> <code>import</code>, <code>random.randint()</code>, <code>while</code> loops, <code>if/elif/else</code>, <code>input()</code>, and <code>try/except</code> for error handling.</p>
       <div class="game-content">
         <div class="code-editor">
-          <div class="code-header">game1.py - Complete the code below</div>
-          <div class="code-area">
-            <pre class="code-display"><code id="code1" class="language-python" contenteditable="true">import random
+          <p>Fill in the code below. The game should give hints if the guess is too high or too low.</p>
+          <pre><code id="code1" class="language-python" contenteditable="true">import random
 
-def number_guessing_game():
-    print("=== Welcome to Number Guessing Game! ===")
+secret_number = random.randint(1, 50)
+guess = 0
+attempts = 0
 
-    # TODO: Generate a random number between 1 and 100
-    secret_number = # Your code here (use random.randint(1, 100))
+print("I'm thinking of a number between 1 and 50.")
 
-    attempts = 0
-    max_attempts = 7
-
-    print(f"I'm thinking of a number between 1 and 100.")
-    print(f"You have {max_attempts} attempts to guess it.")
-
-    # TODO: Start the game loop
-    while # Your condition here (hint: attempts < max_attempts):
+while guess != secret_number and attempts < 5:
+    try:
+        guess = int(input("Take a guess: "))
         attempts += 1
-        attempts_left = max_attempts - attempts + 1
+        if guess < secret_number:
+            print("Too low!")
+        elif guess > secret_number:
+            print("Too high!")
+    except ValueError:
+        print("Please enter a number.")
 
-        # TODO: Get user input
-        try:
-            guess = int(input(f"\nAttempt #{attempts} ({attempts_left} left): Enter your guess: "))
-        except ValueError:
-            print("Please enter a valid number!")
-            attempts -= 1
-            continue
-
-        # TODO: Check if guess is valid (between 1 and 100)
-        if # Your condition here:
-            print("Please enter a number between 1 and 100!")
-            attempts -= 1
-            continue
-
-        # TODO: Check the guess against the secret number
-        if # Your condition here (check if guess equals secret_number):
-            print(f"\n🎉 Congratulations! You guessed it in {attempts} attempts!")
-            print(f"The number was {secret_number}!")
-            break
-        elif guess < secret_number:
-            print("Too low! Try a higher number.")
-        else:
-            print("Too high! Try a lower number.")
-
-        # Give a hint after 3 attempts
-        if attempts == 3:
-            if secret_number % 2 == 0:
-                print("💡 Hint: The number is even!")
-            else:
-                print("💡 Hint: The number is odd!")
-
-    # TODO: Check if player lost
-    if # Your condition here (check if attempts reached max_attempts without winning):
-        print(f"\n💔 Game Over! You've used all {max_attempts} attempts.")
-        print(f"The secret number was {secret_number}.")
-
-# Start the game
-if __name__ == "__main__":
-    number_guessing_game()</code></pre>
-          </div>
+if guess == secret_number:
+    print(f"Good job! You guessed it in {attempts} attempts!")
+else:
+    print(f"Sorry, the number was {secret_number}.")
+</code></pre>
         </div>
-
         <div class="game-controls">
-          <div class="output-window" id="output1">
-Game output will appear here...
-Click "Run Code" to start playing!
-          </div>
-          <div class="buttons">
-            <button class="btn btn-run" onclick="runGame(1)">▶ Run Code</button>
-            <button class="btn btn-hint" onclick="toggleHint(1)">💡 Show Hint</button>
-          </div>
+          <div class="output-window" id="output1">Game output will appear here.</div>
+          <button class="btn btn-run" onclick="runGame(1)">▶ Run Code</button>
+          <button class="btn btn-hint" onclick="toggleHint('hint1')">💡 Show Hint</button>
           <div class="hint-box" id="hint1">
-            <strong>Hints for Game 1:</strong><br>
-            1. Use random.randint(1, 100) to generate the secret number<br>
-            2. The while loop should run while attempts < max_attempts<br>
-            3. Check if guess is between 1 and 100: if guess < 1 or guess > 100<br>
-            4. The winning condition: if guess == secret_number<br>
-            5. The losing condition: if attempts >= max_attempts (and guess != secret_number)
-          </div>
-
-          <div class="principles-box">
-            <h4>Learning Principles in this Game:</h4>
-            <div class="principle-item"><span class="checkmark">✓</span> <strong>Variables:</strong> Storing game data like secret_number, attempts</div>
-            <div class="principle-item"><span class="checkmark">✓</span> <strong>Conditionals:</strong> Using if/elif/else to check guesses</div>
-            <div class="principle-item"><span class="checkmark">✓</span> <strong>Loops:</strong> while loop for the main game logic</div>
-            <div class="principle-item"><span class="checkmark">✓</span> <strong>Input/Output:</strong> Getting user input and displaying feedback</div>
+            <strong>Hint:</strong> The <code>while</code> loop should continue as long as the guess is not correct and the number of attempts is within the limit.
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
     <!-- Game 2: Hangman -->
-    <div class="game-section" id="game2">
-      <div class="game-header">
-        <h2 class="game-title">🔤 Game 2: Hangman Word Game</h2>
-        <span class="difficulty">Intermediate</span>
-      </div>
-
+    <section class="game-section" id="game2">
+      <h2>Game 2: Hangman</h2>
+      <p><strong>Goal:</strong> Create the classic word-guessing game, Hangman.</p>
+      <p><strong>Concepts:</strong> Lists, strings, <code>for</code> loops, and checking for items in a list.</p>
       <div class="game-content">
         <div class="code-editor">
-          <div class="code-header">game2.py - Complete the code below</div>
-          <div class="code-area">
-            <pre class="code-display"><code id="code2" class="language-python" contenteditable="true">import random
+          <p>The computer will pick a secret word. The player guesses letters to figure it out. Fill in the logic.</p>
+          <pre><code id="code2" class="language-python" contenteditable="true">import random
+word_list = ["python", "gemini", "code"]
+secret_word = random.choice(word_list)
+display = ["_"] * len(secret_word)
+game_over = False
+lives = 6
 
-def display_word(word, guessed_letters):
-    """Display the word with underscores for unguessed letters."""
-    display = ""
-    for letter in word:
-        if letter in guessed_letters:
-            display += letter + " "
-        else:
-            display += "_ "
-    return display.strip()
+print("Welcome to Hangman!")
 
-def get_random_word():
-    """Return a random word from a list."""
-    words = ["python", "programming", "computer", "algorithm",
-             "variable", "function", "dictionary", "javascript"]
-    return random.choice(words)
+while not game_over and lives > 0:
+    print(f"\nYou have {lives} lives left.")
+    print(f"{ ' '.join(display)}")
+    
+    guess = input("Guess a letter: ").lower()
 
-def hangman_game():
-    print("=== Welcome to Hangman! ===")
+    if guess in display:
+        print(f"You've already guessed '{guess}'.")
+        continue
 
-    # TODO: Get a random word and initialize game variables
-    secret_word = # Your code here (use get_random_word())
-    guessed_letters = []
-    attempts = 6  # Player has 6 wrong attempts allowed
-    wrong_guesses = 0
+    # Check if the guessed letter is in the word
+    for i in range(len(secret_word)):
+        if secret_word[i] == guess:
+            display[i] = guess
 
-    print("Try to guess the word letter by letter!")
-    print(f"The word has {len(secret_word)} letters.")
-    print(f"You can make {attempts} wrong guesses.")
-
-    # TODO: Start the game loop
-    while # Your condition here (wrong_guesses < attempts and not all letters guessed):
-        print("\n" + "=" * 40)
-        print(f"Word: {display_word(secret_word, guessed_letters)}")
-        print(f"Guessed letters: {', '.join(sorted(guessed_letters)) if guessed_letters else 'None'}")
-        print(f"Wrong guesses left: {attempts - wrong_guesses}")
-
-        # TODO: Get user input
-        guess = input("Enter a letter: ").lower()
-
-        # TODO: Validate input (single letter, alphabetic, not guessed before)
-        if # Your condition here (check if guess is not a single letter):
-            print("Please enter a single letter!")
-            continue
-
-        if # Your condition here (check if guess is not alphabetic):
-            print("Please enter a letter from A-Z!")
-            continue
-
-        if guess in guessed_letters:
-            print("You already guessed that letter!")
-            continue
-
-        # Add guess to guessed letters
-        guessed_letters.append(guess)
-
-        # TODO: Check if guess is in the secret word
-        if # Your condition here:
-            print(f"Good guess! '{guess}' is in the word.")
-        else:
-            wrong_guesses += 1
-            print(f"Wrong guess! '{guess}' is not in the word.")
-
-        # TODO: Check if all letters have been guessed
-        all_guessed = True
-        for letter in secret_word:
-            if # Your condition here (check if letter is not in guessed_letters):
-                all_guessed = False
-                break
-
-        if all_guessed:
-            print(f"\n🎉 Congratulations! You guessed the word: {secret_word}")
-            print(f"You won with {wrong_guesses} wrong guesses!")
-            break
-
-    # TODO: Check if player lost
-    if # Your condition here:
-        print(f"\n💔 Game Over! You've used all {attempts} attempts.")
+    # If the letter is not in the word, reduce lives
+    if guess not in secret_word:
+        print(f"'{guess}' is not in the word.")
+        lives -= 1
+    
+    # Check if the player has won
+    if "_" not in display:
+        game_over = True
+        print("\nCongratulations, you win!")
         print(f"The word was: {secret_word}")
-        print(f"Your guesses: {', '.join(guessed_letters)}")
 
-# Start the game
-if __name__ == "__main__":
-    hangman_game()</code></pre>
-          </div>
+# If the loop finishes and game is not over, the player has lost
+if not game_over:
+    print("\nYou lose!")
+    print(f"The word was: {secret_word}")
+</code></pre>
         </div>
-
         <div class="game-controls">
-          <div class="output-window" id="output2">
-Game output will appear here...
-Complete Game 1 first, then tackle this challenge!
-          </div>
-          <div class="buttons">
-            <button class="btn btn-run" onclick="runGame(2)">▶ Run Code</button>
-            <button class="btn btn-hint" onclick="toggleHint(2)">💡 Show Hint</button>
-          </div>
+          <div class="output-window" id="output2">Game output will appear here.</div>
+          <button class="btn btn-run" onclick="runGame(2)">▶ Run Code</button>
+          <button class="btn btn-hint" onclick="toggleHint('hint2')">💡 Show Hint</button>
           <div class="hint-box" id="hint2">
-            <strong>Hints for Game 2:</strong><br>
-            1. Call get_random_word() to get the secret word<br>
-            2. The while loop should run while wrong_guesses < attempts and not all letters guessed<br>
-            3. Check if guess is single letter: len(guess) != 1<br>
-            4. Check if guess is alphabetic: not guess.isalpha()<br>
-            5. Check if guess is in word: guess in secret_word<br>
-            6. Check if letter not guessed: letter not in guessed_letters<br>
-            7. The losing condition: wrong_guesses >= attempts
-          </div>
-
-          <div class="principles-box">
-            <h4>Advanced Principles in this Game:</h4>
-            <div class="principle-item"><span class="checkmark">✓</span> <strong>Functions:</strong> Modular code with display_word() and get_random_word()</div>
-            <div class="principle-item"><span class="checkmark">✓</span> <strong>Lists:</strong> Managing guessed_letters list</div>
-            <div class="principle-item"><span class="checkmark">✓</span> <strong>Strings:</strong> String manipulation and character checking</div>
-            <div class="principle-item"><span class="checkmark">✓</span> <strong>Game State:</strong> Tracking progress and win/lose conditions</div>
+            <strong>Hint:</strong> Use a list called <code>display</code> to hold the underscores and correctly guessed letters. Use a <code>for</code> loop to update it each turn.
           </div>
         </div>
       </div>
-    </div>
-
-    <!-- <div class="progress-container">
-      <h3 class="progress-title">Your Learning Progress</h3>
-      <div class="progress-steps">
-        <div class="progress-bar" id="progressBar" style="width: 0%"></div>
-        <div class="step active" id="step1" onclick="showGame(1)">
-          1
-          <div class="step-label">Game 1</div>
-        </div>
-        <div class="step" id="step2" onclick="showGame(2)">
-          2
-          <div class="step-label">Game 2</div>
-        </div>
-        <div class="step" id="step3" onclick="showGame(3)">
-          3
-          <div class="step-label">Game 3</div>
-        </div>
-        <div class="step" id="step4" onclick="showGame(4)">
-          4
-          <div class="step-label">Game 4</div>
-        </div>
-        <div class="step" id="step5" onclick="completeCourse()">
-          5
-          <div class="step-label">Complete!</div>
-        </div>
-      </div>
-    </div> -->
+    </section>
 
     <!-- Game 3: Text-based Adventure -->
-    <div class="game-section" id="game3">
-      <div class="game-header">
-        <h2 class="game-title">🎮 Dungeons & Data Structures: Adventure Game</h2>
-        <span class="difficulty">Advanced</span>
-      </div>
+    <section class="game-section" id="game3">
+        <h2>Game 3: Dungeons & Data Structures</h2>
+        <p><strong>Goal:</strong> Build a simple text-based adventure game where a player can move between rooms.</p>
+        <p><strong>Concepts:</strong> Dictionaries to store complex data, functions to organize code, and a game loop to process commands.</p>
+        <div class="game-content">
+            <div class="code-editor">
+                <p>For this game, you need to define the game world (rooms and connections) and then write the logic to move the player.</p>
+                <pre><code id="code3" class="language-python" contenteditable="true"># TODO: Define the rooms as a dictionary. Each room should have a description and exits.
+rooms = {
+    'hall': {
+        'description': 'You are in a long hall. There are doors to the north and east.',
+        'exits': {'north': 'library', 'east': 'kitchen'}
+    },
+    'library': {
+        'description': 'You are in a dusty library. A door leads south.',
+        'exits': {'south': 'hall'}
+    },
+    'kitchen': {
+        'description': 'You are in a messy kitchen. A door leads west.',
+        'exits': {'west': 'hall'}
+    }
+}
 
-      <div class="game-content">
-        <div class="code-editor">
-          <div class="code-header">main.py - Game Structure</div>
-          <div class="code-area">
-            <pre class="code-display"><code id="code3_main" class="language-python" contenteditable="true"># Text-based Adventure Game
-# main.py - Complete the game structure below
+current_room = 'hall'
 
-# TODO: Complete the following functions to build your adventure game:
-# 1. Initialize game state with player information (name, health, inventory, current room)
-# 2. Implement the main game loop that continues until game ends
-# 3. Handle different user commands:
-#    - 'go [direction]' to move between rooms
-#    - 'look' to describe current room
-#    - 'take [item]' to collect items
-#    - 'inventory' or 'i' to show collected items
-#    - 'use [item]' to use collected items
-# 4. Use the imported modules to handle game logic:
-#    - game_engine.describe_room(room_name) - Describe the current room
-#    - game_engine.move_player(current_room, direction) - Move between rooms
-#    - game_engine.take_item(player, room_name, item_name) - Take an item
-#    - game_engine.use_item(player, item_name) - Use an item
+while True:
+    # TODO: Print the description of the current room
+    print(f"\n{rooms[current_room]['description']}")
+    
+    # TODO: Get user input for their command
+    command = input("What do you do? (e.g., 'go north') ").lower()
+    
+    # --- Process Command ---
+    action, _, destination = command.partition(' ')
+    
+    if action == 'go':
+        # TODO: Check if the destination is a valid exit from the current room
+        if destination in rooms[current_room]['exits']:
+            # TODO: Update the current_room
+            current_room = rooms[current_room]['exits'][destination]
+        else:
+            print("You can't go that way!")
+    elif action == 'quit':
+        print("Thanks for playing!")
+        break
+    else:
+        print("I don't understand that command.")
 
-# Your game should:
-# - Welcome the player and explain the objective
-# - Initialize player data with name, health, inventory, and current room
-# - Run a loop that processes user commands until the game ends
-# - Handle all possible commands (go, look, take, inventory, use)
-# - Check win/lose conditions (health, finding treasure, etc.)
-# - Provide clear feedback to the player after each action
-
-# Example structure:
-# def main():
-#     print("Welcome message...")
-#     # Initialize player data
-#     # Game loop with command processing
-#     # Handle win/lose conditions
-#
-# if __name__ == "__main__":
-#     main()
 </code></pre>
-          </div>
-        </div>
-
-        <div class="code-editor" style="margin-top: 1rem;">
-          <div class="code-header">game_engine.py - Implement these functions</div>
-          <div class="code-area">
-            <pre class="code-display"><code id="code3_engine" class="language-python" contenteditable="true"># game_engine.py - Game engine functions
-# TODO: Define the rooms data structure as a dictionary with room information
-# Each room should have: description, items (list), and exits (dict)
-# Example room structure:
-# rooms = {
-#     'room_name': {
-#         'description': 'Description of the room',
-#         'items': ['list', 'of', 'items'],
-#         'exits': {'direction': 'connected_room'}
-#     }
-# }
-
-# TODO: Implement the following functions:
-
-def describe_room(room_name):
-    """Return the description of the given room.
-
-    Args:
-        room_name (str): Name of the room to describe
-
-    Returns:
-        str: Description of the room, including any items present
-    """
-    # TODO: Return room description
-    # - Check if room_name exists in rooms
-    # - Include a list of items in the room if any exist
-    # - Return appropriate message for unknown rooms
-    pass
-
-def move_player(current_room, direction):
-    """Try to move the player in the given direction, return new room or None.
-
-    Args:
-        current_room (str): Current room name
-        direction (str): Direction to move (e.g., 'north', 'south')
-
-    Returns:
-        str or None: Name of the new room if move is valid, None otherwise
-    """
-    # TODO: Check if the current_room exists and has the specified direction exit
-    # - Return the name of the room in that direction if possible
-    # - Return None if the move is invalid
-    pass
-
-def take_item(player, room_name, item_name):
-    """Try to take an item from the current room.
-
-    Args:
-        player (dict): Player dictionary with 'inventory' key
-        room_name (str): Name of the room where the item is
-        item_name (str): Name of the item to take
-
-    Returns:
-        bool: True if item was taken, False otherwise
-    """
-    # TODO: Check if the room and item exist
-    # - Remove item from room's items list
-    # - Add item to player's inventory
-    # - Return True if successful, False otherwise
-    pass
-
-def use_item(player, item_name):
-    """Handle using an item from the player's inventory.
-
-    Args:
-        player (dict): Player dictionary with 'inventory' key
-        item_name (str): Name of the item to use
-
-    Returns:
-        str: Result message of using the item
-    """
-    # TODO: Check if player has the item in inventory
-    # - Return special message for specific items (torch, book, artifact, etc.)
-    # - Return generic message for other items
-    # - Return message if player doesn't have the item
-    pass
-</code></pre>
-          </div>
-        </div>
-
-        <div class="code-editor" style="margin-top: 1rem;">
-          <div class="code-header">rooms.py - Implement these functions</div>
-          <div class="code-area">
-            <pre class="code-display"><code id="code3_rooms" class="language-python" contenteditable="true"># rooms.py - Room definitions
-# TODO: Define the rooms data structure as a dictionary with room information
-# This should be compatible with the game_engine implementation
-# Example structure:
-# rooms_data = {
-#     'room_name': {
-#         'description': 'Description of the room',
-#         'items': ['list', 'of', 'items'],
-#         'exits': {'direction': 'connected_room'}
-#     }
-# }
-
-# TODO: Implement the following functions:
-
-def get_room_description(room_name):
-    """Return the description of the given room.
-
-    Args:
-        room_name (str): Name of the room to describe
-
-    Returns:
-        str: Description of the room, including any items present
-    """
-    # TODO: Return room description
-    # - Check if room_name exists in rooms_data
-    # - Include a list of items in the room if any exist
-    # - Return appropriate message for unknown rooms
-    pass
-
-def get_room_exits(room_name):
-    """Return the exits for the given room.
-
-    Args:
-        room_name (str): Name of the room to get exits for
-
-    Returns:
-        dict: Dictionary of exits for the room (e.g., {'north': 'hallway'})
-    """
-    # TODO: Return the exits for the given room
-    # - Check if room_name exists in rooms_data
-    # - Return the exits dictionary if it exists
-    # - Return empty dictionary for unknown rooms
-    pass
-</code></pre>
-          </div>
-        </div>
-
-        <div class="code-editor" style="margin-top: 1rem;">
-          <div class="code-header">items.py - Implement these functions</div>
-          <div class="code-area">
-            <pre class="code-display"><code id="code3_items" class="language-python" contenteditable="true"># items.py - Item definitions
-# TODO: Define the items data structure as a dictionary with item information
-# Each item should have: description, and usable (boolean)
-# Example structure:
-# items_data = {
-#     'item_name': {
-#         'description': 'Description of the item',
-#         'usable': boolean
-#     }
-# }
-
-# TODO: Implement the following functions:
-
-def get_item_description(item_name):
-    """Return the description of the given item.
-
-    Args:
-        item_name (str): Name of the item to describe
-
-    Returns:
-        str: Description of the item
-    """
-    # TODO: Return item description
-    # - Check if item_name exists in items_data
-    # - Return appropriate message for unknown items
-    pass
-
-def is_item_usable(item_name):
-    """Return True if the item can be used.
-
-    Args:
-        item_name (str): Name of the item to check
-
-    Returns:
-        bool: True if the item is usable, False otherwise
-    """
-    # TODO: Check if the item exists and is usable
-    # - Return the 'usable' value from items_data for the item
-    # - Return False for unknown items
-    pass
-
-def use_item(item_name):
-    """Handle using an item.
-
-    Args:
-        item_name (str): Name of the item to use
-
-    Returns:
-        str: Result message of using the item
-    """
-    # TODO: Check if the item is usable
-    # - Return special message for specific items (torch, book, artifact, etc.)
-    # - Return generic message for other usable items
-    # - Return message indicating item is not usable for non-usable items
-    pass
-</code></pre>
-          </div>
-        </div>
-
-        <div class="game-controls">
-          <div class="output-window" id="output3">
-Game output will appear here...
-Complete Games 1 & 2 first, then tackle this advanced challenge!
-          </div>
-          <div class="buttons">
-            <button class="btn btn-run" onclick="runGame(3)">▶ Run Code</button>
-            <button class="btn btn-hint" onclick="toggleHint(3)">💡 Show Hint</button>
-            <button class="btn btn-hint" onclick="toggleSolution(3)">🔍 Show Solution</button>
-          </div>
-          <div class="hint-box" id="hint3">
-            <strong>Hints for Game 3:</strong><br>
-            1. You need to implement the game_engine.py module with functions like describe_room(), move_player(), take_item(), use_item()<br>
-            2. Create rooms.py module with room definitions<br>
-            3. Create items.py module with item definitions<br>
-            4. Make sure to properly handle imports in main.py<br>
-            5. Use dictionaries and lists to manage game state
-          </div>
-
-          <div class="hint-box" id="solution3" style="display:none;">
-            <strong>Solutions for Game 3:</strong><br>
-            <div class="code-editor" style="margin-top: 1rem; margin-bottom: 1rem;">
-              <div class="code-header">main.py solution</div>
-              <pre class="code-display"><code class="language-python" id="solution3_main"></code></pre>
             </div>
-            <div class="code-editor" style="margin-top: 1rem; margin-bottom: 1rem;">
-              <div class="code-header">game_engine.py solution</div>
-              <pre class="code-display"><code class="language-python" id="solution3_engine"></code></pre>
+            <div class="game-controls">
+                <div class="output-window" id="output3">Game output will appear here.</div>
+                <button class="btn btn-run" onclick="runGame(3)">▶ Run Code</button>
+                <button class="btn btn-hint" onclick="toggleHint('hint3')">💡 Show Hint</button>
+                <div class="hint-box" id="hint3">
+                    <strong>Hint:</strong> The core of this game is the `rooms` dictionary. The `current_room` variable keeps track of the player's location, which is just a key in the `rooms` dictionary.
+                </div>
             </div>
-            <div class="code-editor" style="margin-top: 1rem; margin-bottom: 1rem;">
-              <div class="code-header">rooms.py solution</div>
-              <pre class="code-display"><code class="language-python" id="solution3_rooms"></code></pre>
-            </div>
-            <div class="code-editor" style="margin-top: 1rem; margin-bottom: 1rem;">
-              <div class="code-header">items.py solution</div>
-              <pre class="code-display"><code class="language-python" id="solution3_items"></code></pre>
-            </div>
-          </div>
-
-          <div class="principles-box">
-            <h4>Advanced Principles in this Game:</h4>
-            <div class="principle-item"><span class="checkmark">✓</span> <strong>Modules:</strong> Breaking code into multiple files with imports</div>
-            <div class="principle-item"><span class="checkmark">✓</span> <strong>Data Structures:</strong> Using dictionaries and lists for game state</div>
-            <div class="principle-item"><span class="checkmark">✓</span> <strong>Functions:</strong> Modular functions across multiple files</div>
-            <div class="principle-item"><span class="checkmark">✓</span> <strong>Game Logic:</strong> Complex state management and user interactions</div>
-          </div>
-
-          <div class="principles-box" id="conclusion3" style="margin-top: 1rem; display: none;">
-            <h4>Conclusion for Game 3:</h4>
-            <p>After completing Game 3, you should have learned:</p>
-            <ul>
-              <li>How to structure a Python application across multiple modules</li>
-              <li>How to use dictionaries and lists to manage game state</li>
-              <li>How to implement functions that interact with shared data structures</li>
-              <li>How to organize code for better maintainability and readability</li>
-              <li>How to implement game logic for a text-based adventure game</li>
-            </ul>
-            <p>These skills are essential for building larger applications in Python.</p>
-          </div>
         </div>
-      </div>
-    </div>
+    </section>
 
     <!-- Game 4: Tic-Tac-Toe -->
-    <div class="game-section" id="game4">
-      <div class="game-header">
-        <h2 class="game-title">❌ Tic-Tac-Toe Tournament</h2>
-        <span class="difficulty">Expert</span>
-      </div>
-
-      <div class="game-content">
-        <div class="code-editor">
-          <div class="code-header">game.py - Game Logic Structure</div>
-          <div class="code-area">
-            <pre class="code-display"><code id="code4_main" class="language-python" contenteditable="true"># Tic-Tac-Toe Game
-# game.py - Complete the game logic below
-
-# TODO: Complete the following functions to build your Tic-Tac-Toe game:
-# 1. Import required modules (board, ai)
-# 2. Implement the main game loop that continues until game ends
-# 3. Handle different game modes (friend vs computer)
-# 4. Use the imported modules to handle game logic:
-#    - board.initialize_board() - Create a new empty board
-#    - board.display_board(board) - Display the current board
-#    - board.position_to_coords(position) - Convert position (1-9) to coordinates
-#    - board.check_win(board, player) - Check if a player has won
-#    - board.check_tie(board) - Check if the game is a tie
-#    - ai.get_best_move(board, current_player) - Get the computer's move
-
-# Your game should:
-# - Welcome the player and allow choice between vs friend or vs computer
-# - Initialize the game board
-# - Alternate turns between players (X and O)
-# - Handle input validation for player moves
-# - Check for win/tie conditions after each move
-# - Display the board after each move
-# - Allow playing again after game ends
-
-# Example structure and required functions:
-# def main():
-#     print("Welcome message...")
-#     # Ask for game mode (friend or computer)
-#     # Initialize board and set starting player
-#     # Main game loop
-#     #   Display board
-#     #   Handle player move (or computer move)
-#     #   Check win/tie conditions
-#     #   Switch player if no win/tie
-#     # Ask to play again
-#
-# if __name__ == "__main__":
-#     main()
-</code></pre>
-          </div>
-        </div>
-
-        <div class="code-editor" style="margin-top: 1rem;">
-          <div class="code-header">board.py - Implement these functions</div>
-          <div class="code-area">
-            <pre class="code-display"><code id="code4_board" class="language-python" contenteditable="true"># board.py - Board management functions
-
-# TODO: Implement the following functions for Tic-Tac-Toe:
-
-def initialize_board():
-    """Create a new 3x3 game board filled with empty spaces.
-
-    Returns:
-        list: 3x3 2D list filled with empty spaces (' ')
-    """
-    # TODO: Create and return a 3x3 board filled with ' ' characters
-    pass
-
-def display_board(board):
-    """Return a string representation of the board.
-
-    Args:
-        board (list): 3x3 2D list representing the game board
-
-    Returns:
-        str: Formatted string showing the board with separators
-    """
-    # TODO: Format and return the board as a string
-    # Example format:
-    #  X | O | X
-    # ---|---|---
-    #  O | X | O
-    # ---|---|---
-    #  X |   | O
-    pass
-
-def position_to_coords(position):
-    """Convert a position number (1-9) to row, col coordinates (0-2).
-
-    Args:
-        position (int): Position number from 1-9 (like a numeric keypad)
-
-    Returns:
-        tuple: (row, col) coordinates where 1-9 maps to board positions
-
-    Raises:
-        ValueError: If position is not between 1 and 9
-    """
-    # TODO: Convert position (1-9) to (row, col) coordinates
-    # Position mapping:
-    # 1 2 3
-    # 4 5 6
-    # 7 8 9
-    pass
+    <section class="game-section" id="game4">
+        <h2>Game 4: Tic-Tac-Toe</h2>
+        <p><strong>Goal:</strong> Create a two-player Tic-Tac-Toe game.</p>
+        <p><strong>Concepts:</strong> 2D lists (a list of lists) to represent the board, and functions to manage game logic like checking for a win.</p>
+        <div class="game-content">
+            <div class="code-editor">
+                <p>You need to create functions to print the board, check for a winner, and manage player turns.</p>
+                <pre><code id="code4" class="language-python" contenteditable="true"># --- Functions ---
+def print_board(board):
+    for row in board:
+        print(" | ".join(row))
+        print("-" * 9)
 
 def check_win(board, player):
-    """Check if the specified player has won.
-
-    Args:
-        board (list): 3x3 2D list representing the game board
-        player (str): Player symbol ('X' or 'O')
-
-    Returns:
-        bool: True if the player has won, False otherwise
-    """
-    # TODO: Check for win in rows, columns, and diagonals
-    # Return True if player has 3 in a row, column, or diagonal
-    pass
-
-def check_tie(board):
-    """Check if the game is a tie (board is full).
-
-    Args:
-        board (list): 3x3 2D list representing the game board
-
-    Returns:
-        bool: True if the game is a tie, False otherwise
-    """
-    # TODO: Check if all positions are filled (no spaces available)
-    # Return True if no empty spaces remain, False otherwise
-    pass
-</code></pre>
-          </div>
-        </div>
-
-        <div class="code-editor" style="margin-top: 1rem;">
-          <div class="code-header">ai.py - Implement AI logic</div>
-          <div class="code-area">
-            <pre class="code-display"><code id="code4_ai" class="language-python" contenteditable="true"># ai.py - AI opponent logic
-import random
-
-def get_best_move(board, ai_player):
-    """Return the best move for the AI player using a simple strategy.
-
-    Args:
-        board (list): 3x3 2D list representing the game board
-        ai_player (str): The AI player's symbol ('X' or 'O')
-
-    Returns:
-        tuple: (row, col) coordinates for the best move, or (None, None) if no moves available
-    """
-    # TODO: Implement AI strategy with the following prioritized approach:
-    # 1. Check for a winning move (3 in a row for AI)
-    # 2. Check for opponent's winning move and block it
-    # 3. Try to take the center position if available
-    # 4. Try to take a corner position if available
-    # 5. Take any random available position
-
-    # HINT: You can use check_win(board, player) to see if a move would result in a win
-    pass
-
-def check_win(board, player):
-    """Check if the specified player has won. (Provided for use in get_best_move)
-
-    Args:
-        board (list): 3x3 2D list representing the game board
-        player (str): Player symbol ('X' or 'O')
-
-    Returns:
-        bool: True if the player has won, False otherwise
-    """
-    # This function is provided as it's also used in board.py
-    # Check rows
-    for row in range(3):
-        if all(board[row][col] == player for col in range(3)):
+    # Check rows, columns, and diagonals
+    for i in range(3):
+        if all([board[i][j] == player for j in range(3)]) or \
+           all([board[j][i] == player for j in range(3)]):
             return True
-
-    # Check columns
-    for col in range(3):
-        if all(board[row][col] == player for row in range(3)):
-            return True
-
-    # Check diagonals
-    if all(board[i][i] == player for i in range(3)):
+    if all([board[i][i] == player for i in range(3)]) or \
+       all([board[i][2 - i] == player for i in range(3)]):
         return True
-    if all(board[i][2-i] == player for i in range(3)):
-        return True
-
     return False
+
+# --- Game Setup ---
+board = [[" " for _ in range(3)] for _ in range(3)]
+current_player = "X"
+game_is_running = True
+
+# --- Main Game Loop ---
+while game_is_running:
+    print_board(board)
+    try:
+        row = int(input(f"Player {current_player}, enter row (0, 1, 2): "))
+        col = int(input(f"Player {current_player}, enter col (0, 1, 2): "))
+
+        if board[row][col] == " ":
+            board[row][col] = current_player
+            if check_win(board, current_player):
+                print_board(board)
+                print(f"Player {current_player} wins!")
+                game_is_running = False
+            else:
+                # Switch player
+                current_player = "O" if current_player == "X" else "X"
+        else:
+            print("That spot is already taken!")
+            
+    except (ValueError, IndexError):
+        print("Invalid input. Please enter a number between 0 and 2.")
+
 </code></pre>
-          </div>
-        </div>
-
-        <div class="game-controls">
-          <div class="output-window" id="output4">
-Game output will appear here...
-Complete Game 1, 2, and 3 first, then tackle this expert challenge!
-          </div>
-          <div class="buttons">
-            <button class="btn btn-run" onclick="runGame(4)">▶ Run Code</button>
-            <button class="btn btn-hint" onclick="toggleHint(4)">💡 Show Hint</button>
-            <button class="btn btn-hint" onclick="toggleSolution(4)">🔍 Show Solution</button>
-          </div>
-          <div class="hint-box" id="hint4">
-            <strong>Hints for Game 4:</strong><br>
-            1. Implement board.py with functions: initialize_board(), display_board(), position_to_coords(), check_win(), check_tie()<br>
-            2. Create player.py for player interaction (though you can handle this in game.py)<br>
-            3. Implement ai.py with a basic AI algorithm for computer moves<br>
-            4. Use 2D lists for the game board; represent positions 1-9 in a 3x3 grid<br>
-            5. Consider implementing the minimax algorithm for an intelligent AI
-          </div>
-
-          <div class="hint-box" id="solution4" style="display:none;">
-            <strong>Solutions for Game 4:</strong><br>
-            <div class="code-editor" style="margin-top: 1rem; margin-bottom: 1rem;">
-              <div class="code-header">game.py solution</div>
-              <pre class="code-display"><code class="language-python" id="solution4_main"></code></pre>
             </div>
-            <div class="code-editor" style="margin-top: 1rem; margin-bottom: 1rem;">
-              <div class="code-header">board.py solution</div>
-              <pre class="code-display"><code class="language-python" id="solution4_board"></code></pre>
+            <div class="game-controls">
+                <div class="output-window" id="output4">Game output will appear here.</div>
+                <button class="btn btn-run" onclick="runGame(4)">▶ Run Code</button>
+                <button class="btn btn-hint" onclick="toggleHint('hint4')">💡 Show Hint</button>
+                <div class="hint-box" id="hint4">
+                    <strong>Hint:</strong> A 2D list like `[[" ", " ", " "], [" ", " ", " "], [" ", " ", " "]]` is perfect for the board. You can access a spot with `board[row][col]`.
+                </div>
             </div>
-            <div class="code-editor" style="margin-top: 1rem; margin-bottom: 1rem;">
-              <div class="code-header">ai.py solution</div>
-              <pre class="code-display"><code class="language-python" id="solution4_ai"></code></pre>
-            </div>
-          </div>
+        </div>
+    </section>
 
-          <div class="principles-box">
-            <h4>Expert Principles in this Game:</h4>
-            <div class="principle-item"><span class="checkmark">✓</span> <strong>Multi-file Architecture:</strong> Complex project structure with multiple modules</div>
-            <div class="principle-item"><span class="checkmark">✓</span> <strong>2D Data Structures:</strong> Working with 2D lists for the game board</div>
-            <div class="principle-item"><span class="checkmark">✓</span> <strong>Algorithms:</strong> Implementing AI algorithms (optional)</div>
-            <div class="principle-item"><span class="checkmark">✓</span> <strong>Advanced Programming:</strong> Complex conditional logic and data manipulation</div>
-          </div>
-
-          <div class="principles-box" id="conclusion4" style="margin-top: 1rem; display: none;">
-            <h4>Conclusion for Game 4:</h4>
-            <p>After completing Game 4, you should have learned:</p>
-            <ul>
-              <li>How to implement 2D data structures for game boards</li>
-              <li>How to create an AI opponent with strategic decision making</li>
-              <li>How to represent and manipulate game positions</li>
-              <li>How to implement win/tie checking algorithms</li>
-              <li>How to structure a complex game with multiple interacting components</li>
-            </ul>
-            <p>These skills will help you tackle more complex programming challenges.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="progress-container">
-      <h3 class="progress-title">Your Learning Progress</h3>
-      <div class="progress-steps">
-        <div class="progress-bar" id="progressBar" style="width: 0%"></div>
-        <div class="step active" id="step1" onclick="showGame(1)">
-          1
-          <div class="step-label">Game 1</div>
-        </div>
-        <div class="step" id="step2" onclick="showGame(2)">
-          2
-          <div class="step-label">Game 2</div>
-        </div>
-        <div class="step" id="step3" onclick="showGame(3)">
-          3
-          <div class="step-label">Game 3</div>
-        </div>
-        <div class="step" id="step4" onclick="showGame(4)">
-          4
-          <div class="step-label">Game 4</div>
-        </div>
-        <div class="step" id="step5" onclick="completeCourse()">
-          5
-          <div class="step-label">Complete!</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="game-completed" id="completionMessage">
-      <div class="celebration">🎉 🏆 🎊</div>
-      <h2>Course Completed!</h2>
-      <p>You've successfully completed all games and learned fundamental to advanced programming concepts!</p>
-      <p>You're now ready to tackle more advanced programming challenges.</p>
-    </div>
   </div>
 
-  <!-- Prism.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
-
   <script>
-    // Highlight all code blocks on page load
-    document.addEventListener('DOMContentLoaded', function() {
+    function runGame(gameNum) {
+      const codeElement = document.getElementById(`code${gameNum}`);
+      const outputElement = document.getElementById(`output${gameNum}`);
+      const code = codeElement.textContent || codeElement.innerText;
+      
+      outputElement.textContent = "Running your code... (This is a simulation)\n\n";
+      
+      if (gameNum === 1) {
+          outputElement.textContent += "I'm thinking of a number... (Enter a number in a real Python environment)";
+      } else if (gameNum === 2) {
+          outputElement.textContent += "Welcome to Hangman! Guess a letter...";
+      } else if (gameNum === 3) {
+          outputElement.textContent += "You enter a dark cave... What do you do?";
+      } else if (gameNum === 4) {
+          outputElement.textContent += "X's turn. Choose a spot (0-2).";
+      }
+    }
+
+    function toggleHint(hintId) {
+      const hintElement = document.getElementById(hintId);
+      if (hintElement.style.display === "block") {
+        hintElement.style.display = "none";
+      } else {
+        hintElement.style.display = "block";
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
       Prism.highlightAll();
     });
-    // Sample solutions for the games
-    const solutions = {
-      game1: `import random
-
-def number_guessing_game():
-    print("=== Welcome to Number Guessing Game! ===")
-
-    secret_number = random.randint(1, 100)
-
-    attempts = 0
-    max_attempts = 7
-
-    print(f"I'm thinking of a number between 1 and 100.")
-    print(f"You have {max_attempts} attempts to guess it.")
-
-    while attempts < max_attempts:
-        attempts += 1
-        attempts_left = max_attempts - attempts + 1
-
-        try:
-            guess = int(input(f"\\nAttempt #{attempts} ({attempts_left} left): Enter your guess: "))
-        except ValueError:
-            print("Please enter a valid number!")
-            attempts -= 1
-            continue
-
-        if guess < 1 or guess > 100:
-            print("Please enter a number between 1 and 100!")
-            attempts -= 1
-            continue
-
-        if guess == secret_number:
-            print(f"\\n🎉 Congratulations! You guessed it in {attempts} attempts!")
-            print(f"The number was {secret_number}!")
-            break
-        elif guess < secret_number:
-            print("Too low! Try a higher number.")
-        else:
-            print("Too high! Try a higher number.")
-
-        if attempts == 3:
-            if secret_number % 2 == 0:
-                print("💡 Hint: The number is even!")
-            else:
-                print("💡 Hint: The number is odd!")
-
-    if attempts >= max_attempts and guess != secret_number:
-        print(f"\\n💔 Game Over! You've used all {max_attempts} attempts.")
-        print(f"The secret number was {secret_number}.")
-
-if __name__ == "__main__":
-    number_guessing_game()`,
-
-      game2: `import random
-
-def display_word(word, guessed_letters):
-    display = ""
-    for letter in word:
-        if letter in guessed_letters:
-            display += letter + " "
-        else:
-            display += "_ "
-    return display.strip()
-
-def get_random_word():
-    words = ["python", "programming", "computer", "algorithm",
-             "variable", "function", "dictionary", "javascript"]
-    return random.choice(words)
-
-def hangman_game():
-    print("=== Welcome to Hangman! ===")
-
-    secret_word = get_random_word()
-    guessed_letters = []
-    attempts = 6
-    wrong_guesses = 0
-
-    print("Try to guess the word letter by letter!")
-    print(f"The word has {len(secret_word)} letters.")
-    print(f"You can make {attempts} wrong guesses.")
-
-    while wrong_guesses < attempts:
-        all_guessed = True
-        for letter in secret_word:
-            if letter not in guessed_letters:
-                all_guessed = False
-                break
-
-        if all_guessed:
-            break
-
-        print("\\n" + "=" * 40)
-        print(f"Word: {display_word(secret_word, guessed_letters)}")
-        print(f"Guessed letters: {', '.join(sorted(guessed_letters)) if guessed_letters else 'None'}")
-        print(f"Wrong guesses left: {attempts - wrong_guesses}")
-
-        guess = input("Enter a letter: ").lower()
-
-        if len(guess) != 1:
-            print("Please enter a single letter!")
-            continue
-
-        if not guess.isalpha():
-            print("Please enter a letter from A-Z!")
-            continue
-
-        if guess in guessed_letters:
-            print("You already guessed that letter!")
-            continue
-
-        guessed_letters.append(guess)
-
-        if guess in secret_word:
-            print(f"Good guess! '{guess}' is in the word.")
-        else:
-            wrong_guesses += 1
-            print(f"Wrong guess! '{guess}' is not in the word.")
-
-    all_guessed = True
-    for letter in secret_word:
-        if letter not in guessed_letters:
-            all_guessed = False
-            break
-
-    if all_guessed:
-        print(f"\\n🎉 Congratulations! You guessed the word: {secret_word}")
-        print(f"You won with {wrong_guesses} wrong guesses!")
-    else:
-        print(f"\\n💔 Game Over! You've used all {attempts} attempts.")
-        print(f"The word was: {secret_word}")
-        print(f"Your guesses: {', '.join(guessed_letters)}")
-
-if __name__ == "__main__":
-    hangman_game()`,
-
-      game3: `# Text-based Adventure Game
-# main.py - Main game file
-import game_engine
-import rooms
-import items
-
-def main():
-    print("=== Welcome to Dungeons & Data Structures! ===")
-    print("You're a brave adventurer exploring the mysterious dungeon.")
-    print("Your goal is to find the legendary treasure and escape safely!")
-    print()
-
-    # Initialize game state
-    player = {
-        'name': 'Adventurer',
-        'health': 100,
-        'inventory': [],
-        'current_room': 'entrance'
-    }
-
-    # Game loop
-    game_running = True
-    while game_running and player['health'] > 0:
-        print(game_engine.describe_room(player['current_room']))
-
-        action = input("What would you like to do? ").lower().strip()
-
-        if action == 'quit' or action == 'exit':
-            game_running = False
-        elif action.startswith('go '):
-            direction = action[3:]  # Get the direction after 'go '
-            new_room = game_engine.move_player(player['current_room'], direction)
-            if new_room:
-                player['current_room'] = new_room
-                print(f"You moved to {new_room}")
-            else:
-                print("You can't go that way!")
-        elif action == 'look':
-            print(game_engine.describe_room(player['current_room']))
-        elif action.startswith('take '):
-            item = action[5:]  # Get the item after 'take '
-            if game_engine.take_item(player, player['current_room'], item):
-                print(f"You took the {item}")
-            else:
-                print(f"There's no {item} here")
-        elif action == 'inventory' or action == 'i':
-            if player['inventory']:
-                print("You are carrying:", ', '.join(player['inventory']))
-            else:
-                print("Your inventory is empty")
-        elif action.startswith('use '):
-            item = action[4:]  # Get the item after 'use '
-            result = game_engine.use_item(player, item)
-            print(result)
-        else:
-            print("I don't understand that command. Try 'go north', 'take [item]', 'use [item]', 'look', or 'inventory'.")
-
-        print()
-
-    if player['health'] <= 0:
-        print("You have died! Game over.")
-    else:
-        print("Thanks for playing!")
-
-if __name__ == "__main__":
-    main()`,
-
-      game4: `# Tic-Tac-Toe Game
-# game.py - Main game logic
-import board
-import player
-import ai
-
-def main():
-    print("=== Welcome to Tic-Tac-Toe Tournament! ===")
-    print("Play against a friend or the computer!")
-
-    # Determine game mode
-    mode = input("Choose mode - 'friend' or 'computer': ").lower()
-
-    # Initialize game
-    game_board = board.initialize_board()
-    current_player = 'X'
-
-    # Game loop
-    game_over = False
-    winner = None
-
-    while not game_over:
-        print(board.display_board(game_board))
-
-        if mode == 'computer' and current_player == 'O':
-            # Computer's turn
-            print("Computer's turn...")
-            row, col = ai.get_best_move(game_board, current_player)
-            game_board[row][col] = current_player
-        else:
-            # Human player's turn
-            try:
-                position = int(input(f"Player {current_player}, enter position (1-9): "))
-                row, col = board.position_to_coords(position)
-
-                # Check if position is valid and available
-                if game_board[row][col] == ' ':
-                    game_board[row][col] = current_player
-                else:
-                    print("That position is already taken!")
-                    continue
-            except (ValueError, IndexError):
-                print("Please enter a valid number between 1-9!")
-                continue
-
-        # Check for win
-        if board.check_win(game_board, current_player):
-            print(board.display_board(game_board))
-            print(f"Player {current_player} wins!")
-            game_over = True
-            winner = current_player
-        elif board.check_tie(game_board):
-            print(board.display_board(game_board))
-            print("It's a tie!")
-            game_over = True
-        else:
-            # Switch player
-            current_player = 'O' if current_player == 'X' else 'X'
-
-    play_again = input("Play again? (y/n): ").lower()
-    if play_again == 'y':
-        main()  # Restart the game
-    else:
-        print("Thanks for playing!")
-
-if __name__ == "__main__":
-    main()`,
-
-      game3_engine: `# game_engine.py - Game engine functions
-rooms = {
-    'entrance': {
-        'description': 'You are at the entrance of a dark dungeon. Paths lead north and east.',
-        'items': ['torch'],
-        'exits': {'north': 'hallway', 'east': 'armory'}
-    },
-    'hallway': {
-        'description': 'A long, narrow hallway with flickering torches on the walls. Paths lead south, east, and north.',
-        'items': [],
-        'exits': {'south': 'entrance', 'east': 'treasure_room', 'north': 'library'}
-    },
-    'armory': {
-        'description': 'An old armory filled with rusty weapons. Paths lead west and north.',
-        'items': ['sword', 'shield'],
-        'exits': {'west': 'entrance', 'north': 'treasure_room'}
-    },
-    'library': {
-        'description': 'A dusty library with ancient books. Paths lead south and east.',
-        'items': ['book'],
-        'exits': {'south': 'hallway', 'east': 'treasure_room'}
-    },
-    'treasure_room': {
-        'description': 'A magnificent treasure room filled with gold and a magical artifact. Path leads back.',
-        'items': ['artifact'],
-        'exits': {'west': 'library', 'south': 'armory', 'southwest': 'hallway'}
-    }
-}
-
-def describe_room(room_name):
-    """Return the description of the given room."""
-    if room_name in rooms:
-        room = rooms[room_name]
-        desc = room['description']
-
-        if room['items']:
-            desc += f"\\nYou can see: {', '.join(room['items'])}"
-        else:
-            desc += "\\nNo items in this room."
-
-        return desc
-    else:
-        return "You are in an unknown location."
-
-def move_player(current_room, direction):
-    """Try to move the player in the given direction, return new room or None."""
-    if current_room in rooms and direction in rooms[current_room]['exits']:
-        return rooms[current_room]['exits'][direction]
-    return None
-
-def take_item(player, room_name, item_name):
-    """Try to take an item from the current room."""
-    if room_name in rooms and item_name in rooms[room_name]['items']:
-        rooms[room_name]['items'].remove(item_name)
-        player['inventory'].append(item_name)
-        return True
-    return False
-
-def use_item(player, item_name):
-    """Handle using an item from the player's inventory."""
-    if item_name in player['inventory']:
-        if item_name == 'torch':
-            return "The torch lights up the dark area!"
-        elif item_name == 'book':
-            return "You read an ancient book and learn secret knowledge!"
-        elif item_name == 'artifact':
-            return "You found the legendary artifact! You win the game!"
-        else:
-            return f"You use the {item_name}. Nothing special happens."
-    else:
-        return f"You don't have a {item_name} in your inventory."`,
-
-      game3_rooms: `# rooms.py - Room definitions
-rooms_data = {
-    'entrance': {
-        'description': 'You are at the entrance of a dark dungeon. Paths lead north and east.',
-        'items': ['torch'],
-        'exits': {'north': 'hallway', 'east': 'armory'}
-    },
-    'hallway': {
-        'description': 'A long, narrow hallway with flickering torches on the walls. Paths lead south, east, and north.',
-        'items': [],
-        'exits': {'south': 'entrance', 'east': 'treasure_room', 'north': 'library'}
-    },
-    'armory': {
-        'description': 'An old armory filled with rusty weapons. Paths lead west and north.',
-        'items': ['sword', 'shield'],
-        'exits': {'west': 'entrance', 'north': 'treasure_room'}
-    },
-    'library': {
-        'description': 'A dusty library with ancient books. Paths lead south and east.',
-        'items': ['book'],
-        'exits': {'south': 'hallway', 'east': 'treasure_room'}
-    },
-    'treasure_room': {
-        'description': 'A magnificent treasure room filled with gold and a magical artifact. Path leads back.',
-        'items': ['artifact'],
-        'exits': {'west': 'library', 'south': 'armory', 'southwest': 'hallway'}
-    }
-}
-
-def get_room_description(room_name):
-    """Return the description of the given room."""
-    if room_name in rooms_data:
-        room = rooms_data[room_name]
-        desc = room['description']
-
-        if room['items']:
-            desc += f"\\nYou can see: {', '.join(room['items'])}"
-        else:
-            desc += "\\nNo items in this room."
-
-        return desc
-    else:
-        return "You are in an unknown location."
-
-def get_room_exits(room_name):
-    """Return the exits for the given room."""
-    if room_name in rooms_data:
-        return rooms_data[room_name]['exits']
-    else:
-        return {}`,
-
-      game3_items: `# items.py - Item definitions
-items_data = {
-    'torch': {
-        'description': 'A wooden torch that provides light in dark areas.',
-        'usable': True
-    },
-    'sword': {
-        'description': 'An old but sharp sword.',
-        'usable': False
-    },
-    'shield': {
-        'description': 'A rusty shield that can protect you.',
-        'usable': False
-    },
-    'book': {
-        'description': 'An ancient book filled with secrets.',
-        'usable': True
-    },
-    'artifact': {
-        'description': 'A magical artifact that grants special powers.',
-        'usable': True
-    }
-}
-
-def get_item_description(item_name):
-    """Return the description of the given item."""
-    if item_name in items_data:
-        return items_data[item_name]['description']
-    else:
-        return f"Unknown item: {item_name}"
-
-def is_item_usable(item_name):
-    """Return True if the item can be used."""
-    if item_name in items_data:
-        return items_data[item_name]['usable']
-    else:
-        return False
-
-def use_item(item_name):
-    """Handle using an item."""
-    if is_item_usable(item_name):
-        if item_name == 'torch':
-            return "The torch lights up the dark area!"
-        elif item_name == 'book':
-            return "You read an ancient book and learn secret knowledge!"
-        elif item_name == 'artifact':
-            return "You found the legendary artifact! You win the game!"
-        else:
-            return f"You use the {item_name}. Something magical happens!"
-    else:
-        return f"The {item_name} is not usable."`,
-
-      game4_board: `# board.py - Board management functions
-
-def initialize_board():
-    """Create a new 3x3 game board filled with empty spaces."""
-    return [[' ' for _ in range(3)] for _ in range(3)]
-
-def display_board(board):
-    """Return a string representation of the board."""
-    result = "\\n"
-    result += " " + board[0][0] + " | " + board[0][1] + " | " + board[0][2] + "\\n"
-    result += "---|---|---\\n"
-    result += " " + board[1][0] + " | " + board[1][1] + " | " + board[1][2] + "\\n"
-    result += "---|---|---\\n"
-    result += " " + board[2][0] + " | " + board[2][1] + " | " + board[2][2] + "\\n"
-    return result
-
-def position_to_coords(position):
-    """Convert a position number (1-9) to row, col coordinates (0-2)."""
-    if position < 1 or position > 9:
-        raise ValueError("Position must be between 1 and 9")
-
-    # Map positions 1-9 to board coordinates
-    # 1 2 3
-    # 4 5 6
-    # 7 8 9
-    position -= 1  # Convert to 0-8 range
-    row = position // 3
-    col = position % 3
-    return row, col
-
-def check_win(board, player):
-    """Check if the specified player has won."""
-    # Check rows
-    for row in range(3):
-        if all(board[row][col] == player for col in range(3)):
-            return True
-
-    # Check columns
-    for col in range(3):
-        if all(board[row][col] == player for row in range(3)):
-            return True
-
-    # Check diagonals
-    if all(board[i][i] == player for i in range(3)):
-        return True
-    if all(board[i][2-i] == player for i in range(3)):
-        return True
-
-    return False
-
-def check_tie(board):
-    """Check if the game is a tie (board is full)."""
-    for row in range(3):
-        for col in range(3):
-            if board[row][col] == ' ':
-                return False
-    return True`,
-
-      game4_ai: `# ai.py - AI opponent logic
-import random
-
-def get_best_move(board, ai_player):
-    """Return the best move for the AI player using a simple strategy."""
-    # Simple strategy: try to win, then block opponent, then take center, then corner, then any valid move
-
-    # First, try to find a winning move
-    for row in range(3):
-        for col in range(3):
-            if board[row][col] == ' ':
-                board[row][col] = ai_player
-                if check_win(board, ai_player):
-                    board[row][col] = ' '  # Reset the board
-                    return row, col
-                board[row][col] = ' '  # Reset the board
-
-    # If no winning move, try to block opponent
-    opponent = 'X' if ai_player == 'O' else 'X'
-    for row in range(3):
-        for col in range(3):
-            if board[row][col] == ' ':
-                board[row][col] = opponent
-                if check_win(board, opponent):
-                    board[row][col] = ' '  # Reset the board
-                    return row, col
-                board[row][col] = ' '  # Reset the board
-
-    # If no blocking move, try to take center
-    if board[1][1] == ' ':
-        return 1, 1
-
-    # If center is taken, try a corner
-    corners = [(0, 0), (0, 2), (2, 0), (2, 2)]
-    open_corners = [(r, c) for r, c in corners if board[r][c] == ' ']
-    if open_corners:
-        return random.choice(open_corners)
-
-    # If all else fails, pick a random available position
-    available = []
-    for row in range(3):
-        for col in range(3):
-            if board[row][col] == ' ':
-                available.append((row, col))
-
-    if available:
-        return random.choice(available)
-
-    # Should not reach here if board is not full
-    return None, None
-
-def check_win(board, player):
-    """Check if the specified player has won."""
-    # Check rows
-    for row in range(3):
-        if all(board[row][col] == player for col in range(3)):
-            return True
-
-    # Check columns
-    for col in range(3):
-        if all(board[row][col] == player for row in range(3)):
-            return True
-
-    # Check diagonals
-    if all(board[i][i] == player for i in range(3)):
-        return True
-    if all(board[i][2-i] == player for i in range(3)):
-        return True
-
-    return False`
-    };
-
-    // Game state management
-    let currentGame = 1;
-    let game1Completed = false;
-    let game2Completed = false;
-    let game3Completed = false;
-    let game4Completed = false;
-
-    // Show/hide games based on progress
-    function showGame(gameNumber) {
-      currentGame = gameNumber;
-      document.getElementById('game1').style.display = 'block';
-      document.getElementById('game2').style.display = 'block';
-      document.getElementById('game3').style.display = 'block';
-      document.getElementById('game4').style.display = 'block';
-
-      // Update progress steps
-      document.getElementById('step1').className = gameNumber === 1 ? 'step active' : 'step completed';
-      document.getElementById('step2').className = gameNumber === 2 ? 'step active' : (game1Completed ? 'step completed' : 'step');
-      document.getElementById('step3').className = gameNumber === 3 ? 'step active' : (game1Completed && game2Completed ? 'step completed' : 'step');
-      document.getElementById('step4').className = gameNumber === 4 ? 'step active' : (game1Completed && game2Completed && game3Completed ? 'step completed' : 'step');
-      document.getElementById('step5').className = game1Completed && game2Completed && game3Completed && game4Completed ? 'step completed' : 'step';
-
-      // Update progress bar
-      let progress = 0;
-      if (game4Completed) progress = 100;
-      else if (game3Completed) progress = 75;
-      else if (game2Completed) progress = 50;
-      else if (game1Completed) progress = 25;
-      document.getElementById('progressBar').style.width = `${progress}%`;
-    }
-
-    // Run game code
-    function runGame(gameNum) {
-      let code;
-      if (gameNum <= 2) {
-        const codeElement = document.getElementById(`code${gameNum}`);
-        code = codeElement.textContent || codeElement.innerText;
-      } else if (gameNum === 3) {
-        // Get code from all Game 3 files
-        const mainCode = document.getElementById('code3_main').textContent || document.getElementById('code3_main').innerText;
-        const engineCode = document.getElementById('code3_engine').textContent || document.getElementById('code3_engine').innerText;
-        const roomsCode = document.getElementById('code3_rooms').textContent || document.getElementById('code3_rooms').innerText;
-        const itemsCode = document.getElementById('code3_items').textContent || document.getElementById('code3_items').innerText;
-
-        // For Game 3, we'll just simulate the process
-        code = mainCode;  // Using main code for the simulation
-      } else if (gameNum === 4) {
-        // Get code from Game 4 files
-        const mainCode = document.getElementById('code4_main').textContent || document.getElementById('code4_main').innerText;
-        const boardCode = document.getElementById('code4_board').textContent || document.getElementById('code4_board').innerText;
-        const aiCode = document.getElementById('code4_ai').textContent || document.getElementById('code4_ai').innerText;
-
-        // For Game 4, we'll just simulate the process
-        code = mainCode;  // Using main code for the simulation
-      }
-
-      const output = document.getElementById(`output${gameNum}`);
-
-      output.innerHTML = "Running your code...\n";
-
-      // In a real implementation, this would send code to a server for execution
-      // For this demo, we'll simulate execution with the solution
-      setTimeout(() => {
-        if (gameNum === 1) {
-          output.innerHTML = "=== Welcome to Number Guessing Game! ===\n";
-          output.innerHTML += "I'm thinking of a number between 1 and 100.\n";
-          output.innerHTML += "You have 7 attempts to guess it.\n\n";
-          output.innerHTML += "For this demo, the number is 42.\n";
-          output.innerHTML += "Try running the code in your Python environment!\n\n";
-          output.innerHTML += "💡 Tip: Copy the code to a .py file and run it with 'python filename.py'";
-
-          // Mark game as completed for demo purposes
-          game1Completed = true;
-          showGame(2);
-        } else if (gameNum === 2) {
-          if (!game1Completed) {
-            output.innerHTML = "Please complete Game 1 first!";
-            return;
-          }
-
-          output.innerHTML = "=== Welcome to Hangman! ===\n";
-          output.innerHTML += "Try to guess the word letter by letter!\n";
-          output.innerHTML += "For this demo, the word is 'python'.\n";
-          output.innerHTML += "You can make 6 wrong guesses.\n\n";
-          output.innerHTML += "Try running the code in your Python environment!\n\n";
-          output.innerHTML += "💡 Tip: Practice with different words by modifying the word list!";
-
-          // Mark game as completed for demo purposes
-          game2Completed = true;
-          showGame(3);
-        } else if (gameNum === 3) {
-          if (!game1Completed || !game2Completed) {
-            output.innerHTML = "Please complete Games 1 and 2 first!";
-            return;
-          }
-
-          output.innerHTML = "=== Welcome to Dungeons & Data Structures! ===\n";
-          output.innerHTML += "Your adventure game structure is complete!\n";
-          output.innerHTML += "The main.py, game_engine.py, rooms.py, and items.py modules are ready.\n\n";
-          output.innerHTML += "To run the full game:\n";
-          output.innerHTML += "1. Create the following files in a folder: main.py, game_engine.py, rooms.py, items.py\n";
-          output.innerHTML += "2. Copy the code from each module into the corresponding file\n";
-          output.innerHTML += "3. Run 'python main.py' from your terminal\n\n";
-          output.innerHTML += "💡 Tip: This demonstrates how to organize code across multiple modules!";
-
-          // Mark game as completed for demo purposes
-          game3Completed = true;
-          showGame(4);
-        } else if (gameNum === 4) {
-          if (!game1Completed || !game2Completed || !game3Completed) {
-            output.innerHTML = "Please complete Games 1, 2, and 3 first!";
-            return;
-          }
-
-          output.innerHTML = "=== Welcome to Tic-Tac-Toe Tournament! ===\n";
-          output.innerHTML += "Your Tic-Tac-Toe game structure is complete!\n";
-          output.innerHTML += "The game.py, board.py, and ai.py modules are ready.\n\n";
-          output.innerHTML += "To run the full game:\n";
-          output.innerHTML += "1. Create the following files in a folder: game.py, board.py, ai.py\n";
-          output.innerHTML += "2. Copy the code from each module into the corresponding file\n";
-          output.innerHTML += "3. Run 'python game.py' from your terminal\n\n";
-          output.innerHTML += "💡 Tip: This shows how to build complex programs with multiple files!";
-
-          // Mark game as completed for demo purposes
-          game4Completed = true;
-
-          // Show completion message after a delay
-          setTimeout(() => {
-            document.getElementById('completionMessage').classList.add('show');
-          }, 1000);
-        }
-      }, 1000);
-    }
-
-    // Toggle hint visibility
-    function toggleHint(gameNum) {
-      const hint = document.getElementById(`hint${gameNum}`);
-      hint.classList.toggle('show');
-    }
-
-    // Toggle solution visibility
-    function toggleSolution(gameNum) {
-      const solution = document.getElementById(`solution${gameNum}`);
-      const conclusion = document.getElementById(`conclusion${gameNum}`);
-
-      // Toggle solution visibility
-      if (solution.style.display === 'none' || solution.style.display === '') {
-        solution.style.display = 'block';
-
-        // Set the solution code for each file
-        if (gameNum === 3) {
-          document.getElementById('solution3_main').textContent = solutions.game3;
-          document.getElementById('solution3_engine').textContent = solutions.game3_engine;
-          document.getElementById('solution3_rooms').textContent = solutions.game3_rooms;
-          document.getElementById('solution3_items').textContent = solutions.game3_items;
-          // Show conclusion after a delay
-          setTimeout(() => {
-            if (conclusion) conclusion.style.display = 'block';
-          }, 500);
-        } else if (gameNum === 4) {
-          document.getElementById('solution4_main').textContent = solutions.game4;
-          document.getElementById('solution4_board').textContent = solutions.game4_board;
-          document.getElementById('solution4_ai').textContent = solutions.game4_ai;
-          // Show conclusion after a delay
-          setTimeout(() => {
-            if (conclusion) conclusion.style.display = 'block';
-          }, 500);
-        }
-
-        // Also highlight the code blocks with Prism
-        setTimeout(() => {
-          Prism.highlightAll();
-        }, 100);
-      } else {
-        solution.style.display = 'none';
-        if (conclusion) conclusion.style.display = 'none';
-      }
-    }
-
-    // Complete course
-    function completeCourse() {
-      if (game1Completed && game2Completed && game3Completed && game4Completed) {
-        document.getElementById('completionMessage').classList.add('show');
-      } else {
-        alert("Please complete all games first!");
-      }
-    }
-
-    // Initialize
-    showGame(1);
   </script>
 </body>
+</html>
 </html>
