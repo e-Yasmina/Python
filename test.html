@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Test Your Knowledge</title>
+  <link rel="icon" href="logo.png" type="image/png" />
+
+  <!-- Prism.js for syntax highlighting -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f8f9fa;
+      color: #333;
+      padding: 2rem;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    h2 {
+      border-bottom: 2px solid #4CAF50;
+      padding-bottom: 0.5rem;
+      margin-top: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .nav {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .nav a {
+      color: #4CAF50;
+      text-decoration: none;
+      font-weight: bold;
+      margin: 0 15px;
+      padding: 8px 16px;
+      border: 2px solid #4CAF50;
+      border-radius: 4px;
+    }
+    .exercise-section {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+      margin-bottom: 2rem;
+    }
+    pre {
+      margin: 1rem 0;
+      font-size: 0.95rem;
+      overflow-x: auto;
+    }
+    .solution-toggle {
+      background: #f1f3f5;
+      border: none;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      font-weight: bold;
+      color: #555;
+      border-radius: 4px;
+      margin-top: 1rem;
+    }
+    .solution-content {
+      display: none;
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #fafafa;
+      border: 1px dashed #ccc;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Test Your Knowledge</h1>
+
+    <div class="nav">
+        <a href="py.html">Python Basics</a>
+        <a href="python_basics.html">Python Exercises</a>
+        <a href="problems.html">Problem Solving</a>
+        <a href="game-based.html">Game Learning</a>
+        <a href="debugging.html">Debugging</a>
+        <a href="test.html">Test</a>
+    </div>
+
+    <p style="text-align: center;">Let's see what you've learned! Try to solve the three exercises below.</p>
+
+    <!-- Exercise 1: Debugging -->
+    <section class="exercise-section">
+      <h2>Exercise 1: Spot and Fix the Bugs</h2>
+      <p>Let's start with some basic error identification. Find and fix the errors in these simple examples first:</p>
+
+      <h3>Question 1: Simple Syntax Error</h3>
+      <p>Can you find the syntax error in the following code?</p>
+      <pre><code class="language-python" contenteditable="true">def greet(name)
+    print("Hello, " + name)
+</code></pre>
+      <button class="solution-toggle" onclick="toggleSolution('q1')">Show Solution for Question 1</button>
+      <div class="solution-content" id="q1">
+        <p><strong>Solution:</strong> Missing colon <code>:</code> after the function definition. The correct code is:</p>
+        <pre><code class="language-python">def greet(name):
+    print("Hello, " + name)
+</code></pre>
+      </div>
+
+      <h3>Question 2: Simple Runtime Error</h3>
+      <p>What is wrong with this code that causes a runtime error?</p>
+      <pre><code class="language-python" contenteditable="true">age = 25
+message = "I am " + age + " years old"
+print(message)
+</code></pre>
+      <button class="solution-toggle" onclick="toggleSolution('q2')">Show Solution for Question 2</button>
+      <div class="solution-content" id="q2">
+        <p><strong>Solution:</strong> You cannot concatenate a string and an integer. The correct code is:</p>
+        <pre><code class="language-python">age = 25
+message = "I am " + str(age) + " years old"
+print(message)
+# OR use an f-string: f"I am {age} years old"
+</code></pre>
+      </div>
+
+      <h3>Question 3: Complex Example with Multiple Errors</h3>
+      <p>Now, this block of code is supposed to take a list of numbers, add <code>5</code> to each even number, and return the new list. It contains a syntax error, a runtime error, and a logic error. Can you find and fix them all?</p>
+      <pre><code class="language-python" contenteditable="true">def process_numbers(numbers)
+    new_list = []
+    for num in numbers:
+        if num % 2 == 0:
+            new_num = num + "5"
+            new_list.append(new_num)
+        else
+            new_list.append(num - 1)
+    return new_list
+
+my_list = [10, 13, 20, 25, 30]
+print(process_numbers(my_list))
+</code></pre>
+      <button class="solution-toggle" onclick="toggleSolution('q3')">Show Solution for Question 3</button>
+      <div class="solution-content" id="q3">
+        <h4>Corrected Code</h4>
+        <p><strong>1. Syntax Error:</strong> The <code>def</code> line was missing a colon <code>:</code>, and the <code>else</code> was also missing its colon.</p>
+        <p><strong>2. Runtime Error (TypeError):</strong> You can't add a number and a string (<code>num + "5"</code>). This was fixed by changing <code>"5"</code> to the integer <code>5</code>.</p>
+        <p><strong>3. Logic Error:</strong> The code was appending <code>num - 1</code> for odd numbers instead of just the number itself.</p>
+        <pre><code class="language-python">def process_numbers(numbers):
+    new_list = []
+    for num in numbers:
+        if num % 2 == 0:
+            new_num = num + 5
+            new_list.append(new_num)
+        else:
+            new_list.append(num)
+    return new_list
+
+my_list = [10, 13, 20, 25, 30]
+print(process_numbers(my_list))
+# Expected Output: [15, 13, 25, 25, 35]
+</code></pre>
+      </div>
+    </section>
+
+    <!-- Exercise 2: Game Completion -->
+    <section class="exercise-section">
+        <h2>Exercise 2: Complete the Game</h2>
+        <p>This is a simple "Rock, Paper, Scissors" game. The player chooses one, and the computer makes a random choice. Complete the code by filling in the <code># TODO:</code> sections to determine and print the winner.</p>
+        <pre><code class="language-python" contenteditable="true">import random
+
+options = ["rock", "paper", "scissors"]
+computer_choice = random.choice(options)
+
+player_choice = input("Choose rock, paper, or scissors: ").lower()
+
+print(f"\nYou chose: {player_choice}")
+print(f"Computer chose: {computer_choice}\n")
+
+if # TODO: Add the condition for a tie:
+    print("It's a tie!")
+# TODO: Add the logic for when the player wins.
+# Hint: rock beats scissors, scissors beats paper, paper beats rock.
+elif (player_choice == "rock" and computer_choice == "scissors") or \
+     # TODO: Add the second case when the player wins the game or \
+     (player_choice == "paper" and computer_choice == "rock"):
+    # Your code here...
+else:
+    # TODO: If it's not a tie and the player didn't win, the computer must have won.
+    # Your code here...
+</code></pre>
+        <button class="solution-toggle" onclick="toggleSolution('solution2')">Show Solution</button>
+        <div class="solution-content" id="solution2">
+            <h4>Completed Code</h4>
+            <pre><code class="language-python">import random
+
+options = ["rock", "paper", "scissors"]
+computer_choice = random.choice(options)
+
+player_choice = input("Choose rock, paper, or scissors: ").lower()
+
+print(f"\nYou chose: {player_choice}")
+print(f"Computer chose: {computer_choice}\n")
+
+if player_choice == computer_choice:
+    print("It's a tie!")
+elif (player_choice == "rock" and computer_choice == "scissors") or \
+     (player_choice == "scissors" and computer_choice == "paper") or \
+     (player_choice == "paper" and computer_choice == "rock"):
+    print("You win!")
+else:
+    print("You lose!")
+</code></pre>
+        </div>
+      </section>
+
+    <!-- Exercise 3: Problem Solving -->
+    <section class="exercise-section">
+        <h2>Exercise 3: Solve the Problem</h2>
+        <p>Write a Python function called <code>fizz_buzz</code> that takes one number as an argument. The function should loop from 1 up to that number (inclusive). For each number in the loop, it should print:</p>
+        <ul>
+            <li>"FizzBuzz" if the number is divisible by both 3 and 5.</li>
+            <li>"Fizz" if the number is only divisible by 3.</li>
+            <li>"Buzz" if the number is only divisible by 5.</li>
+            <li>The number itself otherwise.</li>
+        </ul>
+        <pre><code class="language-python" contenteditable="true"># Write your function here
+
+# Example of how to call your function:
+# fizz_buzz(15)
+</code></pre>
+        <button class="solution-toggle" onclick="toggleSolution('solution3')">Show Solution</button>
+        <div class="solution-content" id="solution3">
+            <h4>Solution</h4>
+            <p>The key to this problem is checking for "FizzBuzz" (divisible by both 3 and 5) first, because if you check for "Fizz" first, it will never get a chance to check for "FizzBuzz".</p>
+            <pre><code class="language-python">def fizz_buzz(limit):
+    for num in range(1, limit + 1):
+        if num % 3 == 0 and num % 5 == 0:
+            print("FizzBuzz")
+        elif num % 3 == 0:
+            print("Fizz")
+        elif num % 5 == 0:
+            print("Buzz")
+        else:
+            print(num)
+
+# Call the function to test it up to 15
+fizz_buzz(15)
+</code></pre>
+        </div>
+      </section>
+
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  <script>
+    function toggleSolution(id) {
+      const solution = document.getElementById(id);
+      if (solution.style.display === "block") {
+        solution.style.display = "none";
+      } else {
+        solution.style.display = "block";
+      }
+    }
+    Prism.highlightAll();
+  </script>
+</body>
+</html>

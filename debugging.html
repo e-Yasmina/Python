@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Debugging Python Code</title>
+  <link rel="icon" href="logo.png" type="image/png" />
+
+  <!-- Prism.js for syntax highlighting -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f8f9fa;
+      color: #333;
+      padding: 2rem;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      /* background: white; */
+      padding: 2rem;
+      /* border-radius: 10px; */
+      /* box-shadow: 0 4px 12px rgba(0,0,0,0.07); */
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    h2 {
+      border-bottom: 2px solid #4CAF50;
+      padding-bottom: 0.5rem;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+    .nav {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .nav a {
+      color: #4CAF50;
+      text-decoration: none;
+      font-weight: bold;
+      margin: 0 15px;
+      padding: 8px 16px;
+      border: 2px solid #4CAF50;
+      border-radius: 4px;
+    }
+    section {
+      margin: 2rem auto;
+      background: white;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+    }
+    .error-box {
+      background: #fff0f0;
+      border-left: 4px solid #D32F2F;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 4px;
+    }
+    .corrected-box {
+      background: #f0fff0;
+      border-left: 4px solid #4CAF50;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 4px;
+    }
+    .challenge {
+      background: #e8f4ff;
+      border-left: 4px solid #2196F3;
+      padding: 1rem;
+      margin-top: 1rem;
+      border-radius: 4px;
+    }
+    .challenge h3 {
+      margin-top: 0;
+      color: #2196F3;
+    }
+    .solution-toggle {
+      background: #f1f3f5;
+      border: none;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      font-weight: bold;
+      color: #555;
+      border-radius: 4px;
+      margin-top: 1rem;
+    }
+    .solution-content {
+      display: none;
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #fafafa;
+      border: 1px dashed #ccc;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>A Beginner's Guide to Debugging in Python</h1>
+
+    <div class="nav">
+        <a href="py.html">Python Basics</a>
+        <a href="python_basics.html">Python Exercises</a>
+        <a href="problems.html">Problem Solving</a>
+        <a href="game-based.html">Game Learning</a>
+        <a href="debugging.html">Debugging</a>
+        <a href="test.html">Test</a>
+    </div>
+
+    <p>Writing code is great, but a big part of programming is finding and fixing errors, a process called <strong>debugging</strong>. Let's look at the three main types of errors you'll encounter.</p>
+
+    <!-- Section: Syntax Errors -->
+    <section id="syntax-errors">
+      <h2>1. Syntax Errors</h2>
+      <p>These are like grammar mistakes in a sentence. You've broken a rule of the Python language, and the program can't even start to run. These are often the easiest to fix.</p>
+      
+      <div class="error-box">
+        <strong>Example of a Syntax Error:</strong> A missing colon <code>:</code> at the end of a loop definition.
+        <pre><code class="language-python">for i in range(5)  # Missing a colon here!
+    print(i)</code></pre>
+        When you try to run this, you'll get an error message that looks something like this, pointing right at the problem:
+        <pre><code class="language-bash">  File "my_script.py", line 1
+    for i in range(5)
+                     ^
+SyntaxError: invalid syntax</code></pre>
+      </div>
+
+      <div class="error-box">
+        <strong>Example of an <code>IndentationError</code>:</strong> Incorrect indentation breaks Python's structure.
+        <pre><code class="language-python">def greet_user():
+print("Hello!")  # This line is not indented properly!</code></pre>
+        This gives an <code>IndentationError</code> because Python expects the function body to be indented.
+        <div class="corrected-box">
+          <pre><code class="language-python"># The corrected way - proper indentation
+def greet_user():
+    print("Hello!")  # Now it's properly indented!
+
+greet_user()</code></pre>
+        </div>
+      </div>
+
+      <div class="error-box">
+        <strong>Another Syntax Error Example:</strong> Mismatched quotes in a string.
+        <pre><code class="language-python">message = "Hello, world!'  # Opening with double quote but closing with single!</code></pre>
+        You'll get a <code>SyntaxError</code> because the quotes don't match.
+        <div class="corrected-box">
+          <pre><code class="language-python"># The corrected way - matching quotes
+message = "Hello, world!"  # Both opening and closing with double quotes
+# OR
+message = 'Hello, world!'  # Both opening and closing with single quotes
+print(message)</code></pre>
+        </div>
+      </div>
+
+      <div class="challenge">
+        <h3>Challenge: Fix the Syntax</h3>
+        <p>The following code has a syntax error. Can you find and fix it?</p>
+        <pre><code class="language-python">def say_hello(name)
+    print(f"Hello, {name}")
+
+say_hello("World")</code></pre>
+        <button class="solution-toggle" onclick="toggleSolution('solution1')">Show Solution</button>
+        <div class="solution-content" id="solution1">
+          <p><strong>Answer:</strong> The function definition was missing a colon <code>:</code>.</p>
+          <pre><code class="language-python">def say_hello(name):  # Added the colon
+    print(f"Hello, {name}")
+
+say_hello("World")</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Runtime Errors -->
+    <section id="runtime-errors">
+        <h2>2. Runtime Errors (Exceptions)</h2>
+        <p>These errors happen while your program is running. The syntax is correct, but the code tries to do something impossible. These are also called "Exceptions".</p>
+        
+        <div class="error-box">
+          <strong>Example of a <code>TypeError</code>:</strong> Trying to add a number and a string.
+          <pre><code class="language-python">age = 25
+print("Your age is: " + age) # Can't add a string and an integer</code></pre>
+          The program crashes and gives you a <code>TypeError</code>. The fix is to convert the number to a string first, or use an f-string.
+          <div class="corrected-box">
+            <pre><code class="language-python"># The corrected way with an f-string
+age = 25
+print(f"Your age is: {age}")
+
+# OR convert the number to a string
+print("Your age is: " + str(age))
+
+# OR use the format method
+print("Your age is: {}".format(age))</code></pre>
+          </div>
+        </div>
+
+        <div class="error-box">
+            <strong>Example of a <code>NameError</code>:</strong> Using a variable that hasn't been created yet.
+            <pre><code class="language-python">print(my_variable) # my_variable was never defined!</code></pre>
+            This gives a <code>NameError</code> because Python doesn't know what <code>my_variable</code> is.
+        </div>
+
+        <div class="error-box">
+            <strong>Another example of a <code>NameError</code>:</strong> Using a function that doesn't exist.
+            <pre><code class="language-python">result = non_existent_function(5) # This function doesn't exist!</code></pre>
+            This also gives a <code>NameError</code> because Python doesn't know what <code>non_existent_function</code> is.
+            <div class="corrected-box">
+              <pre><code class="language-python"># The corrected way - define the function or use correct function name
+def multiply_by_two(x):  # Define the function
+    return x * 2
+
+result = multiply_by_two(5)  # Now this will work
+print(result)  # This will print 10
+
+# Or use an existing function
+import math
+result = math.sqrt(25)  # Using the correct function name
+print(result)  # This will print 5.0</code></pre>
+            </div>
+        </div>
+
+        <div class="error-box">
+            <strong>Example of an <code>IndexError</code>:</strong> Trying to access an index that doesn't exist in a list.
+            <pre><code class="language-python">fruits = ['apple', 'banana', 'orange']
+print(fruits[5]) # Index 5 doesn't exist in the list!</code></pre>
+            This gives an <code>IndexError</code> because Python is trying to access an element at position 5, but the list only has indices 0, 1, and 2.
+            <div class="corrected-box">
+              <pre><code class="language-python"># The corrected way - check the length first or use a valid index
+fruits = ['apple', 'banana', 'orange']
+if len(fruits) > 5:
+    print(fruits[5])
+else:
+    print(f"The list only has {len(fruits)} fruits, so index 5 doesn't exist.")
+
+# Or access a valid index
+print(fruits[1]) # This will print 'banana'</code></pre>
+            </div>
+        </div>
+
+        <div class="error-box">
+            <strong>Example of a <code>ValueError</code>:</strong> Passing an argument of the correct type but with an inappropriate value.
+            <pre><code class="language-python">number = int("hello") # Can't convert "hello" to an integer!</code></pre>
+            This gives a <code>ValueError</code> because Python can't convert the string "hello" into an integer.
+            <div class="corrected-box">
+              <pre><code class="language-python"># The corrected way - validate the input first
+text = "hello"
+if text.isdigit():
+    number = int(text)
+else:
+    print(f"Cannot convert '{text}' to an integer because it's not a valid number.")
+
+# Another example: converting a valid number string
+valid_number = int("123") # This works fine
+print(valid_number) # This will print 123</code></pre>
+            </div>
+        </div>
+
+        <div class="error-box">
+            <strong>Example of a <code>ZeroDivisionError</code>:</strong> Dividing a number by zero.
+            <pre><code class="language-python">numerator = 10
+denominator = 0
+result = numerator / denominator # You can't divide by zero!</code></pre>
+            This gives a <code>ZeroDivisionError</code> because division by zero is mathematically undefined.
+            <div class="corrected-box">
+              <pre><code class="language-python"># The corrected way - check if denominator is zero first
+numerator = 10
+denominator = 0
+if denominator != 0:
+    result = numerator / denominator
+    print(f"The result is: {result}")
+else:
+    print("Error: Cannot divide by zero!")
+
+# Another example with a valid calculation
+result = numerator / 2  # This works fine
+print(result) # This will print 5.0</code></pre>
+            </div>
+        </div>
+
+        <div class="error-box">
+            <strong>Example of an <code>AttributeError</code>:</strong> Trying to access an attribute or method that doesn't exist for an object.
+            <pre><code class="language-python">text = "Hello, World!"
+uppercase_text = text.upppercase() # Typo in the method name!</code></pre>
+            This gives an <code>AttributeError</code> because the string object doesn't have a method named 'upppercase'. The correct method name is 'upper'.
+            <div class="corrected-box">
+              <pre><code class="language-python"># The corrected way - using the correct method name
+text = "Hello, World!"
+uppercase_text = text.upper()  # The correct method name is 'upper'
+print(uppercase_text)  # This will print 'HELLO, WORLD!'</code></pre>
+            </div>
+        </div>
+
+        <div class="challenge">
+          <h3>Challenge: Fix the Runtime Error</h3>
+          <p>This code tries to calculate the total price but fails. Find and fix the error.</p>
+          <pre><code class="language-python">item_price = "50" # Price is stored as a string
+quantity = 3
+total_price = item_price * quantity
+
+print(f"Total price: {total_price}")</code></pre>
+          <button class="solution-toggle" onclick="toggleSolution('solution2')">Show Solution</button>
+          <div class="solution-content" id="solution2">
+            <p><strong>Answer:</strong> You can't multiply a string ("50") by a number. You need to convert the price to an integer first using <code>int()</code>.</p>
+            <pre><code class="language-python">item_price = "50"
+quantity = 3
+# Convert item_price to an integer before multiplying
+total_price = int(item_price) * quantity
+
+print(f"Total price: {total_price}") # Output: Total price: 150</code></pre>
+          </div>
+        </div>
+      </section>
+
+    <!-- Section: Logic Errors -->
+    <section id="logic-errors">
+        <h2>3. Logic Errors</h2>
+        <p>These are the trickiest bugs. The code runs without crashing, but it produces the wrong result. The computer is doing exactly what you told it to do, but what you told it to do was wrong.</p>
+        
+        <div class="error-box">
+          <strong>Example of a Logic Error:</strong> Calculating the wrong average.
+          <pre><code class="language-python">numbers = [1, 2, 3, 4, 5]
+total = sum(numbers)
+# Oops! There are 5 numbers, but we divided by 4.
+average = total / 4
+print(f"The average is: {average}") # Prints 3.75 instead of 3.0</code></pre>
+          The code runs, but the result is incorrect. The only way to find this is by testing your code and realizing the output is not what you expect.
+        </div>
+
+        <div class="error-box">
+          <strong>Another Example of a Logic Error:</strong> Off-by-one error in a loop.
+          <pre><code class="language-python">for i in range(1, 10):  # This will print 1 to 9, not 1 to 10!
+    print(i)
+
+# If you want to include 10, you need range(1, 11)</code></pre>
+          The code runs without errors, but it doesn't produce the expected result. You wanted numbers 1 to 10, but got only 1 to 9.
+          <div class="corrected-box">
+            <pre><code class="language-python"># The corrected way - to include 10 in the range
+for i in range(1, 11):  # Now this will print 1 to 10
+    print(i)
+# OR if you want 10 numbers starting from 1, use range(1, 11)
+numbers_list = list(range(1, 11))
+print("Numbers:", numbers_list)</code></pre>
+          </div>
+        </div>
+
+        <p>A common way to find logic errors is to use <code>print()</code> statements to check the value of your variables at different points in your code to see where things go wrong.</p>
+
+        <div class="challenge">
+          <h3>Challenge: Fix the Logic</h3>
+          <p>This function is supposed to return a list of all numbers greater than 10, but it's not working correctly. Can you fix the logic?</p>
+          <pre><code class="language-python">def find_large_numbers(numbers):
+    large_nums = []
+    for num in numbers:
+        if num < 10: # This condition is wrong!
+            large_nums.append(num)
+    return large_nums
+
+my_numbers = [5, 12, 3, 15, 8, 20]
+result = find_large_numbers(my_numbers)
+print(f"The large numbers are: {result}") # Expected: [12, 15, 20]</code></pre>
+          <button class="solution-toggle" onclick="toggleSolution('solution3')">Show Solution</button>
+          <div class="solution-content" id="solution3">
+            <p><strong>Answer:</strong> The condition in the <code>if</code> statement was backwards. It should be checking for numbers <code>> 10</code>, not <code>< 10</code>.</p>
+            <pre><code class="language-python">def find_large_numbers(numbers):
+    large_nums = []
+    for num in numbers:
+        if num > 10: # Corrected the condition
+            large_nums.append(num)
+    return large_nums
+
+my_numbers = [5, 12, 3, 15, 8, 20]
+result = find_large_numbers(my_numbers)
+print(f"The large numbers are: {result}")</code></pre>
+          </div>
+        </div>
+      </section>
+
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  <script>
+    function toggleSolution(id) {
+      const solution = document.getElementById(id);
+      if (solution.style.display === "block") {
+        solution.style.display = "none";
+      } else {
+        solution.style.display = "block";
+      }
+    }
+    Prism.highlightAll();
+  </script>
+</body>
+</html>
