@@ -39,4 +39,4 @@ A small collection of single-file HTML resources for learning Python: basics, ex
 - Keep examples short, use plain Python 3 syntax, and include expected output or comments where helpful.
 
 Note on py.html inspiration
-- The Python Basics page (`py.html`) is inspired by "quick reference" (cheat sheet) style resources. If you adapted content from a specific published quick reference, add a short attribution and any required license or usage note here.
+- The Python Basics page (`py.html`) is inspired by "quick reference" (cheat sheet) style resources. 
